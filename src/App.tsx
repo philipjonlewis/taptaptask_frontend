@@ -5,7 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
 
 import { Home, About, Contact, Pricing, ErrorPage } from "./pages";
-import { Workshop, Dashboard, Projects } from "./pages/workshop";
+import {
+  Workshop,
+  Dashboard,
+  Projects,
+  IndividualProject,
+} from "./pages/workshop";
 
 import { LogIn, SignUp } from "./pages/authentication";
 
@@ -43,7 +48,9 @@ const App = () => {
           >
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="projects" element={<Projects />} />
+            <Route path="projects" element={<Projects />}>
+              <Route path=":projectId" element={<IndividualProject />} />
+            </Route>
           </Route>
           {/* End of authenticated component */}
 

@@ -18,22 +18,24 @@ const LandingNavBar = () => {
   };
 
   return (
-    <nav className="">
-      <div className=" ">
-        <div className="">
-          <NavLink to={"/"}>Home</NavLink>
-          <NavLink to={"/about"}>About</NavLink>
-          <NavLink to={"/contact"}>Contact</NavLink>
-          <NavLink to={"/pricing"}>Pricing</NavLink>
+    <nav className="landing-navbar">
+      <div className="logo-container">
+        <img src="/datetask_logo.png" alt="" />
+        <p>datetask.</p>
+      </div>
+      <div className="links-container">
+        <NavLink to={"/"}>Home</NavLink>
+        <NavLink to={"/about"}>About</NavLink>
+        <NavLink to={"/contact"}>Contact</NavLink>
+        <NavLink to={"/pricing"}>Pricing</NavLink>
 
-          {isAuthenticated && <NavLink to={"/workshop"}>Workshop</NavLink>}
+        {isAuthenticated && <NavLink to={"/workshop"}>Workshop</NavLink>}
 
-          {!isAuthenticated && <NavLink to={"/signup"}>Sign Up</NavLink>}
+        {!isAuthenticated && <NavLink to={"/signup"}>Sign Up</NavLink>}
 
-          {!isAuthenticated && <NavLink to={"/login"}>Log In</NavLink>}
+        {!isAuthenticated && <NavLink to={"/login"}>Log In</NavLink>}
 
-          {isAuthenticated && <button onClick={handleLogout}>Log Out</button>}
-        </div>
+        {isAuthenticated && <button onClick={handleLogout}>Log Out</button>}
       </div>
     </nav>
   );

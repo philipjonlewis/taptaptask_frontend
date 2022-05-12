@@ -1,0 +1,38 @@
+.workshop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  height: 100vh;
+
+  .workshop-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 16rem;
+    border-right: 1px solid gray;
+  }
+
+  .workshop-main-contents {
+    display: flex;
+    flex-direction: column;
+
+    width: calc(100vw - 16rem);
+
+    .workshop-navbar {
+      border-bottom: 1px solid gray;
+      height: 4rem;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .workshop-outlet {
+      height: calc(100vh - 4rem);
+    
+    }
+  }
+}

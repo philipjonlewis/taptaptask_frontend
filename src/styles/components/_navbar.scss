@@ -1,27 +1,38 @@
 @use "../abstracts/" as *;
 @use "../base/" as *;
 
-%flex-layout {
-  width: 100%;
+.active {
+  color: red;
+}
+
+.landing-navbar {
+  width: 100vw;
+  height: 8rem;
+  padding: 1rem;
+
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
 
-.navbar {
-  @extend %flex-layout;
+  border-bottom: 1px solid gray;
 
-  padding: $base-padding $base-padding * 2;
-  box-shadow: $base-box-shadow;
-
-  .site-title {
-    font-size: $font-size-lg;
+//   background-color: yellow;
+  .logo-container {
+    img {
+      height: 4rem;
+    }
   }
 
-  .container {
-    @extend %flex-layout;
-    justify-content: space-between;
+  .links-container {
+    height: 100%;
+
+    display: flex;
+
+    align-items: flex-end;
+    // background-color: orange;
+    a {
+      margin-left: 2rem;
+    }
   }
 }
-

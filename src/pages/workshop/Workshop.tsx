@@ -22,15 +22,19 @@ const Workshop = (props: { setIsInWorkshop: any }) => {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-row">
+    <div className="workshop">
+      <div className="workshop-sidebar">
         <WorkshopProjectSidebar />
-        <div className="flex flex-col w-screen">
+      </div>
+      <div className="workshop-main-contents">
+        <div className="workshop-navbar">
           <WorkshopNavBar />
+        </div>
+        <div className="workshop-outlet">
           <Outlet />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
