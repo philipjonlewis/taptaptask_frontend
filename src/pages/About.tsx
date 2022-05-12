@@ -25,7 +25,7 @@ const About = () => {
 
   return (
     <motion.div
-      className="container bg-red "
+      className="container mx-auto"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -34,6 +34,7 @@ const About = () => {
       <div className="bg-blue display-flex fd-column jc-center ai-center">
         <div>{count}</div>
         <button
+          className="bg-red-500 hover:bg-red-300 m-2  text-white text-lg py-2 px-4 rounded-full"
           onClick={() => {
             setCount(count + 1);
           }}

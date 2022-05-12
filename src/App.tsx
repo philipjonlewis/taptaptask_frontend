@@ -1,5 +1,6 @@
 import React from "react";
-import "./styles/style.scss";
+import "./styles/tailwind.scss";
+// import "./styles/style.scss";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
@@ -64,8 +65,6 @@ const App = () => {
               </RequireAuth>
             }
           />
-
-          
         </Routes>
       </AnimatePresence>
       {/* </AuthProvider> */}

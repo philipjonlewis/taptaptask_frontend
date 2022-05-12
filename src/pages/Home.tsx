@@ -22,7 +22,7 @@ const Home = () => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="container display-flex jc-center"
+      className="container mx-auto "
     >
       <motion.p
         initial={{
@@ -31,9 +31,15 @@ const Home = () => {
           y: "-250px",
         }}
         transition={{ type: "spring" }}
-        animate={{ color: "#ff2994", fontSize: "2rem", y: "0px", scale: 1.2 }}
+        animate={{
+          color: "#ff2994",
+          fontSize: "2rem",
+          y: "0px",
+          originX: 0,
+          scale: 1.2,
+        }}
       >
-        Hello
+        Why naman like this hellow
       </motion.p>
     </motion.div>
   );

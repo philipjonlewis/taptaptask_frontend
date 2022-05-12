@@ -45,29 +45,31 @@ const Contact = () => {
 
   return (
     <motion.div
-      className="container display-flex fd-column p-2 text-grey-dark-5"
+      className="text-gray-800"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
     >
-      <AnimatePresence>
-        {people.map((person) => {
-          return (
-            <motion.div
-              key={person}
-              className="pt-1 pb-1"
-              variants={childVariants}
-              whileHover="hover"
-              drag
-              dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
-              dragElastic={1}
-            >
-              <motion.p exit={{ opacity: 0 }}>{person}</motion.p>
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
+      <div className="w-64 mx-auto mt-4 p-4 bg-white  shadow-lg rounded-md   flex flex-col">
+        <AnimatePresence>
+          {people.map((person) => {
+            return (
+              <motion.div
+                key={person}
+                className="pt-1 pb-1  display-inline w-32 h-auto mb-1"
+                variants={childVariants}
+                whileHover="hover"
+                drag
+                dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+                dragElastic={1}
+              >
+                <motion.p exit={{ opacity: 0 }}>{person}</motion.p>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };

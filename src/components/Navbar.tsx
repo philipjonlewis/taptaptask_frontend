@@ -7,11 +7,11 @@ import { motion } from "framer-motion";
 const Navbar = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  const navStyle = "text-blue-grey";
+  const navStyle = "ml-4 text-sm font-sans font-semibold text-gray-500 ";
 
   return (
-    <nav className="navbar">
-      <div className=" container">
+    <nav className=" p-4 flex justify-end border-b border-red-400">
+      <div className="">
         <div className="display-flex gap-1 links jc-end">
           <NavLink className={navStyle} to={"/"}>
             Home
