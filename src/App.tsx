@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./styles/tailwind.scss";
-// import "./styles/style.scss";
+import "./styles/style.scss";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
 

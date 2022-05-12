@@ -4,12 +4,15 @@ import { NavLink } from "react-router-dom";
 const WorkshopProjectSidebar = () => {
   return (
     <nav className="bg-gray-800 h-screen w-72 py-4 flex flex-col justify-start items-center p-2 ">
-      <div className="w-16 flex flex-col justify-center ">
-        <img src="/datetask_logo.png" alt="" />
+      <div className="w-full py-4 flex flex-row justify-start items-center border-b border-b-gray-600">
+        <NavLink to={"/"}>
+          <img src="/datetask_logo.png" alt="" className="h-10" />
+        </NavLink>
+
+        <p className="text-white font-normal text-md pl-4 text-center  ">
+          datetask
+        </p>
       </div>
-      <p className="text-white font-normal text-xl py-4  w-full text-center  border-b border-b-gray-600">
-        datetask
-      </p>
 
       <div className="links flex flex-col  py-4 w-full my-4 text-white">
         <NavLink className="link-container" to={"dashboard"}>

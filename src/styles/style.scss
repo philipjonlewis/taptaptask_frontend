@@ -1,8 +1,8 @@
-@use "./abstracts/" as *;
-@use "./base/" as *;
-@use "./components/" as *;
-@use "./layouts/" as *;
-@use "./utilities/" as *;
+// @use "./abstracts/" as *;
+// @use "./base/" as *;
+// @use "./components/" as *;
+// @use "./layouts/" as *;
+// @use "./utilities/" as *;
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
@@ -10,59 +10,3 @@ body {
   font-family: Poppins;
 }
 
-ul {
-  padding: 0;
-  list-style-type: none;
-}
-
-a {
-  text-decoration: none;
-}
-
-hr {
-  border: 0;
-  border-top: 1px dotted #efefef;
-}
-
-img {
-  max-width: 100%;
-}
-
-.test {
-  color: red;
-}
-
-.responsive-test {
-  @include xs {
-    background-color: red;
-  }
-  @include sm {
-    background-color: orange;
-  }
-  @include md {
-    background-color: yellow;
-  }
-  @include lg {
-    background-color: green;
-    width: 80vw;
-  }
-  @include xl {
-    background-color: blue;
-    width: 100vw;
-  }
-  @include xx {
-    background-color: indigo;
-    width: 100vw;
-  }
-
-  @include breakpoint(1440px) {
-    background-color: pink;
-  }
-}
-
-.trial-class {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-}

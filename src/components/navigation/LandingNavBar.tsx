@@ -11,8 +11,6 @@ const LandingNavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const navStyle = "ml-12 text-sm font-sans font-semibold text-gray-500 ";
-
   const handleLogout = () => {
     dispatch(logout());
     window.location.reload();
@@ -20,45 +18,21 @@ const LandingNavBar = () => {
   };
 
   return (
-    <nav className=" py-6  flex justify-end border-b">
-      <div className=" mx-16">
-        <div className="display-flex gap-1 links jc-end">
-          <NavLink className={navStyle} to={"/"}>
-            Home
-          </NavLink>
-          <NavLink className={navStyle} to={"/about"}>
-            About
-          </NavLink>
-          <NavLink className={navStyle} to={"/contact"}>
-            Contact
-          </NavLink>
-          <NavLink className={navStyle} to={"/pricing"}>
-            Pricing
-          </NavLink>
+    <nav className="">
+      <div className=" ">
+        <div className="">
+          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to={"/about"}>About</NavLink>
+          <NavLink to={"/contact"}>Contact</NavLink>
+          <NavLink to={"/pricing"}>Pricing</NavLink>
 
-          {isAuthenticated && (
-            <NavLink className={navStyle} to={"/workshop"}>
-              Workshop
-            </NavLink>
-          )}
+          {isAuthenticated && <NavLink to={"/workshop"}>Workshop</NavLink>}
 
-          {!isAuthenticated && (
-            <NavLink className={navStyle} to={"/signup"}>
-              Sign Up
-            </NavLink>
-          )}
+          {!isAuthenticated && <NavLink to={"/signup"}>Sign Up</NavLink>}
 
-          {!isAuthenticated && (
-            <NavLink className={navStyle} to={"/login"}>
-              Log In
-            </NavLink>
-          )}
+          {!isAuthenticated && <NavLink to={"/login"}>Log In</NavLink>}
 
-          {isAuthenticated && (
-            <button className={navStyle} onClick={handleLogout}>
-              Log Out
-            </button>
-          )}
+          {isAuthenticated && <button onClick={handleLogout}>Log Out</button>}
         </div>
       </div>
     </nav>
