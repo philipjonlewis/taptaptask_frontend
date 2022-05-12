@@ -1,73 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/tailwind.scss";
 // import "./styles/style.scss";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 
-import {
-  Home,
-  About,
-  Contact,
-  ErrorPage,
-  Products,
-  First,
-  Second,
-  Users,
-  UserDetails,
-  Profile,
-} from "./pages";
+import { Home, About, Contact, Pricing, ErrorPage } from "./pages";
+import { Workshop, Dashboard, Projects } from "./pages/workshop";
 
-//This is how you lazy load
-const LazyAbout = React.lazy(() => import("./pages/About"));
+import { LogIn, SignUp } from "./pages/authentication";
 
-import { LogIn, Navbar, RequireAuth } from "./components";
+import { RequireAuth } from "./authentication";
+
+import { LandingNavBar } from "./components/navigation";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
 const App = () => {
+  const [isInWorkshop, setIsInWorkshop] = useState(false);
+
   const location = useLocation();
 
   return (
     <>
-      {/* <AuthProvider> */}
-      <Navbar />
+      {/* instead of using auth as the basis for this LandingNavBar, use a isInsideWorkshop state */}
+      {!isInWorkshop && <LandingNavBar />}
+
       <AnimatePresence exitBeforeEnter>
         <Routes location={location} key={location.key}>
           <Route path="/" element={<Home />} />
-          <Route
-            path="about"
-            element={
-              // Must be nababalutan nitong react suspense ang mga lazy components
-              // Use lazy components for heavy components
-              <React.Suspense fallback={<ErrorPage />}>
-                <LazyAbout />
-              </React.Suspense>
-            }
-          />
+          <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="products" element={<Products />}>
-            {/* This index is the one that will be shown first */}
-            <Route index element={<First />} />
-            <Route path="first" element={<First />} />
-            <Route path="second" element={<Second />} />
-          </Route>
-          <Route path="users" element={<Users />} />
-          <Route path="users/:userId" element={<UserDetails />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="pricing" element={<Pricing />} />
 
-          <Route path="login" element={<LogIn />} />
           {/* Make an authenticated component */}
-
           <Route
-            path="profile"
+            path="workshop"
             element={
               <RequireAuth>
-                <Profile />
+                <Workshop setIsInWorkshop={setIsInWorkshop} />
               </RequireAuth>
             }
-          />
+          >
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="projects" element={<Projects />} />
+          </Route>
+          {/* End of authenticated component */}
+
+          <Route path="login" element={<LogIn />} />
+          <Route path="signup" element={<SignUp />} />
+
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AnimatePresence>
-      {/* </AuthProvider> */}
     </>
   );
 };

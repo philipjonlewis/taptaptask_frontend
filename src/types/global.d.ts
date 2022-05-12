@@ -28,6 +28,6 @@ declare global {
 
   interface RootState {
     auth: any;
-    isOn: boolean
+    isOn: boolean;
   }
 }

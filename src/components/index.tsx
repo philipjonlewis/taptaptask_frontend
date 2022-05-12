@@ -1,7 +1,5 @@
 import Button from "./Button";
 import Header from "./Header";
-import Navbar from "./Navbar";
-import LogIn from "../pages/LogIn";
-import RequireAuth from "./RequireAuth";
+import LandingNavBar from "./navigation/LandingNavBar";
 
-export { Button, Header, Navbar, LogIn, RequireAuth };
+export { Button, Header, LandingNavBar };

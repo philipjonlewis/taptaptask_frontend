@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Navigate } from "react-router-dom";
+
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -11,8 +13,9 @@ export const authSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       // validation code should be here
+      // Make API calls here
       const { username, password } = action.payload;
       state.username = username;
       state.password = password;

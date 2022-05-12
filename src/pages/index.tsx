@@ -1,25 +1,7 @@
-import Main from "./Main";
 import About from "./About";
 import Home from "./Home";
 import Contact from "./Contact";
+import Pricing from "./Pricing";
 import ErrorPage from "./ErrorPage";
-import Products from "./Products";
-import First from "./First";
-import Second from "./Second";
-import Users from "./Users";
-import UserDetails from "./UserDetails";
-import Profile from "./Profile";
 
-export {
-  Home,
-  Main,
-  About,
-  Contact,
-  ErrorPage,
-  Products,
-  First,
-  Second,
-  Users,
-  UserDetails,
-  Profile,
-};
+export { Home, About, Pricing, Contact, ErrorPage };

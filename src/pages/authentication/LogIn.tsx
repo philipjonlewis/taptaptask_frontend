@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../utils/Auth";
-import { login, logout } from "../redux/authState";
+import { login, logout } from "../../redux/authState";
 
 import { useDispatch } from "react-redux";
 
 const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation() as any;
-  const redirectPath = location.state?.path || "/";
+  const redirectPath = location.state?.path || "/workshop";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +17,7 @@ const LogIn = () => {
 
   const handleLogin = () => {
     dispatch(login({ username, password }));
+
     return navigate(redirectPath, { replace: true });
   };
 
