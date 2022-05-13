@@ -1,10 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authState";
-import projectReducer from "./projectState";
+import projectListReducer from "./projectListState";
+import phaseListReducer from "./phaseListState";
+
+import activeProjectReducer from "./activeProjectState";
+import activePhaseReducer from "./activePhaseState";
+import taskListReducer from "./taskListState";
 
 export default configureStore({
   reducer: {
     auth: authReducer,
-    projects: projectReducer,
+
+    projectList: projectListReducer,
+    phaseList: phaseListReducer,
+    taskList: taskListReducer,
+
+    activeProject: activeProjectReducer,
+    activePhase: activePhaseReducer,
   },
 });

@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, Link } from "react-router-dom";
-import { ProjectList } from "../../components";
+import ProjectList from "./ProjectList";
 import { useParams } from "react-router-dom";
+import ProjectsDashboard from "../dashboard/ProjectsDashboard";
 
 const Projects = () => {
   const { projectId } = useParams();
-  const { currentProject } = useSelector((state) => state.projects);
-  const [projectForm, setProjectForm] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(false);
-  // console.log(projectId);
 
   return (
     <>
       <div className="projects-page">
-        {!projectId && <ProjectList />}
-
-        <Outlet />
+        <ProjectList />
+        {projectId ? <Outlet /> : <ProjectsDashboard />}
       </div>
     </>
   );

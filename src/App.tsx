@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 import { Home, About, Contact, Pricing, ErrorPage } from "./pages";
 import {
   Workshop,
-  Dashboard,
-  Projects,
+  DashboardPanel,
+  ProjectsPanel,
   IndividualProject,
+  ProjectInformation,
+  ProjectPhaseView,
 } from "./pages/workshop";
 
 import { LogIn, SignUp } from "./pages/authentication";
@@ -46,10 +48,21 @@ const App = () => {
               </RequireAuth>
             }
           >
-            <Route index element={<Dashboard />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="projects" element={<Projects />}>
-              <Route path=":projectId" element={<IndividualProject />} />
+            <Route index element={<DashboardPanel />} />
+            <Route path="dashboard" element={<DashboardPanel />} />
+            <Route path="projects" element={<ProjectsPanel />}>
+              <Route
+                path=":projectId"
+                element={
+                  // THis should be surrounded by a params handler
+                  <IndividualProject />
+                  // THis should be surrounded by a params handler
+                }
+              >
+                <Route index element={<ProjectInformation />} />
+                <Route path="information" element={<ProjectInformation />} />
+                <Route path="phase" element={<ProjectPhaseView />} />
+              </Route>
             </Route>
           </Route>
           {/* End of authenticated component */}

@@ -1,26 +1,34 @@
 .projects-page {
   display: flex;
-  margin: 0.5rem;
+  // margin: 0.5rem;
   flex-flow: row wrap;
+  height: 100%;
 
   .project-card-container {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: flex-start;
+    width: 100%;
 
-    width: 14rem;
-
-    margin: 0.5rem;
+    margin-bottom: 1rem;
 
     overflow: hidden;
 
-    background-color: grey;
+    // background-color: grey;
+    border: 1px solid gray;
+    padding: 0.5rem;
 
-    .project-image {
-      object-fit: cover;
-      width: 100%;
-      height: 12rem;
+    .project-name {
+      font-size: 0.8rem;
+      font-weight: bold;
     }
   }
+}
+
+.project-list-container {
+  overflow: scroll;
+  border-right: 1px solid gray;
+  padding: 1rem;
+  height: 100%;
 }

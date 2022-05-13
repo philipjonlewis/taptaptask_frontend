@@ -4,8 +4,8 @@ import {
   WorkshopProjectSidebar,
 } from "../../components/navigation";
 
-import Dashboard from "./Dashboard";
-import Projects from "./Projects";
+import Dashboard from "./dashboard/DashboardPanel";
+import Projects from "./projects/ProjectsPanel";
 
 import { useSelector } from "react-redux";
 import { Outlet, Link } from "react-router-dom";
