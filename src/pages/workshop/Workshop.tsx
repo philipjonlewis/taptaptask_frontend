@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  WorkshopNavBar,
-  WorkshopProjectSidebar,
-} from "../../components/navigation";
+import { WorkshopNavBar, WorkshopSidebar } from "../../components";
 
 import Dashboard from "./dashboard/DashboardPanel";
 import Projects from "./projects/ProjectsPanel";
@@ -23,9 +20,8 @@ const Workshop = (props: { setIsInWorkshop: any }) => {
 
   return (
     <div className="workshop">
-      <div className="workshop-sidebar">
-        <WorkshopProjectSidebar />
-      </div>
+      <WorkshopSidebar />
+
       <div className="workshop-main-contents">
         <div className="workshop-navbar">
           <WorkshopNavBar />

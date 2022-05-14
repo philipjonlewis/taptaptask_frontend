@@ -3,7 +3,8 @@
   // margin: 0.5rem;
   flex-flow: row wrap;
   height: 100%;
-
+  width: 100%;
+  // width: calc(100vw - 16rem);
   .project-card-container {
     display: flex;
     flex-direction: row;
@@ -26,9 +27,7 @@
   }
 }
 
-.project-list-container {
-  overflow: scroll;
-  border-right: 1px solid gray;
-  padding: 1rem;
-  height: 100%;
+.outlet-container {
+  width: 100%;
+  // background-color: red;
 }

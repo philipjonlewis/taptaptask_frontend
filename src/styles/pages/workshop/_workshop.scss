@@ -6,14 +6,6 @@
 
   height: 100vh;
 
-  .workshop-sidebar {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 16rem;
-    border-right: 1px solid gray;
-  }
-
   .workshop-main-contents {
     display: flex;
     flex-direction: column;
@@ -32,7 +24,130 @@
 
     .workshop-outlet {
       height: calc(100vh - 4rem);
-    
+    }
+  }
+}
+
+.workshop-sidebar {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+
+  height: 100%;
+  padding: 1rem;
+
+  width: 20rem;
+
+  border-right: 1px solid gray;
+
+  background-color: #1e293b;
+
+  color: white;
+
+  .logo-container {
+    width: 100%;
+    // background-color: red;
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+
+    border-bottom: 1px solid white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      height: 4rem;
+    }
+
+    p {
+      padding-top: 0.5rem;
+    }
+  }
+
+  .link-container {
+    // background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.6rem 0;
+
+    border-radius: 0.5rem;
+
+    margin-top: 1rem;
+    // padding-right: 8rem;
+    padding-left: 1rem;
+
+    svg {
+      padding-left: 0;
+      height: 1.6rem;
+      padding-right: 0.8rem;
+    }
+
+    .add-project-button-container {
+      opacity: 30%;
+      margin-left: auto;
+      align-self: center;
+
+      // background-color: yellow;
+      height: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        opacity: 100%;
+      }
+    }
+
+    a {
+      padding-right: 4rem;
+    }
+
+    &:hover {
+      background-color: #737f92;
+    }
+  }
+
+  .link-container.active {
+    background-color: #475569;
+  }
+
+  .project-list-container {
+    padding-left: 4rem;
+    padding-top: 1rem;
+    // background-color: yellow;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .project-link {
+      // background-color: red;
+      border-radius: 0.4rem;
+      margin-bottom: 0.5rem;
+      width: 100%;
+      padding: 0.4rem 0;
+
+      padding-left: 0.6rem;
+
+      font-size: 0.9rem;
+      font-weight: 400;
+
+      &:hover {
+        background-color: #737f92;
+      }
+    }
+
+    .project-link.active {
+      background-color: #475569;
     }
   }
 }

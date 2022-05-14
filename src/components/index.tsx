@@ -1,6 +1,7 @@
-import Button from "./Button";
-import Header from "./Header";
 import LandingNavBar from "./navigation/LandingNavBar";
 import ProjectNavbar from "./navigation/ProjectNavbar";
+import WorkshopNavBar from "./navigation/WorkshopNavBar";
+import WorkshopSidebar from "./navigation/WorkshopSidebar";
 
-export { Button, Header, LandingNavBar, ProjectNavbar };
+
+export { LandingNavBar, ProjectNavbar, WorkshopNavBar, WorkshopSidebar };

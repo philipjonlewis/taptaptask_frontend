@@ -18,7 +18,7 @@ import { LogIn, SignUp } from "./pages/authentication";
 
 import { RequireAuth } from "./authentication";
 
-import { LandingNavBar } from "./components/navigation";
+import { LandingNavBar } from "./components";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -39,6 +39,10 @@ const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="pricing" element={<Pricing />} />
 
+
+
+
+
           {/* Make an authenticated component */}
           <Route
             path="workshop"
@@ -50,6 +54,8 @@ const App = () => {
           >
             <Route index element={<DashboardPanel />} />
             <Route path="dashboard" element={<DashboardPanel />} />
+
+
             <Route path="projects" element={<ProjectsPanel />}>
               <Route
                 path=":projectId"
@@ -59,13 +65,29 @@ const App = () => {
                   // THis should be surrounded by a params handler
                 }
               >
+
+
                 <Route index element={<ProjectInformation />} />
                 <Route path="information" element={<ProjectInformation />} />
                 <Route path="phase" element={<ProjectPhaseView />} />
+
+                
               </Route>
             </Route>
+
+
+
+
           </Route>
           {/* End of authenticated component */}
+
+
+
+
+
+
+
+
 
           <Route path="login" element={<LogIn />} />
           <Route path="signup" element={<SignUp />} />
