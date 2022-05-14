@@ -39,22 +39,20 @@ const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="pricing" element={<Pricing />} />
 
-
-
-
-
           {/* Make an authenticated component */}
           <Route
             path="workshop"
             element={
               <RequireAuth>
-                <Workshop setIsInWorkshop={setIsInWorkshop} />
+                <Workshop
+                  setIsInWorkshop={setIsInWorkshop}
+                  isInWorkshop={isInWorkshop}
+                />
               </RequireAuth>
             }
           >
             <Route index element={<DashboardPanel />} />
             <Route path="dashboard" element={<DashboardPanel />} />
-
 
             <Route path="projects" element={<ProjectsPanel />}>
               <Route
@@ -65,29 +63,13 @@ const App = () => {
                   // THis should be surrounded by a params handler
                 }
               >
-
-
                 <Route index element={<ProjectInformation />} />
                 <Route path="information" element={<ProjectInformation />} />
                 <Route path="phase" element={<ProjectPhaseView />} />
-
-                
               </Route>
             </Route>
-
-
-
-
           </Route>
           {/* End of authenticated component */}
-
-
-
-
-
-
-
-
 
           <Route path="login" element={<LogIn />} />
           <Route path="signup" element={<SignUp />} />

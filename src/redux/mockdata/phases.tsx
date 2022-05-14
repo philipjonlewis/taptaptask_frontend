@@ -12,6 +12,11 @@ const mockPhaseList = [
         phaseOrder: 2,
         phaseName: "Design Development",
       },
+      {
+        phaseId: "PR0o1-PH03",
+        phaseOrder: 3,
+        phaseName: "Construction Documentation",
+      },
     ],
   },
   {

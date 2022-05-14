@@ -1,36 +1,26 @@
+@use "../../base/" as *;
+
 .workshop {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  position: relative;
 
   height: 100vh;
+}
 
-  .workshop-main-contents {
-    display: flex;
-    flex-direction: column;
+.workshop-main-contents {
+  display: flex;
+  flex-direction: column;
 
-    width: calc(100vw - 16rem);
-
-    .workshop-navbar {
-      border-bottom: 1px solid gray;
-      height: 4rem;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .workshop-outlet {
-      height: calc(100vh - 4rem);
-    }
-  }
+  width: 100%;
 }
 
 .workshop-sidebar {
   display: flex;
   flex-direction: column;
+  box-shadow: 10px 1px 22px -13px rgba(0, 0, 0, 0.75);
 
   justify-content: flex-start;
 
@@ -39,9 +29,9 @@
 
   width: 20rem;
 
-  border-right: 1px solid gray;
+  // border-right: 1px solid gray;
 
-  background-color: #1e293b;
+  background-color: $slate-bg;
 
   color: white;
 
@@ -51,7 +41,7 @@
     padding-bottom: 1rem;
     margin-bottom: 0.5rem;
 
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid $hover-bg;
 
     display: flex;
     flex-direction: column;
@@ -75,33 +65,13 @@
     align-items: center;
     padding: 0.6rem 0;
 
-    border-radius: 0.5rem;
-
-    margin-top: 1rem;
-    // padding-right: 8rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
     padding-left: 1rem;
 
-    svg {
-      padding-left: 0;
+    .link-icon {
       height: 1.6rem;
       padding-right: 0.8rem;
-    }
-
-    .add-project-button-container {
-      opacity: 30%;
-      margin-left: auto;
-      align-self: center;
-
-      // background-color: yellow;
-      height: 100%;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        opacity: 100%;
-      }
     }
 
     a {
@@ -109,17 +79,89 @@
     }
 
     &:hover {
-      background-color: #737f92;
+      background-color: $hover-bg;
     }
   }
 
   .link-container.active {
-    background-color: #475569;
+    background-color: $hover-bg;
+  }
+
+  .project-button-container {
+    display: flex;
+
+    .add-project-button-container {
+      //
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+      //
+      display: inline-block;
+      padding: 0.6rem 0;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 0.5rem;
+      width: 50%;
+      margin-left: auto;
+
+      position: relative;
+
+      cursor: pointer;
+
+      svg {
+        height: 1.2rem;
+      }
+
+      p {
+        margin-top: 0.4rem;
+      }
+
+      &:hover {
+        background-color: $hover-bg;
+      }
+
+      .pro-icon {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+
+        padding: 2px 0.4rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 1rem;
+
+        background-color: rgb(67, 67, 198);
+
+        font-size: 0.7rem;
+      }
+    }
+
+    .add-project-button-container:nth-of-type(1) {
+      border-right: 0.2px solid $hover-bg;
+      opacity: 50%;
+
+      &:hover {
+        opacity: 100%;
+        // background-color: rgb(226, 126, 90);
+      }
+    }
   }
 
   .project-list-container {
-    padding-left: 4rem;
-    padding-top: 1rem;
+    border-top: 1px solid $hover-bg;
+    // padding-left: 3rem;
+    padding-top: 0.5rem;
     // background-color: yellow;
     height: 100%;
     width: 100%;
@@ -130,24 +172,44 @@
     align-items: flex-start;
 
     .project-link {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
       // background-color: red;
-      border-radius: 0.4rem;
+      // border-radius: 0.4rem;
       margin-bottom: 0.5rem;
       width: 100%;
       padding: 0.4rem 0;
 
       padding-left: 0.6rem;
 
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 400;
 
+      svg {
+        height: 1rem;
+        margin-right: 1rem;
+
+        display: none;
+      }
+
+      p {
+        display: inline-block;
+      }
+
       &:hover {
-        background-color: #737f92;
+        background-color: $hover-bg;
       }
     }
 
     .project-link.active {
-      background-color: #475569;
+      background-color: $hover-bg;
+
+      svg {
+        display: block;
+      }
     }
   }
 }

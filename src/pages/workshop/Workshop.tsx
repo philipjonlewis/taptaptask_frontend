@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { WorkshopNavBar, WorkshopSidebar } from "../../components";
-
+import { motion, AnimatePresence } from "framer-motion";
 import Dashboard from "./dashboard/DashboardPanel";
 import Projects from "./projects/ProjectsPanel";
 
@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { Outlet, Link } from "react-router-dom";
 
 const Workshop = (props: { setIsInWorkshop: any }) => {
-  const { setIsInWorkshop } = props;
+  const { isInWorkshop, setIsInWorkshop } = props;
   const { projects } = useSelector((state) => state);
 
   useEffect(() => {
@@ -23,12 +23,9 @@ const Workshop = (props: { setIsInWorkshop: any }) => {
       <WorkshopSidebar />
 
       <div className="workshop-main-contents">
-        <div className="workshop-navbar">
-          <WorkshopNavBar />
-        </div>
-        <div className="workshop-outlet">
-          <Outlet />
-        </div>
+        <WorkshopNavBar />
+
+        <Outlet />
       </div>
     </div>
   );
