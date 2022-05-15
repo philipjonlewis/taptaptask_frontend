@@ -1,5 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import PhaseTaskSummaryVisualization from "../../../components/visualization/PhaseTaskSummaryVisualization";
+// ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ProjectInformation = () => {
   const {
@@ -7,7 +9,12 @@ const ProjectInformation = () => {
   } = useSelector((state) => state);
 
   return (
-    <div className="project-information-view-container ">
+    <div
+      className="project-information-view-container "
+      style={{ padding: "1rem" }}
+    >
+      <h2>Task Summary</h2>
+      {/* <PhaseTaskSummaryVisualization /> */}
       <p>This is the project information view</p>
       <p>{projectId}</p>
       <p>{projectName}</p>
@@ -28,7 +35,6 @@ const ProjectInformation = () => {
           </ul>
         </li>
       </ul>
-      <hr />
     </div>
   );
 };
