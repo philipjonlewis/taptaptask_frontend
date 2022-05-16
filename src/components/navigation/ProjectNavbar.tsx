@@ -14,11 +14,9 @@ const ProjectNavbar = () => {
     activePhase,
   } = useSelector((state) => state);
 
-  const phases = phaseList.filter((phase) => phase.projectId == projectId);
-
-  const { projectPhases } = phases[0];
-
-  // console.log(projectPhases);
+  const projectPhases = phaseList.filter(
+    (phase) => phase.projectReferenceId == projectId
+  );
 
   const activePhaseHandler = (phase) => {
     dispatch(setActivePhase(phase));

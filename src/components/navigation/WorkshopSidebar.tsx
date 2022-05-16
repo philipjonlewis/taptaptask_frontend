@@ -3,6 +3,9 @@ import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveProject } from "../../redux/activeProjectState";
 import { fetchProjectList } from "../../redux/projectListState";
+import { fetchPhaseList } from "../../redux/phaseListState";
+
+import { fetchTaskList } from "../../redux/taskListState";
 
 const WorkshopProjectSidebar = () => {
   const [sidebarVisibility, setSidebarVisibility] = useState(true);
@@ -12,8 +15,9 @@ const WorkshopProjectSidebar = () => {
 
   const dispatch = useDispatch();
 
-  const linkHandler = (projectId) => {
-    dispatch(setActiveProject(projectId));
+  const linkHandler = (project) => {
+    dispatch(setActiveProject(project));
+    // already fetch the phases?
   };
 
   useEffect(() => {
@@ -23,7 +27,20 @@ const WorkshopProjectSidebar = () => {
       })
       .then((dat) => {
         dispatch(fetchProjectList(dat));
-        console.log(dat);
+      });
+    fetch("http://localhost:4000/phases")
+      .then((res) => {
+        return res.json();
+      })
+      .then((dat) => {
+        dispatch(fetchPhaseList(dat));
+      });
+    fetch("http://localhost:4000/tasks")
+      .then((res) => {
+        return res.json();
+      })
+      .then((dat) => {
+        dispatch(fetchTaskList(dat));
       });
   }, []);
 
@@ -155,13 +172,13 @@ const WorkshopProjectSidebar = () => {
           </div>
 
           <div className="project-list-container">
-            {projectList.map(({ projectId, projectName }) => {
+            {projectList.map((project) => {
               return (
                 <NavLink
-                  key={projectId}
+                  key={project.projectId}
                   className="project-link"
-                  to={`projects/${projectId}`}
-                  onClick={() => linkHandler(projectId)}
+                  to={`projects/${project.projectId}`}
+                  onClick={() => linkHandler(project)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +194,7 @@ const WorkshopProjectSidebar = () => {
                       d="M13 5l7 7-7 7M5 5l7 7-7 7"
                     />
                   </svg>
-                  <p className="">{projectName}</p>
+                  <p className="">{project.projectName}</p>
                 </NavLink>
               );
             })}

@@ -8,11 +8,14 @@ export const taskListSlice = createSlice({
     addTask: (state) => {
       console.log(state);
     },
+    fetchTaskList: (state, actions) => {
+      return actions.payload;
+    },
   },
 });
 
 const { actions, reducer } = taskListSlice;
 
-export const { addTask } = actions;
+export const { addTask, fetchTaskList } = actions;
 
 export default reducer;

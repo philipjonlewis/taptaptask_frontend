@@ -5,9 +5,10 @@ const ProjectPhaseView = () => {
     activePhase: { phaseId, phaseOrder, phaseName },
     taskList,
   } = useSelector((state) => state);
-
-  const tasks = taskList.filter((task) => task.phaseId === phaseId);
-
+  // console.log(activePhase);
+  // console.log(taskList);
+  const tasks = taskList.filter((task) => task.phaseReferenceId === phaseId);
+  // console.log(tasks);
   return (
     <div>
       <p>This is the individual phase view</p>
@@ -16,10 +17,11 @@ const ProjectPhaseView = () => {
       <hr />
       <p>These are the tasks</p>
       <hr />
-      {tasks[0] &&
-        tasks[0].tasks.map((task) => {
-          return <p key={task.taskId}>{task.taskContent}</p>;
+      <ul>
+        {tasks.map((task) => {
+          return <li key={task.taskId}>{task.taskContent}</li>;
         })}
+      </ul>
     </div>
   );
 };

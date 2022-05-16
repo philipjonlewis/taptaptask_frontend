@@ -11,11 +11,9 @@ export const activePhaseSlice = createSlice({
 
   reducers: {
     setActivePhase: (state, actions) => {
-      const phase = actions.payload;
-
       // Make api call to phases api using id to populate tasks under it
-
-      return { ...state, ...actions.payload };
+      console.log(actions.payload);
+      return actions.payload;
     },
   },
 });

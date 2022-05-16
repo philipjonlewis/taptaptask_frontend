@@ -14,14 +14,14 @@ export const phaseListSlice = createSlice({
     deletePhase: (state) => {
       console.log(state);
     },
-    fetchData:state =>{
-      console.log(state);
-    }
+    fetchPhaseList: (state, actions) => {
+      return actions.payload;
+    },
   },
 });
 
 const { actions, reducer } = phaseListSlice;
 
-export const { addPhase } = actions;
+export const { addPhase, editPhase, deletePhase, fetchPhaseList } = actions;
 
 export default reducer;

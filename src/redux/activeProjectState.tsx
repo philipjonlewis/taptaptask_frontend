@@ -11,19 +11,11 @@ export const activeProjectSlice = createSlice({
   },
   reducers: {
     setActiveProject: (state, actions) => {
-      const projectId = actions.payload;
-      const currentProject = mockProjectList.filter(
-        (project) => project.projectId === projectId
-      );
-
-      state = currentProject[0];
       // console.log(current(state));
       // get id payload
       // Make API call for the project, its phases and tasks - better if GraphQL
-
-      return {
-        ...currentProject[0],
-      };
+      console.log(actions.payload);
+      return actions.payload;
     },
   },
 });
