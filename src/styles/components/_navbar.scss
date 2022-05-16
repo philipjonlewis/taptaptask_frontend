@@ -46,8 +46,95 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
+  // background-color: red;
   padding: 0 1rem;
+
+  .left-nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .pro-plan-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      background-color: rgb(67, 67, 198);
+      transition: all 0.2s ease-out;
+      box-shadow: 0px 0px 20px 0px rgba(17, 17, 17, 0.75);
+      height: 2rem;
+      opacity: 80%;
+      &:hover {
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        opacity: 100%;
+      }
+
+      p {
+        color: white;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .mid-nav-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 24rem;
+
+    input {
+      background-color: #334155;
+      outline: none;
+      border-radius: 1rem;
+      // padding: 0 1rem;
+      padding-left: 2.2rem;
+      font-size: 0.8rem;
+      height: 2rem;
+      width: 100%;
+
+      color: white;
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+
+      &:focus {
+        background-color: #475569;
+      }
+    }
+
+    svg {
+      position: absolute;
+      display: block;
+
+      top: 1.3rem;
+      left: 8px;
+      height: 1.4rem;
+    }
+  }
+
+  .right-nav-container {
+    display: flex;
+    flex-direction: row;
+    // background-color: blue;
+
+    .right-nav-container {
+      height: 100%;
+      // background-color: yellow;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    svg {
+      height: 1.4rem;
+    }
+  }
 }
 
 .project-navbar-container {

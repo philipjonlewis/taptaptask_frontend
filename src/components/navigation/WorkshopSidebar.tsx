@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveProject } from "../../redux/activeProjectState";
+import { fetchProjectList } from "../../redux/projectListState";
 
 const WorkshopProjectSidebar = () => {
   const [sidebarVisibility, setSidebarVisibility] = useState(true);
@@ -14,6 +15,17 @@ const WorkshopProjectSidebar = () => {
   const linkHandler = (projectId) => {
     dispatch(setActiveProject(projectId));
   };
+
+  useEffect(() => {
+    fetch("http://localhost:4000/projects")
+      .then((res) => {
+        return res.json();
+      })
+      .then((dat) => {
+        dispatch(fetchProjectList(dat));
+        console.log(dat);
+      });
+  }, []);
 
   return (
     <>

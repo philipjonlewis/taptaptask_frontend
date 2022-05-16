@@ -83,3 +83,10 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+input,
+textarea {
+  -webkit-appearance: none;
+  outline: none;
+  border: none;
+}
