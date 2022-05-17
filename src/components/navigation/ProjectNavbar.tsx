@@ -13,7 +13,7 @@ const ProjectNavbar = () => {
     phaseList,
     activePhase,
   } = useSelector((state) => state);
-
+  console.log(activePhase);
   const projectPhases = phaseList.filter(
     (phase) => phase.projectReferenceId == projectId
   );
@@ -27,9 +27,9 @@ const ProjectNavbar = () => {
   const activeTabHandler = () => {
     dispatch(
       setActivePhase({
-        phaseId: "sam",
-        phaseOrder: 1,
-        phaseName: "This is the initial state",
+        phaseId: "",
+        phaseOrder: 0,
+        phaseName: "",
       })
     );
   };
@@ -39,7 +39,7 @@ const ProjectNavbar = () => {
       <Link
         to={`information`}
         className={
-          activePhase.phaseName == "This is the initial state"
+          activePhase.phaseName == ""
             ? "project-information-link active-information"
             : "project-information-link"
         }

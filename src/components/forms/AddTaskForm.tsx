@@ -8,8 +8,8 @@ const AddTaskForm = () => {
   const [form, setForm] = useState({
     user: "user-001",
     taskId: uuidv4(),
-    projectReferenceId: activeProject.projectId,
-    phaseReferenceId: activePhase.phaseId,
+    projectReferenceId: activeProject.projectId || "project-001",
+    phaseReferenceId: activePhase.phaseId || "phase-001-001",
     taskContent: "Sample Task",
     dateOfDeadline: "2020-06-01T00:00:00.000Z",
     isCompleted: false,

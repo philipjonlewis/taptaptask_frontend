@@ -1,7 +1,67 @@
 .project-information-view-container {
-//   background-color: yellow;
+  //   background-color: yellow;
   width: 100%;
   height: calc(100vh - 8rem);
-
+  padding: 1rem;
   overflow-y: scroll;
+
+  .project-title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .label {
+      font-size: 0.8rem;
+    }
+
+    .title {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+  }
+
+  .project-date-container {
+    .project-created {
+      display: flex;
+      flex-direction: column;
+      padding-top: 1rem;
+
+      p:nth-of-type(1) {
+        font-size: 0.8rem;
+      }
+      p:nth-of-type(2) {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      p:nth-of-type(3) {
+        font-size: 0.8rem;
+      }
+    }
+
+    .project-deadline {
+      display: flex;
+      flex-direction: column;
+      padding-top: 1rem;
+
+      p:nth-of-type(1) {
+        font-size: 0.8rem;
+      }
+      p:nth-of-type(2) {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      p:nth-of-type(3) {
+        font-size: 0.8rem;
+      }
+    }
+
+    .days-since-container {
+      width: fit-content;
+      // padding: 0.2rem 0.5rem;
+      border-radius: 2rem;
+      color: gray;
+      // background-color: #fb7185;
+    }
+  }
 }

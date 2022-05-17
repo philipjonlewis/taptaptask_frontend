@@ -4,9 +4,9 @@ import { mockPhaseList } from "./mockdata/phases";
 export const activePhaseSlice = createSlice({
   name: "activePhase",
   initialState: {
-    phaseId: "sam",
+    phaseId: "0o1",
     phaseOrder: 1,
-    phaseName: "This is the initial state",
+    phaseName: "project-information",
   },
 
   reducers: {

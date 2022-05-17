@@ -1,9 +1,15 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, current } from "react-redux";
 import PhaseTaskSummaryVisualization from "../../../components/visualization/PhaseTaskSummaryVisualization";
 // ChartJS.register(ArcElement, Tooltip, Legend);
+import { format, formatDistanceToNow } from "date-fns";
 
 const ProjectInformation = () => {
+  const [taskData, setTaskData] = useState({
+    lapsed: 0,
+    completed: 0,
+    ongoing: 0,
+  });
   const {
     activeProject: {
       projectId,
@@ -14,26 +20,83 @@ const ProjectInformation = () => {
     },
   } = useSelector((state) => state);
 
-  const revisedDate = Date(dateOfDeadline);
-  const today = Date.now();
+  useEffect(() => {
+    fetch(`http://localhost:4000/aggregate/tasks/lapsed/${projectId}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((dat) => {
+        console.log("Lets goooo", dat[0].taskContent);
+        setTaskData((state) => {
+          return { ...state, lapsed: dat[0]?.taskContent || 0 };
+        });
+      });
 
+    fetch(`http://localhost:4000/aggregate/tasks/completed/${projectId}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((dat) => {
+        setTaskData((state) => {
+          return { ...state, completed: dat[0]?.taskContent || 0 };
+        });
+      });
+
+    fetch(`http://localhost:4000/aggregate/tasks/ongoing/${projectId}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((dat) => {
+        setTaskData((state) => {
+          return { ...state, ongoing: dat[0]?.taskContent || 0 };
+        });
+      });
+  }, []);
+
+  const creationDate = format(new Date(createdAt), "MMMM dd yyyy");
+  const daysSinceCreation = formatDistanceToNow(new Date(createdAt), {
+    addSuffix: true,
+  });
+
+  const deadlineDate = format(new Date(dateOfDeadline), "MMMM dd yyyy");
+  const daysTillDeadline = formatDistanceToNow(new Date(dateOfDeadline), {
+    addSuffix: true,
+  });
+
+  console.log(creationDate);
+  console.log(daysSinceCreation);
   return (
-    <div
-      className="project-information-view-container "
-      style={{ padding: "1rem" }}
-    >
-      <h2>Task Summary</h2>
-      {/* <PhaseTaskSummaryVisualization /> */}
-      <p>This is the project information view</p>
-      <p>{projectId}</p>
-      <p>{projectName}</p>
-      <p>{projectDescription}</p>
-      <p>Consider putting data about this project here</p>
-      <p>Aggregated information regarding the project</p>
+    <div className="project-information-view-container ">
+      <div className="project-title-container">
+        <p className="label">Project</p>
+        <p className="title">{projectName}</p>
+      </div>
+      <div className="project-date-container">
+        <div className="project-created">
+          <p>Created</p>
+          <p>{creationDate}</p>
+          <div className="days-since-container">
+            <p>{daysSinceCreation}</p>
+          </div>
+        </div>
+        <div className="project-deadline">
+          <p>Deadline</p>
+          <p>{deadlineDate}</p>
+          <div className="days-since-container">
+            <p>{daysTillDeadline}</p>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h3>Task Status Summary</h3>
+      <PhaseTaskSummaryVisualization
+        doughtnutData={[taskData.lapsed, taskData.completed, taskData.ongoing]}
+      />
+
       <ul>
-        <li>Date of project creation {createdAt}</li>
-        <li>Date of project intended deadline{revisedDate}</li>
-        <li>
+        {/* <li>Date of project creation {createdAt}</li>
+        <li>Date of project intended deadline{revisedDate}</li> */}
+        {/* <li>
           Breakdown of tasks
           <ul>
             <li>Total Number of tasks</li>
@@ -42,7 +105,7 @@ const ProjectInformation = () => {
             <li>Total Number of unfinished priority tasks</li>
             <li>Total Number of finished priority tasks</li>
           </ul>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

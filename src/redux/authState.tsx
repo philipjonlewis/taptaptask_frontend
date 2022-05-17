@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Navigate } from "react-router-dom";
 
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
+    _id: "user-001",
     username: "philip",
     password: "lewis",
     isEmailVerified: "",

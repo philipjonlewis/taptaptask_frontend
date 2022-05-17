@@ -7,6 +7,7 @@ import activeProjectReducer from "./activeProjectState";
 import activePhaseReducer from "./activePhaseState";
 import taskListReducer from "./taskListState";
 
+
 export default configureStore({
   reducer: {
     auth: authReducer,

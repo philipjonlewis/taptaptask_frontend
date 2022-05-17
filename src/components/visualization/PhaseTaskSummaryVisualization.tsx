@@ -5,27 +5,29 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PhaseTaskSummaryVisualization = () => {
+const PhaseTaskSummaryVisualization = ({ doughtnutData }) => {
   const { phaseList } = useSelector((state) => state);
 
   console.log(phaseList);
   const data = {
-    labels: ["Lapsed", "Ongoing", "Priority", "Completed"],
+    labels: [
+      `Lapsed - ${doughtnutData[0]}`,
+      `Completed - ${doughtnutData[1]}`,
+      `Ongoing - ${doughtnutData[2]}`,
+    ],
     datasets: [
       {
         label: "# of Votes",
-        data: [12, 19, 3, 5],
+        data: doughtnutData,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
           "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
         ],
         borderWidth: 1,
       },
