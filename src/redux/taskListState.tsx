@@ -5,8 +5,10 @@ export const taskListSlice = createSlice({
   name: "taskList",
   initialState: mockTaskList,
   reducers: {
-    addTask: (state) => {
+    addTask: (state, actions) => {
       console.log(state);
+
+      return [...state, actions.payload];
     },
     fetchTaskList: (state, actions) => {
       return actions.payload;

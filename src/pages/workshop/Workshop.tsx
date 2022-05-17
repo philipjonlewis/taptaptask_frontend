@@ -21,10 +21,8 @@ const Workshop = (props: { setIsInWorkshop: any }) => {
   return (
     <div className="workshop">
       <WorkshopSidebar />
-
       <div className="workshop-main-contents">
         <WorkshopNavBar />
-
         <Outlet />
       </div>
     </div>

@@ -5,8 +5,17 @@ import PhaseTaskSummaryVisualization from "../../../components/visualization/Pha
 
 const ProjectInformation = () => {
   const {
-    activeProject: { projectId, projectName, projectDescription },
+    activeProject: {
+      projectId,
+      projectName,
+      projectDescription,
+      dateOfDeadline,
+      createdAt,
+    },
   } = useSelector((state) => state);
+
+  const revisedDate = Date(dateOfDeadline);
+  const today = Date.now();
 
   return (
     <div
@@ -22,8 +31,8 @@ const ProjectInformation = () => {
       <p>Consider putting data about this project here</p>
       <p>Aggregated information regarding the project</p>
       <ul>
-        <li>Date of project creation</li>
-        <li>Date of project intended deadline</li>
+        <li>Date of project creation {createdAt}</li>
+        <li>Date of project intended deadline{revisedDate}</li>
         <li>
           Breakdown of tasks
           <ul>

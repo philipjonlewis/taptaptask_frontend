@@ -5,8 +5,10 @@ export const phaseListSlice = createSlice({
   name: "phaseList",
   initialState: mockPhaseList,
   reducers: {
-    addPhase: (state) => {
+    addPhase: (state, actions) => {
       console.log(state);
+
+      return [...state, actions.payload];
     },
     editPhase: (state) => {
       console.log(state);

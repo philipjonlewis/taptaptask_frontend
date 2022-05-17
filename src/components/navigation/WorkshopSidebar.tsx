@@ -6,6 +6,7 @@ import { fetchProjectList } from "../../redux/projectListState";
 import { fetchPhaseList } from "../../redux/phaseListState";
 
 import { fetchTaskList } from "../../redux/taskListState";
+import { setActivePhase } from "../../redux/activePhaseState";
 
 const WorkshopProjectSidebar = () => {
   const [sidebarVisibility, setSidebarVisibility] = useState(true);
@@ -16,7 +17,16 @@ const WorkshopProjectSidebar = () => {
   const dispatch = useDispatch();
 
   const linkHandler = (project) => {
+    // Clean active phase whenever changing project
+    dispatch(
+      setActivePhase({
+        phaseId: "",
+        phaseOrder: 0,
+        phaseName: "",
+      })
+    );
     dispatch(setActiveProject(project));
+
     // already fetch the phases?
   };
 
@@ -42,6 +52,10 @@ const WorkshopProjectSidebar = () => {
       .then((dat) => {
         dispatch(fetchTaskList(dat));
       });
+
+    return () => {
+      // removes the active project right after unmounting
+    };
   }, []);
 
   return (
@@ -151,6 +165,30 @@ const WorkshopProjectSidebar = () => {
               onClick={() => {
                 setAddProjectForm(!addProjectForm);
                 console.log(addProjectForm);
+
+                (async () => {
+                  const rawResponse = await fetch(
+                    "http://localhost:4000/projects",
+                    {
+                      method: "POST",
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        user: "user-001",
+                        projectId: "project-004",
+                        projectName: "Daylinda Lewis Memorial Project",
+                        projectDescription:
+                          "This is going to be mamas memorial project",
+                        dateOfDeadline: "2020-06-01",
+                      }),
+                    }
+                  );
+                  const content = await rawResponse.json();
+
+                  console.log(content);
+                })();
               }}
             >
               <svg

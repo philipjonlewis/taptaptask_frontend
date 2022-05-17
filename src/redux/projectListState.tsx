@@ -5,16 +5,8 @@ export const projectListSlice = createSlice({
   name: "projectList",
   initialState: mockProjectList,
   reducers: {
-    addProject: (state) => {
-      return [
-        ...state,
-        {
-          projectId: "PR0o4",
-          projectName: "Sample Additional Project",
-          projectDescription: "Music Video Thingy",
-          projectImage: "https://picsum.photos/id/953/200/300",
-        },
-      ];
+    addProject: (state, actions) => {
+      return [...state, actions.payload];
     },
     editProject: (state) => {
       console.log(state);

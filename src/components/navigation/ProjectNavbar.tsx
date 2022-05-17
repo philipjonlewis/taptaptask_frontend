@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,8 @@ const ProjectNavbar = () => {
   const projectPhases = phaseList.filter(
     (phase) => phase.projectReferenceId == projectId
   );
+
+  //Must have a use effect that removes the current phase as the active phase whenever it unmounts
 
   const activePhaseHandler = (phase) => {
     dispatch(setActivePhase(phase));
