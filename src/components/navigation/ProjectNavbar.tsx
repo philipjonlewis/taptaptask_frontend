@@ -66,22 +66,23 @@ const ProjectNavbar = () => {
           <p>Project Phases</p>
         </div>
         <div className="phase-link-container">
-          {projectPhases.map((phase) => {
-            return (
-              <Link
-                className={
-                  activePhase.phaseName == phase.phaseName
-                    ? "phase-link active-phase-tab"
-                    : "phase-link"
-                }
-                key={phase.phaseId}
-                to={"phase"}
-                onClick={() => activePhaseHandler(phase)}
-              >
-                {phase.phaseName}
-              </Link>
-            );
-          })}
+          {projectPhases.length >= 1 &&
+            projectPhases.map((phase) => {
+              return (
+                <Link
+                  className={
+                    activePhase.phaseName == phase.phaseName
+                      ? "phase-link active-phase-tab"
+                      : "phase-link"
+                  }
+                  key={phase.phaseId}
+                  to={"phase"}
+                  onClick={() => activePhaseHandler(phase)}
+                >
+                  {phase.phaseName}
+                </Link>
+              );
+            })}
         </div>
       </div>
     </div>

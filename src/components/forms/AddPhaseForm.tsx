@@ -5,16 +5,15 @@ import { v4 as uuidv4 } from "uuid";
 import { addPhase } from "../../redux/phaseListState";
 
 const AddPhaseForm = () => {
-  const { activeProject } = useSelector((state) => state);
-
-
+  const { activeProject, projectList, auth } = useSelector((state) => state);
+  console.log(projectList);
   const dispatch = useDispatch();
   const [form, setForm] = useState({
-    user: "user-001",
+    user: auth._id,
     phaseId: uuidv4(),
     projectReferenceId: activeProject.projectId,
-    phaseName: "Phase Name",
-    phaseOrder: "Phase Order",
+    phaseName: "",
+    phaseOrder: "",
   });
 
   const formHandler = (e) => {
@@ -38,14 +37,40 @@ const AddPhaseForm = () => {
         body: JSON.stringify(form),
       });
       const content = await rawResponse.json();
-
-      console.log(content);
     })();
+    setForm({
+      user: "",
+      phaseId: uuidv4(),
+      projectReferenceId: activeProject.projectId,
+      phaseName: "",
+      phaseOrder: "",
+    });
   };
 
   return (
     <div className="add-phase-form">
+      <div className="form-title">
+        <p>Add Phase</p>
+      </div>
       <form action="#">
+        {/* Start of Drop Down */}
+
+        <label htmlFor="project">Project</label>
+        <select
+          required
+          value={form.projectReferenceId}
+          name="projectReferenceId"
+          onChange={formHandler}
+        >
+          {projectList.map((project) => {
+            return (
+              <option value={project.projectId}>{project.projectName}</option>
+            );
+          })}
+ 
+        </select>
+
+        {/* ENd of Drop Down */}
         <label htmlFor="phaseName">Phase Name</label>
         <input
           type="text"
@@ -63,7 +88,26 @@ const AddPhaseForm = () => {
           value={form.phaseOrder}
           onChange={formHandler}
         />
-        <button onClick={submitHandler}>Add New Phase</button>
+        <div className="button-container">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setForm({
+                user: "",
+                phaseId: uuidv4(),
+                projectReferenceId: activeProject.projectId,
+                phaseName: "",
+                phaseOrder: "",
+              });
+            }}
+            className="clear-form-button"
+          >
+            Clear Form
+          </button>
+          <button onClick={submitHandler} className="submit-button">
+            Add Phase
+          </button>
+        </div>
       </form>
     </div>
   );

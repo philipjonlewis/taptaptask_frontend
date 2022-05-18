@@ -3,30 +3,39 @@ import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { addTask } from "../../redux/taskListState";
 const AddTaskForm = () => {
-  const { activeProject, activePhase } = useSelector((state) => state);
+  const { activeProject, activePhase, projectList, auth, phaseList } =
+    useSelector((state) => state);
   const dispatch = useDispatch();
   const [form, setForm] = useState({
-    user: "user-001",
+    user: auth._id,
     taskId: uuidv4(),
-    projectReferenceId: activeProject.projectId || "project-001",
-    phaseReferenceId: activePhase.phaseId || "phase-001-001",
-    taskContent: "Sample Task",
-    dateOfDeadline: "2020-06-01T00:00:00.000Z",
+    projectReferenceId: activeProject.projectId,
+    phaseReferenceId: activePhase.phaseId,
+    taskContent: "",
+    dateOfDeadline: new Date(),
     isCompleted: false,
     isPriority: false,
     isLapsed: false,
   });
 
   const formHandler = (e) => {
-    console.log("is this working");
+    console.log(e.target.name);
+    console.log(e.target.value);
     setForm((state) => {
       return { ...state, [e.target.name]: e.target.value };
+    });
+    console.log(form.isPriority);
+  };
+
+  const checkboxHandler = (e) => {
+    setForm((state) => {
+      return { ...state, [e.target.name]: e.target.checked };
     });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(form);
+
     dispatch(addTask(form));
 
     (async () => {
@@ -39,15 +48,66 @@ const AddTaskForm = () => {
         body: JSON.stringify(form),
       });
       const content = await rawResponse.json();
-
-      console.log(content);
     })();
+
+    setForm({
+      user: auth._id,
+      taskId: uuidv4(),
+      projectReferenceId: activeProject.projectId,
+      phaseReferenceId: activePhase.phaseId,
+      taskContent: "",
+      dateOfDeadline: new Date(),
+      isCompleted: false,
+      isPriority: false,
+      isLapsed: false,
+    });
   };
 
   return (
     <div className="add-task-form">
+      <div className="form-title">
+        <p>Add Task</p>
+      </div>
       <form action="#">
-        <label htmlFor="taskContent">Task Content</label>
+        {/* Start of Drop Down */}
+
+        <label htmlFor="project">Project</label>
+        <select
+          required
+          value={form.projectReferenceId}
+          name="projectReferenceId"
+          onChange={formHandler}
+        >
+          {projectList.map((project) => {
+            return (
+              <option value={project.projectId}>{project.projectName}</option>
+            );
+          })}
+        </select>
+
+        {/* ENd of Drop Down */}
+        {/* Start of Drop Down */}
+
+        <label htmlFor="project">Phase</label>
+        <select
+          required
+          value={form.phaseReferenceId}
+          name="phaseReferenceId"
+          onChange={formHandler}
+        >
+          {phaseList.map((phase) => {
+            if (form.projectReferenceId == phase.projectReferenceId) {
+              return (
+                <option key={phase.phaseId} value={phase.phaseId}>
+                  {phase.phaseName}
+                </option>
+              );
+            }
+          })}
+        </select>
+
+        {/* ENd of Drop Down */}
+        <label htmlFor="taskContent">Task</label>
         <input
           type="text"
           name="taskContent"
@@ -55,7 +115,62 @@ const AddTaskForm = () => {
           value={form.taskContent}
           onChange={formHandler}
         />
-        <button onClick={submitHandler}>Add New Task</button>
+        <label htmlFor="dateOfDeadline">Deadline</label>
+        <div className="calendar-container">
+          <input
+            type="date"
+            name="dateOfDeadline"
+            id="dateOfDeadline"
+            onChange={formHandler}
+          />
+        </div>
+        {/* Task State */}
+        <div className="checkbox-container">
+          <div className="checkbox-segment">
+            <input
+              type="checkbox"
+              id="isPriority"
+              name="isPriority"
+              onChange={checkboxHandler}
+            />
+            <label htmlFor="isPriority">Priority Task</label>
+          </div>
+          <div className="checkbox-segment">
+            <input
+              type="checkbox"
+              id="isCompleted"
+              name="isCompleted"
+              onChange={checkboxHandler}
+            />
+            <label htmlFor="isCompleted">Completed Task</label>
+          </div>
+        </div>
+
+        {/* Task State */}
+        <div className="button-container">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setForm({
+                user: "user-001",
+                taskId: uuidv4(),
+                projectReferenceId: activeProject.projectId || "project-001",
+                phaseReferenceId: activePhase.phaseId || "phase-001-001",
+                taskContent: "",
+                dateOfDeadline: "",
+                isCompleted: false,
+                isPriority: false,
+                isLapsed: false,
+              });
+            }}
+            className="clear-form-button"
+          >
+            Clear Form
+          </button>
+          <button onClick={submitHandler} className="submit-button">
+            Add Task
+          </button>
+        </div>
       </form>
     </div>
   );

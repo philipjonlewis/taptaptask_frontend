@@ -26,7 +26,6 @@ const ProjectInformation = () => {
         return res.json();
       })
       .then((dat) => {
-        console.log("Lets goooo", dat[0].taskContent);
         setTaskData((state) => {
           return { ...state, lapsed: dat[0]?.taskContent || 0 };
         });

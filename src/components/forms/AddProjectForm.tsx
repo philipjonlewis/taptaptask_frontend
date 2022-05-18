@@ -3,21 +3,28 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addProject } from "../../redux/projectListState";
 import { v4 as uuidv4 } from "uuid";
+import DatePicker from "react-datepicker";
 
 const AddProjectForm = () => {
+  const { auth } = useSelector((state) => state);
+
   const dispatch = useDispatch();
+
+  const projectId = uuidv4();
   const [form, setForm] = useState({
-    user: "user-001",
-    projectId: uuidv4(),
-    projectName: "Sample Project Name",
-    projectDescription: "Sample Project Description",
-    dateOfDeadline: "2020-06-01",
+    user: auth._id,
+    projectId,
+    projectName: "",
+    projectDescription: "",
+    dateOfDeadline: "" || new Date(),
   });
 
   const formHandler = (e) => {
     setForm((state) => {
       return { ...state, [e.target.name]: e.target.value };
     });
+
+    console.log(form);
   };
 
   const submitHandler = (e) => {
@@ -38,10 +45,21 @@ const AddProjectForm = () => {
 
       console.log(content);
     })();
+
+    setForm({
+      user: auth._id,
+      projectId,
+      projectName: "",
+      projectDescription: "",
+      dateOfDeadline: "" || new Date(),
+    });
   };
 
   return (
     <div className="add-project-form">
+      <div className="form-title">
+        <p>Add Project</p>
+      </div>
       <form action="#">
         <label htmlFor="projectName">Project Name</label>
         <input
@@ -50,17 +68,47 @@ const AddProjectForm = () => {
           placeholder="Project Name"
           value={form.projectName}
           onChange={formHandler}
+          required
+          spellCheck="false"
         />
 
         <label htmlFor="projectDescription">Project Description</label>
-        <input
+        <textarea
           type="text"
           name="projectDescription"
           placeholder="Project Description"
           value={form.projectDescription}
           onChange={formHandler}
         />
-        <button onClick={submitHandler}>Add New Project</button>
+        <label htmlFor="dateOfDeadline">Deadline</label>
+        <div className="calendar-container">
+          <input
+            type="date"
+            name="dateOfDeadline"
+            id="dateOfDeadline"
+            onChange={formHandler}
+          />
+        </div>
+        <div className="button-container">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setForm({
+                user: auth._id,
+                projectId,
+                projectName: "",
+                projectDescription: "",
+                dateOfDeadline: "" || new Date(),
+              });
+            }}
+            className="clear-form-button"
+          >
+            Clear Form
+          </button>
+          <button onClick={submitHandler} className="submit-button">
+            Add Project
+          </button>
+        </div>
       </form>
     </div>
   );

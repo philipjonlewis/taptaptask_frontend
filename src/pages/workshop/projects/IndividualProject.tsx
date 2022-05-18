@@ -5,7 +5,7 @@ import {
   ProjectNavbar,
   HotLink,
   AddDataForm,
-  ExpressWindow,
+  AddDataContainerForm,
 } from "../../../components";
 import { motion } from "framer-motion";
 const IndividualProject = () => {
@@ -19,7 +19,7 @@ const IndividualProject = () => {
     <div className="individual-project-container">
       {/* <HotLink />
       <AddDataForm /> */}
-      <ExpressWindow />
+      <AddDataContainerForm />
       <ProjectNavbar />
 
       <Outlet />
