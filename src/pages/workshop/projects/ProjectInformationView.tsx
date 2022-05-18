@@ -21,7 +21,7 @@ const ProjectInformation = () => {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/aggregate/tasks/lapsed/${projectId}`)
+    fetch(`http://192.168.0.22:4000/aggregate/tasks/lapsed/${projectId}`)
       .then((res) => {
         return res.json();
       })
@@ -31,7 +31,7 @@ const ProjectInformation = () => {
         });
       });
 
-    fetch(`http://localhost:4000/aggregate/tasks/completed/${projectId}`)
+    fetch(`http://192.168.0.22:4000/aggregate/tasks/completed/${projectId}`)
       .then((res) => {
         return res.json();
       })
@@ -41,7 +41,7 @@ const ProjectInformation = () => {
         });
       });
 
-    fetch(`http://localhost:4000/aggregate/tasks/ongoing/${projectId}`)
+    fetch(`http://192.168.0.22:4000/aggregate/tasks/ongoing/${projectId}`)
       .then((res) => {
         return res.json();
       })

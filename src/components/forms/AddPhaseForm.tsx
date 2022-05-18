@@ -13,7 +13,6 @@ const AddPhaseForm = () => {
     phaseId: uuidv4(),
     projectReferenceId: activeProject.projectId,
     phaseName: "",
-    phaseOrder: "",
   });
 
   const formHandler = (e) => {
@@ -28,7 +27,7 @@ const AddPhaseForm = () => {
     dispatch(addPhase(form));
 
     (async () => {
-      const rawResponse = await fetch("http://localhost:4000/phases", {
+      const rawResponse = await fetch("http://192.168.0.22:4000/phases", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -43,7 +42,6 @@ const AddPhaseForm = () => {
       phaseId: uuidv4(),
       projectReferenceId: activeProject.projectId,
       phaseName: "",
-      phaseOrder: "",
     });
   };
 
@@ -67,7 +65,6 @@ const AddPhaseForm = () => {
               <option value={project.projectId}>{project.projectName}</option>
             );
           })}
- 
         </select>
 
         {/* ENd of Drop Down */}
@@ -80,14 +77,6 @@ const AddPhaseForm = () => {
           onChange={formHandler}
         />
 
-        <label htmlFor="phaseOrder">Phase Order</label>
-        <input
-          type="number"
-          name="phaseOrder"
-          placeholder="Phase Order"
-          value={form.phaseOrder}
-          onChange={formHandler}
-        />
         <div className="button-container">
           <button
             onClick={(e) => {
@@ -97,7 +86,6 @@ const AddPhaseForm = () => {
                 phaseId: uuidv4(),
                 projectReferenceId: activeProject.projectId,
                 phaseName: "",
-                phaseOrder: "",
               });
             }}
             className="clear-form-button"

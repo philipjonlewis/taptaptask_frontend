@@ -5,7 +5,7 @@ export const activePhaseSlice = createSlice({
   name: "activePhase",
   initialState: {
     phaseId: "0o1",
-    phaseOrder: 1,
+
     phaseName: "project-information",
   },
 

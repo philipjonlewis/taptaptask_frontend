@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const ProjectPhaseView = () => {
   const {
-    activePhase: { phaseId, phaseOrder, phaseName },
+    activePhase: { phaseId, phaseName },
     taskList,
   } = useSelector((state) => state);
   // console.log(activePhase);

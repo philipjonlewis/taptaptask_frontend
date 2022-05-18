@@ -21,7 +21,7 @@ const WorkshopProjectSidebar = () => {
     dispatch(
       setActivePhase({
         phaseId: "",
-        phaseOrder: 0,
+
         phaseName: "",
       })
     );
@@ -31,21 +31,31 @@ const WorkshopProjectSidebar = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:4000/projects")
+    // Promise.all([
+    //   fetch("http://localhost:4000/projects"),
+    //   fetch("http://localhost:4000/phases"),
+    //   fetch("http://localhost:4000/tasks"),
+    // ]).then(([projects, phases, tasks]) => {
+    //   dispatch(fetchProjectList(projects));
+    //   dispatch(fetchPhaseList(phases));
+    //   dispatch(fetchTaskList(tasks));
+    // });
+    console.log("hello");
+    fetch("http://192.168.0.22:4000/projects")
       .then((res) => {
         return res.json();
       })
       .then((dat) => {
         dispatch(fetchProjectList(dat));
       });
-    fetch("http://localhost:4000/phases")
+    fetch("http://192.168.0.22:4000/phases")
       .then((res) => {
         return res.json();
       })
       .then((dat) => {
         dispatch(fetchPhaseList(dat));
       });
-    fetch("http://localhost:4000/tasks")
+    fetch("http://192.168.0.22:4000/tasks")
       .then((res) => {
         return res.json();
       })
