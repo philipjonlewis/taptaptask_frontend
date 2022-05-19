@@ -179,6 +179,7 @@
       height: 50%;
       .phase-link {
         // margin-right: 1rem;
+        border-bottom: 1px solid transparent;
         padding: 0 1rem;
         display: flex;
         justify-content: center;
@@ -192,6 +193,7 @@
       .active-phase-tab {
         color: white;
 
+        border-color: white;
         background-color: #475569;
       }
     }
@@ -205,7 +207,7 @@
     justify-content: center;
     align-items: center;
     border-right: 1px solid gray;
-
+    border-bottom: 1px solid transparent;
     // background-color: red;
     height: 100%;
     color: white;
@@ -218,7 +220,7 @@
 
   .active-information {
     color: white;
-
+    border-bottom: 1px solid white;
     background-color: #475569;
 
     svg {

@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const PhaseTaskSummaryVisualization = ({ doughtnutData }) => {
   const { phaseList } = useSelector((state) => state);
 
-  console.log(phaseList);
+  console.log(doughtnutData);
   const data = {
     labels: [
       `Lapsed - ${doughtnutData[0]}`,

@@ -36,10 +36,10 @@ const AddTaskForm = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(addTask(form));
+    // dispatch(addTask(form));
 
     (async () => {
-      const rawResponse = await fetch("http://localhost:4000/tasks", {
+      const rawResponse = await fetch("http://192.168.0.22:4000/tasks", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -48,6 +48,7 @@ const AddTaskForm = () => {
         body: JSON.stringify(form),
       });
       const content = await rawResponse.json();
+      console.log(content);
     })();
 
     setForm({

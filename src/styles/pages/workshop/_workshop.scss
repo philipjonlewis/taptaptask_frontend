@@ -20,14 +20,14 @@
 .workshop-sidebar {
   display: flex;
   flex-direction: column;
-  box-shadow: 10px 1px 22px -13px rgba(0, 0, 0, 0.75);
-
+  box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  z-index: 10;
   justify-content: flex-start;
 
   height: 100%;
   padding: 1rem;
 
-  width: 20rem;
+  min-width: 20rem;
 
   // border-right: 1px solid gray;
 

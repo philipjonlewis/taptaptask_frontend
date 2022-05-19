@@ -19,7 +19,7 @@ const IndividualProject = () => {
     <div className="individual-project-container">
       {/* <HotLink />
       <AddDataForm /> */}
-      <AddDataContainerForm />
+      {/* <AddDataContainerForm /> */}
       <ProjectNavbar />
 
       <Outlet />
