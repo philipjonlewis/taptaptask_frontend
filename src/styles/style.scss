@@ -5,3 +5,16 @@
 @use "./pages/" as *;
 @use "./utilities/" as *;
 
+text[style*="cursor: default; user-select: none; -webkit-font-smoothing: antialiased; font-family: Arial; font-size: 13px; font-weight: bold;"],
+text[style*="cursor: default; user-select: none; -webkit-font-smoothing: antialiased; font-family: Arial; font-size: 13px; font-weight: normal;"] {
+  fill: #a6bfe3;
+}
+
+text[style*="cursor: default; user-select: none; -webkit-font-smoothing: antialiased; font-family: arial; font-size: 14px;"] {
+  fill: white;
+  font-weight: 400;
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, current } from "react-redux";
 import PhaseTaskSummaryVisualization from "../../../components/visualization/PhaseTaskSummaryVisualization";
 // ChartJS.register(ArcElement, Tooltip, Legend);
+
+import GanttChartVisualization from "../../../components/visualization/GanttChartVisualization";
 import { format, formatDistanceToNow } from "date-fns";
 
 const ProjectInformation = () => {
@@ -93,7 +95,8 @@ const ProjectInformation = () => {
         </div>
       </div>
       <hr />
-      <h3>Task Status Summary</h3>
+      <h3>Gantt Chart</h3>
+      <GanttChartVisualization />
       <PhaseTaskSummaryVisualization
         doughtnutData={[taskData.lapsed, taskData.completed, taskData.ongoing]}
       />

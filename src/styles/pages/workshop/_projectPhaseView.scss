@@ -3,7 +3,7 @@
   box-shadow: 1px 5px 8px -5px rgba(0, 0, 0, 0.73) inset;
 
   background-color: #253449;
-  color: white;
+  color: #ffffff;
   height: calc(100vh - 8rem);
   width: calc(100vw - 20rem);
   //   width: 90%;
@@ -113,7 +113,7 @@
       }
 
       svg {
-        transition: transform .2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
         height: 1rem;
       }
     }
