@@ -28,7 +28,7 @@ const ProjectNavbar = () => {
     dispatch(
       setActivePhase({
         phaseId: "",
-     
+
         phaseName: "",
       })
     );

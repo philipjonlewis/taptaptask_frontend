@@ -170,37 +170,7 @@ const WorkshopProjectSidebar = () => {
               <p>Manage Projects</p>
             </button>
 
-            <button
-              className="add-project-button-container"
-              onClick={() => {
-                setAddProjectForm(!addProjectForm);
-                console.log(addProjectForm);
-
-                (async () => {
-                  const rawResponse = await fetch(
-                    "http://localhost:4000/projects",
-                    {
-                      method: "POST",
-                      headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        user: "user-001",
-                        projectId: "project-004",
-                        projectName: "Daylinda Lewis Memorial Project",
-                        projectDescription:
-                          "This is going to be mamas memorial project",
-                        dateOfDeadline: "2020-06-01",
-                      }),
-                    }
-                  );
-                  const content = await rawResponse.json();
-
-                  console.log(content);
-                })();
-              }}
-            >
+            <button className="add-project-button-container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -212,11 +182,39 @@ const WorkshopProjectSidebar = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  d="M12 4v16m8-8H4"
                 />
               </svg>
               <p>Add Data</p>
             </button>
+          </div>
+
+          <div className="add-project-form-container">
+            <form action="#">
+              <input
+                type="text"
+                placeholder="Add Project"
+                autoCorrect="false"
+                spellCheck="false"
+                required
+              />
+              <button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </button>
+            </form>
           </div>
 
           <div className="project-list-container">

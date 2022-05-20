@@ -122,18 +122,22 @@
 
     &:hover {
       background-color: $hover-bg;
+      border-radius: 2rem;
     }
   }
 
   .link-container.active {
     background-color: $hover-bg;
+    border-radius: 2rem;
   }
 
   .project-button-container {
     display: flex;
-
+    border-bottom: 1px solid $hover-bg;
+    // background-color: yellow;
+    margin-bottom: 1rem;
+    padding: 0;
     .add-project-button-container {
-      //
       background: none;
       color: inherit;
       border: none;
@@ -200,10 +204,61 @@
     }
   }
 
+  .add-project-form-container {
+    width: 100%;
+    height: 3rem;
+    // background-color: yellow;
+    position: relative;
+
+    input {
+      padding: 0.5rem 1rem;
+
+      background-color: #1e293b;
+      width: 100%;
+      height: 3rem;
+      border-radius: 2rem;
+      color: #0f172a;
+      font-size: 0.9rem;
+      &::placeholder {
+        font-size: 0.9rem;
+        color: #475569;
+      }
+
+      &:focus,
+      :hover {
+        background-color: #cbd5e1;
+      }
+    }
+
+    button {
+      position: absolute;
+      top: 0.3rem;
+      right: 0.3rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 2rem;
+      background-color: #475569;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      svg {
+        transform: rotate(90deg);
+        height: 1.6rem;
+        stroke: #94a3b8;
+      }
+      &:hover {
+        background-color: #ca8a04;
+        svg {
+          stroke: white;
+        }
+      }
+    }
+  }
+
   .project-list-container {
-    border-top: 1px solid $hover-bg;
     // padding-left: 3rem;
-    padding-top: 0.5rem;
+    padding-top: 2rem;
     // background-color: yellow;
     height: 100%;
     width: 100%;
@@ -243,12 +298,13 @@
 
       &:hover {
         background-color: $hover-bg;
+        border-radius: 1rem;
       }
     }
 
     .project-link.active {
       background-color: $hover-bg;
-
+      border-radius: 1rem;
       svg {
         display: block;
       }
