@@ -61,10 +61,33 @@ const ProjectNavbar = () => {
         </svg>
         <p>Project Information</p>
       </Link>
+
+      <div className="add-phase-container">
+        <form action="#">
+          <input type="text" placeholder="Add Phase" />
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+
       <div className="phase-information-container">
-        <div className="phase-title-container">
+        {/* <div className="phase-title-container">
           <p>Project Phases</p>
-        </div>
+        </div> */}
         <div className="phase-link-container">
           {projectPhases.length >= 1 &&
             projectPhases.map((phase) => {

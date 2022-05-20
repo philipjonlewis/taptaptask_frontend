@@ -145,13 +145,7 @@ const WorkshopProjectSidebar = () => {
           </NavLink>
 
           <div className="project-button-container">
-            <button
-              className="add-project-button-container"
-              onClick={() => {
-                setAddProjectForm(!addProjectForm);
-                console.log(addProjectForm);
-              }}
-            >
+            <button className="pro-button-container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -170,7 +164,7 @@ const WorkshopProjectSidebar = () => {
               <p>Manage Projects</p>
             </button>
 
-            <button className="add-project-button-container">
+            <button className="pro-button-container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -182,10 +176,11 @@ const WorkshopProjectSidebar = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M12 4v16m8-8H4"
+                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
                 />
               </svg>
-              <p>Add Data</p>
+              <div className="pro-icon">PRO</div>
+              <p>Templates</p>
             </button>
           </div>
 

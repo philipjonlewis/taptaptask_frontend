@@ -1,10 +1,9 @@
 import React from "react";
-
+import { ProjectsDashboardGanttChart } from "../../../components";
 const ProjectsDashboard = () => {
   return (
-    <div>
-      This is the dashboard for all the projects. Put aggregated cumulative data
-      here
+    <div className="project-dashboard-container">
+      <ProjectsDashboardGanttChart />
     </div>
   );
 };

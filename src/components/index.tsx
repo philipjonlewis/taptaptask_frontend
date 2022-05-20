@@ -5,6 +5,8 @@ import WorkshopSidebar from "./navigation/WorkshopSidebar";
 import HotLink from "./navigation/HotLink";
 import TaskCard from "./cards/TaskCard";
 import AddDataContainerForm from "./forms/AddDataContainerForm";
+import ProjectsDashboardGanttChart from "./visualization/ProjectsDashboardGanttChart";
+import Taskette from "./cards/Taskette";
 
 export {
   LandingNavBar,
@@ -14,4 +16,6 @@ export {
   HotLink,
   TaskCard,
   AddDataContainerForm,
+  ProjectsDashboardGanttChart,
+  Taskette,
 };

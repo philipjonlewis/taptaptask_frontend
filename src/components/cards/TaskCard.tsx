@@ -3,6 +3,9 @@ import { format, formatDistanceToNow } from "date-fns";
 import { motion } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
+import Taskette from "./Taskette";
+import axios from "axios";
+import { postRequest } from "../../helpers/postRequest";
 const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
   const { _id, taskContent } = taskObject;
 
@@ -19,11 +22,9 @@ const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
     user: auth._id,
     dateOfDeadline: _id,
     isCompleted: false,
-    isLapsed: true,
-    isPriority: false,
     phaseReferenceId: phaseId,
     projectReferenceId: projectId,
-    taskContent: "Trial from the new form",
+    taskContent: "",
   });
 
   useEffect(() => {
@@ -60,70 +61,75 @@ const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
             addSuffix: true,
           })}
         </p>
-        <div
-          className={
-            activeAddForm == _id
-              ? "open-new-task-container active-add-task"
-              : "open-new-task-container"
-          }
-          onClick={() => {
-            activeAddFormhandler(_id);
-            (async () => {
-              const rawResponse = await fetch(
-                "http://192.168.0.22:4000/tasks",
-                {
-                  method: "POST",
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({ ...taskForm, taskId: uuidv4() }),
-                }
-              );
-              const content = await rawResponse.json();
-              console.log(content);
-            })();
-
-            setLocalTaskList((state) => {
-              return [{ ...taskForm, taskId: uuidv4() }, ...state];
-            });
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4v16m8-8H4"
+        <div className="new-task-container">
+          <form action="#">
+            <input
+              required
+              type="text"
+              placeholder="Add Task"
+              spellCheck="false"
+              autoCorrect="false"
+              value={taskForm.taskContent}
+              onChange={(e) => {
+                setTaskForm((state) => {
+                  return { ...state, taskContent: e.target.value };
+                });
+              }}
             />
-          </svg>
+            <button
+              className={
+                activeAddForm == _id
+                  ? "new-task-button-container active-add-task"
+                  : "new-task-button-container"
+              }
+              onClick={(e) => {
+                e.preventDefault();
+                const taskId = uuidv4();
+                const newTask = { ...taskForm, taskId };
+
+                postRequest(newTask);
+
+                setLocalTaskList((state) => {
+                  return [newTask, ...state];
+                });
+
+                setTaskForm((state) => {
+                  return {
+                    ...state,
+                    taskContent: "",
+                    isCompleted: false,
+                  };
+                });
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+            </button>
+          </form>
         </div>
       </div>
 
-      {activeAddForm == _id && <div className="new-task-container"></div>}
-
       <div className="task-list-container">
-        {localTaskList.reverse().map(({ _id, taskContent, isCompleted }) => {
+        {localTaskList.map(({ _id, taskContent, isCompleted }) => {
           return (
-            <div
+            <Taskette
               key={_id}
-              className={
-                isCompleted
-                  ? "task-content-container completed-task"
-                  : "task-content-container"
-              }
-            >
-              <form action="#">
-                <input type="checkbox" />
-              </form>
-              <p>{taskContent}</p>
-            </div>
+              _id={_id}
+              taskContent={taskContent}
+              isCompleted={isCompleted}
+            />
           );
         })}
       </div>
