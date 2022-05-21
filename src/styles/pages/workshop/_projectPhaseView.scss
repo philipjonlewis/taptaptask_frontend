@@ -21,116 +21,168 @@
   position: relative;
   height: 100%;
   min-width: 300px;
-  // max-width: 300px;
+  max-width: 300px;
   margin-right: 1rem;
   background-color: darken($color: #253449, $amount: 3);
   border-radius: 1rem;
   padding: 0.5rem;
 
-  .close-icon-menu-container {
-    position: relative;
-    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
-      drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    // top: 0;
-    // right: 0;
-    opacity: 60%;
-    width: 3rem;
-    margin-left: auto;
-    height: 3rem;
-    border-radius: 0.5rem;
+  .icon-links-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.5s ease-out;
-    background-color: #334155;
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-    &:hover {
-      opacity: 100%;
-      background-color: lighten($color: #253449, $amount: 10);
+    // background-color: red;
+    justify-content: space-between;
+    // border-bottom: 1px solid gray;
+
+    width: 100%;
+    height: 3rem;
+
+    .task-history-icon-menu-container {
+      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+        drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+      // top: 0;
+      // right: 0;
+      opacity: 60%;
+      width: 3rem;
+
+      height: 3rem;
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.5s ease-out;
+      background-color: #334155;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      &:hover {
+        opacity: 100%;
+        background-color: lighten($color: #253449, $amount: 10);
+        svg {
+          stroke: white;
+        }
+      }
+
       svg {
-        stroke: white;
+        height: 1.4rem;
       }
     }
 
-    svg {
-      height: 1rem;
-    }
+    .close-icon-menu-container {
+      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+        drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+      // top: 0;
+      // right: 0;
+      opacity: 60%;
+      width: 3rem;
 
-    svg:nth-of-type(1) {
-      top: 1rem;
-      left: 0.3rem;
-      position: absolute;
+      height: 3rem;
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      // transition: all 0.5s ease-out;
+      background-color: #334155;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      &:hover {
+        opacity: 100%;
+        background-color: lighten($color: #253449, $amount: 10);
+        svg {
+          stroke: white;
+        }
+      }
+
+      svg {
+        height: 1rem;
+      }
+
+      svg:nth-of-type(1) {
+        top: 1rem;
+        left: 0.3rem;
+        position: absolute;
+      }
     }
+  }
+
+  .phase-information-container {
+    padding-top: 1.4rem;
   }
 
   .add-task-form-container {
     width: 100%;
     // height: 3rem;
-    margin-top: 2.2rem;
+    margin-top: 1rem;
     // background-color: yellow;
     position: relative;
-    input {
-      transition: all 0.5s ease-out;
-      -webkit-appearance: none;
-      outline: none;
-      border: none;
 
-      padding: 0.5rem 1rem;
+    form {
+      label {
+        width: fit-content;
+        font-size: 0.8rem;
+      }
+      input {
+        transition: all 0.5s ease-out;
+        -webkit-appearance: none;
+        outline: none;
+        border: none;
 
-      background-color: #334155;
-      // background-color: #64748b;
-      margin-bottom: 1rem;
+        padding: 0.5rem 3rem 0.5rem 1rem;
 
-      width: 100%;
-      height: 2.4rem;
-      border-radius: 2rem;
-      color: #0f172a;
-      font-size: 0.9rem;
+        background-color: #334155;
+        // background-color: #64748b;
+        margin-bottom: 1rem;
 
-      &::placeholder {
+        width: 100%;
+        height: 2.4rem;
+        border-radius: 2rem;
+        color: #0f172a;
         font-size: 0.9rem;
+
+        &::placeholder {
+          font-size: 0.9rem;
+          color: #475569;
+        }
+
+        &:focus,
+        :hover {
+          background-color: #cbd5e1;
+        }
+      }
+
+      input[type="date"] {
+        // background-color: red;
+
         color: #475569;
+
+        // &::-webkit-calendar-picker-indicator {
+        //   filter: invert(0.8);
+        // }
       }
 
-      &:focus,
-      :hover {
-        background-color: #cbd5e1;
-      }
-    }
-
-    input[type="date"] {
-      // background-color: red;
-
-      color: #475569;
-
-      // &::-webkit-calendar-picker-indicator {
-      //   filter: invert(0.8);
-      // }
-    }
-
-    button {
-      position: absolute;
-      top: 0.2rem;
-      right: 0.2rem;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 2rem;
-      background-color: #475569;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      svg {
-        transform: rotate(90deg);
-        height: 1rem;
-        stroke: #94a3b8;
-      }
-      &:hover {
-        background-color: #ca8a04;
+      button {
+        position: absolute;
+        top: 1.7rem;
+        right: 0.2rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 2rem;
+        background-color: #475569;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         svg {
-          stroke: white;
+          transform: rotate(90deg);
+          height: 1rem;
+          stroke: #94a3b8;
+        }
+        &:hover {
+          background-color: #ca8a04;
+          svg {
+            stroke: white;
+          }
         }
       }
     }
@@ -157,7 +209,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    transition: all 0.5s ease-out;
+    // transition: all 0.5s ease-out;
     background-color: #334155;
     margin-bottom: 0.5rem;
     cursor: pointer;
@@ -336,7 +388,7 @@
     align-items: center;
 
     .task-content-container {
-      margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
       border-radius: 1rem;
       border: 1px solid transparent;
       transition: all 0.5s ease-out;

@@ -20,9 +20,9 @@ const WorkshopProjectSidebar = () => {
 
   const [form, setForm] = useState({
     user: auth._id,
-    projectId,
+    projectId: uuidv4(),
     projectName: "",
-    dateOfDeadline: "" || new Date(),
+    dateOfDeadline: new Date().toISOString(),
   });
 
   const linkHandler = (project) => {

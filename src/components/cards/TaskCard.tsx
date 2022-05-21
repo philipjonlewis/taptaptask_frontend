@@ -126,12 +126,13 @@ const TaskCard = ({ taskObject }) => {
       <div className="task-list-container">
         {localTaskList.map(({ _id, taskContent, isCompleted }) => {
           return (
-            <Taskette
-              key={_id}
-              _id={_id}
-              taskContent={taskContent}
-              isCompleted={isCompleted}
-            />
+            <>
+              <Taskette
+                _id={_id}
+                taskContent={taskContent}
+                isCompleted={isCompleted}
+              />
+            </>
           );
         })}
       </div>

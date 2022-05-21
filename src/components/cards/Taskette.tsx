@@ -6,6 +6,7 @@ const Taskette = ({ _id, taskContent, isCompleted }) => {
 
   return (
     <div
+      key={_id}
       className={
         isLocalCompleted
           ? "task-content-container completed-task"
