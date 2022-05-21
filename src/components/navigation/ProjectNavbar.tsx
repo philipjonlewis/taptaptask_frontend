@@ -3,22 +3,41 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setActivePhase } from "../../redux/activePhaseState";
+import { v4 as uuidv4 } from "uuid";
+import { postRequest } from "../../helpers/postRequest";
+import { addPhase } from "../../redux/phaseListState";
 // import { mockPhaseList } from "../../redux/mockdata/phases";
 const ProjectNavbar = () => {
   const [activeTab, setActiveTab] = useState("hello");
   const dispatch = useDispatch();
 
   const {
+    auth,
     activeProject: { projectId, projectName, projectDescription },
     phaseList,
     activePhase,
   } = useSelector((state) => state);
-  console.log(activePhase);
-  const projectPhases = phaseList.filter(
+
+  const filteredProjectPhases = phaseList.filter(
     (phase) => phase.projectReferenceId == projectId
   );
 
+  const [phaseForm, setPhaseForm] = useState({
+    user: auth._id,
+    projectReferenceId: projectId,
+    phaseId: uuidv4(),
+    phaseName: "",
+  });
   //Must have a use effect that removes the current phase as the active phase whenever it unmounts
+
+  const submitPhaseFormHandler = (e) => {
+    e.preventDefault();
+    dispatch(addPhase(phaseForm));
+    postRequest(phaseForm, "http://192.168.0.22:4000/phases");
+    setPhaseForm((state) => {
+      return { ...state, phaseId: uuidv4(), phaseName: "" };
+    });
+  };
 
   const activePhaseHandler = (phase) => {
     dispatch(setActivePhase(phase));
@@ -28,7 +47,6 @@ const ProjectNavbar = () => {
     dispatch(
       setActivePhase({
         phaseId: "",
-
         phaseName: "",
       })
     );
@@ -64,8 +82,17 @@ const ProjectNavbar = () => {
 
       <div className="add-phase-container">
         <form action="#">
-          <input type="text" placeholder="Add Phase" />
-          <button>
+          <input
+            type="text"
+            placeholder="Add Phase"
+            value={phaseForm.phaseName}
+            onChange={(e) => {
+              setPhaseForm((state) => {
+                return { ...state, phaseName: e.target.value };
+              });
+            }}
+          />
+          <button onClick={submitPhaseFormHandler}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -89,8 +116,8 @@ const ProjectNavbar = () => {
           <p>Project Phases</p>
         </div> */}
         <div className="phase-link-container">
-          {projectPhases.length >= 1 &&
-            projectPhases.map((phase) => {
+          {filteredProjectPhases.length >= 1 &&
+            filteredProjectPhases.map((phase) => {
               return (
                 <Link
                   className={

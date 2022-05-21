@@ -87,7 +87,7 @@ const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
                 const taskId = uuidv4();
                 const newTask = { ...taskForm, taskId };
 
-                postRequest(newTask);
+                postRequest(newTask, "http://192.168.0.22:4000/tasks");
 
                 setLocalTaskList((state) => {
                   return [newTask, ...state];

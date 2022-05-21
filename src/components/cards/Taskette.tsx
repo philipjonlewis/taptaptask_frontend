@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { patchRequest } from "../../helpers/patchRequest";
 
 const Taskette = ({ _id, taskContent, isCompleted }) => {
   const [isLocalCompleted, setIsLocalCompleted] = useState(isCompleted);
@@ -18,7 +19,10 @@ const Taskette = ({ _id, taskContent, isCompleted }) => {
               ? "checkbox-container completed-checkbox"
               : "checkbox-container"
           }
-          onClick={() => setIsLocalCompleted(!isLocalCompleted)}
+          onClick={() => {
+            setIsLocalCompleted(!isLocalCompleted);
+            patchRequest({ _id: _id, isCompleted: !isLocalCompleted });
+          }}
         >
           {isLocalCompleted ? (
             <svg

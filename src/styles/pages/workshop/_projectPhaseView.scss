@@ -182,7 +182,7 @@
 
     .task-content-container {
       margin-bottom: 0.5rem;
-      border-radius: 0.5rem;
+      border-radius: 1rem;
       border: 1px solid transparent;
       transition: all 0.5s ease-out;
       padding: 0.5rem;
@@ -278,7 +278,7 @@
       border: 0.5px solid #21956c;
 
       p {
-        color: lighten($color: #264644, $amount: 30);
+        color: lighten($color: #264644, $amount: 40);
         text-decoration: str;
         // text-decoration: line-through;
       }

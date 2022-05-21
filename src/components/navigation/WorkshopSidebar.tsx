@@ -2,19 +2,28 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveProject } from "../../redux/activeProjectState";
-import { fetchProjectList } from "../../redux/projectListState";
+import { addProject, fetchProjectList } from "../../redux/projectListState";
 import { fetchPhaseList } from "../../redux/phaseListState";
 
 import { fetchTaskList } from "../../redux/taskListState";
 import { setActivePhase } from "../../redux/activePhaseState";
+import { postRequest } from "../../helpers/postRequest";
+import { v4 as uuidv4 } from "uuid";
 
 const WorkshopProjectSidebar = () => {
-  const [sidebarVisibility, setSidebarVisibility] = useState(true);
-  const [addProjectForm, setAddProjectForm] = useState(false);
-
-  const { projectList } = useSelector((state) => state);
-
+  const { auth, projectList } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  let projectId = uuidv4();
+
+  const [sidebarVisibility, setSidebarVisibility] = useState(true);
+
+  const [form, setForm] = useState({
+    user: auth._id,
+    projectId,
+    projectName: "",
+    dateOfDeadline: "" || new Date(),
+  });
 
   const linkHandler = (project) => {
     // Clean active phase whenever changing project
@@ -30,6 +39,16 @@ const WorkshopProjectSidebar = () => {
     // already fetch the phases?
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    postRequest(form, "http://192.168.0.22:4000/projects");
+    dispatch(addProject(form));
+
+    setForm((state) => {
+      return { ...state, projectName: "", projectId: uuidv4() };
+    });
+  };
+
   useEffect(() => {
     // Promise.all([
     //   fetch("http://localhost:4000/projects"),
@@ -40,7 +59,7 @@ const WorkshopProjectSidebar = () => {
     //   dispatch(fetchPhaseList(phases));
     //   dispatch(fetchTaskList(tasks));
     // });
-    console.log("hello");
+
     fetch("http://192.168.0.22:4000/projects")
       .then((res) => {
         return res.json();
@@ -192,8 +211,14 @@ const WorkshopProjectSidebar = () => {
                 autoCorrect="false"
                 spellCheck="false"
                 required
+                value={form.projectName}
+                onChange={(e) => {
+                  setForm((state) => {
+                    return { ...state, projectName: e.target.value };
+                  });
+                }}
               />
-              <button>
+              <button onClick={handleFormSubmit}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"

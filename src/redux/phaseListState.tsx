@@ -6,7 +6,7 @@ export const phaseListSlice = createSlice({
   initialState: mockPhaseList,
   reducers: {
     addPhase: (state, actions) => {
-      console.log(state);
+    
 
       return [...state, actions.payload];
     },

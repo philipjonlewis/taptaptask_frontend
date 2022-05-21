@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const postRequest = async (formContent, url) => {
+export const patchRequest = async (formContent: any) => {
   axios
-    .post(url, await formContent)
+    .patch("http://192.168.0.22:4000/tasks/edit", await formContent)
     .then(function (response) {
       console.log(response);
     })
@@ -10,5 +10,3 @@ export const postRequest = async (formContent, url) => {
       console.log(error);
     });
 };
-
-// .post("http://192.168.0.22:4000/tasks", await formContent)
