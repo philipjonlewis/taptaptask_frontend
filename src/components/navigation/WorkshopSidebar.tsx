@@ -74,13 +74,13 @@ const WorkshopProjectSidebar = () => {
       .then((dat) => {
         dispatch(fetchPhaseList(dat));
       });
-    fetch("http://192.168.0.22:4000/tasks")
-      .then((res) => {
-        return res.json();
-      })
-      .then((dat) => {
-        dispatch(fetchTaskList(dat));
-      });
+    // fetch("http://192.168.0.22:4000/tasks")
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((dat) => {
+    //     dispatch(fetchTaskList(dat));
+    //   });
 
     return () => {
       // removes the active project right after unmounting

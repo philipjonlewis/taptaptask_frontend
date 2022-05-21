@@ -7,19 +7,115 @@
   height: calc(100vh - 8rem);
   width: calc(100vw - 20rem);
   //   width: 90%;
-  overflow-y: scroll;
+  overflow-x: none;
   //   margin: 1rem;
-  z-index: 1;
+  // z-index: 1;
   padding: 1rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-.task-list-container {
+.phase-menu-container {
   position: relative;
-  min-width: 100%;
+  height: 100%;
+  min-width: 300px;
+  max-width: 300px;
+  margin-right: 1rem;
+  background-color: darken($color: #253449, $amount: 1);
+  border-radius: 1rem;
+  padding: 0.5rem;
+
+  .close-icon-menu-container {
+    position: relative;
+    // top: 0;
+    // right: 0;
+    opacity: 60%;
+    width: 3rem;
+    margin-left: auto;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-out;
+    background-color: #334155;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      opacity: 100%;
+      background-color: lighten($color: #253449, $amount: 10);
+      svg {
+        stroke: white;
+      }
+    }
+
+    svg {
+      height: 1rem;
+    }
+
+    svg:nth-of-type(1) {
+      top: 1rem;
+      left: 0.3rem;
+      position: absolute;
+    }
+  }
+
+  .add-task-form-container {
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.phase-menu-container-small {
+  min-width: 4rem;
+  padding: 0.5rem;
+  height: 100%;
+  margin-right: 1rem;
+  background-color: darken($color: #253449, $amount: 1);
+  border-radius: 1rem;
+
+  .open-menu-icon-container {
+    position: relative;
+    opacity: 60%;
+    min-width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-out;
+    background-color: #334155;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      opacity: 100%;
+      background-color: lighten($color: #253449, $amount: 10);
+      svg {
+        stroke: white;
+      }
+    }
+
+    svg {
+      height: 1rem;
+    }
+
+    svg:nth-of-type(2) {
+      top: 1rem;
+      right: 0.3rem;
+      position: absolute;
+    }
+  }
+}
+
+.task-card-container {
+  position: relative;
+  width: 100%;
   height: 100%;
   // background-color: yellow;
   //   padding: 1rem;
@@ -27,13 +123,12 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: auto;
 
   height: 100%;
 
   overflow-x: scroll;
-  overflow-y: hidden;
-  //   z-index: 500;
+
+  // z-index: 500;
 }
 
 .task-date-container {
@@ -46,11 +141,11 @@
   transition: all 0.5s ease-out;
   // background-color: red;
 
-  //   background-color: red;
+  // background-color: red;
   //   min-width: 300px;
   //   max-width: 300px;
 
-  width: 300px;
+  min-width: 300px;
 
   height: 100%;
   //   z-index: -5;
@@ -165,13 +260,7 @@
       }
     }
 
-    .active-add-task {
-      background-color: lighten($color: #253449, $amount: 10);
-      border: 1px solid lighten($color: #253449, $amount: 20);
-      svg {
-        transform: rotate(45deg);
-      }
-    }
+ 
   }
 
   .task-list-container {

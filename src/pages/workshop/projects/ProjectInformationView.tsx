@@ -24,14 +24,16 @@ const ProjectInformation = () => {
 
   useEffect(() => {
     fetch(
-      `http://192.168.0.22:4000/aggregate/tasks/count/${projectId}?isLapsed=true`
+      `http://192.168.0.22:4000/aggregate/tasks/lapsed/${projectId}/phase-001-001`
     )
       .then((res) => {
         return res.json();
       })
       .then((dat) => {
+        console.log("chennelorn");
+        console.log("hello", dat);
         setTaskData((state) => {
-          return { ...state, lapsed: dat[0]?.taskContent || 0 };
+          return { ...state, lapsed: dat.length || 0 };
         });
       });
 
@@ -48,7 +50,7 @@ const ProjectInformation = () => {
       });
 
     fetch(
-      `http://192.168.0.22:4000/aggregate/tasks/count/${projectId}?isOngoing=true`
+      `http://192.168.0.22:4000/aggregate/tasks/count/${projectId}?isCompleted=false`
     )
       .then((res) => {
         return res.json();

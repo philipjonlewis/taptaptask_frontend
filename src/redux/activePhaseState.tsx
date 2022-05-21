@@ -12,7 +12,7 @@ export const activePhaseSlice = createSlice({
   reducers: {
     setActivePhase: (state, actions) => {
       // Make api call to phases api using id to populate tasks under it
-      console.log(actions.payload);
+      // console.log(actions.payload);
       return actions.payload;
     },
   },

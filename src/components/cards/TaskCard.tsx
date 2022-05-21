@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import Taskette from "./Taskette";
 import axios from "axios";
 import { postRequest } from "../../helpers/postRequest";
-const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
+const TaskCard = ({ taskObject }) => {
   const { _id, taskContent } = taskObject;
 
   const {
@@ -28,11 +28,18 @@ const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
   });
 
   useEffect(() => {
-    const newList = [...taskContent].reverse();
-    setLocalTaskList(newList);
+    console.log(taskObject);
 
-    // console.log("local", localTaskList);
-  }, []);
+    setLocalTaskList(taskObject.taskContent.reverse());
+  }, [taskObject]);
+
+  // return (
+  //   <>
+  //     {localTaskList.map((task) => {
+  //       console.log(task);
+  //     })}
+  //   </>
+  // );
 
   return (
     <div className="task-date-container">
@@ -61,6 +68,7 @@ const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
             addSuffix: true,
           })}
         </p>
+
         <div className="new-task-container">
           <form action="#">
             <input
@@ -77,11 +85,7 @@ const TaskCard = ({ taskObject, activeAddForm, activeAddFormhandler }) => {
               }}
             />
             <button
-              className={
-                activeAddForm == _id
-                  ? "new-task-button-container active-add-task"
-                  : "new-task-button-container"
-              }
+              className="new-task-button-container"
               onClick={(e) => {
                 e.preventDefault();
                 const taskId = uuidv4();

@@ -7,7 +7,7 @@ import TaskCard from "./cards/TaskCard";
 import AddDataContainerForm from "./forms/AddDataContainerForm";
 import ProjectsDashboardGanttChart from "./visualization/ProjectsDashboardGanttChart";
 import Taskette from "./cards/Taskette";
-
+import PhaseMenuSidebar from "./navigation/PhaseMenuSidebar";
 export {
   LandingNavBar,
   ProjectNavbar,
@@ -18,4 +18,5 @@ export {
   AddDataContainerForm,
   ProjectsDashboardGanttChart,
   Taskette,
+  PhaseMenuSidebar,
 };
