@@ -28,8 +28,6 @@ const TaskCard = ({ taskObject }) => {
   });
 
   useEffect(() => {
-    console.log(taskObject);
-
     setLocalTaskList(taskObject.taskContent.reverse());
   }, [taskObject]);
 

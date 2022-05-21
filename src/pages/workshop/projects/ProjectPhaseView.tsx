@@ -41,8 +41,6 @@ const ProjectPhaseView = () => {
         <div className="task-card-container ">
           {fetchedTaskList.length >= 1 &&
             fetchedTaskList.map((taskObject) => {
-              console.log("this is the loop producing task cards");
-              console.log(taskObject);
               return (
                 <div key={taskObject._id}>
                   <TaskCard taskObject={taskObject} />
