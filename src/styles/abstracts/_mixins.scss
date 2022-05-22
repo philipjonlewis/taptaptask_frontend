@@ -1,1 +1,38 @@
 @use "../base";
+
+@mixin d-flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin dims($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin dims-set($width, $height) {
+  min-width: $width;
+  max-width: $width;
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin dims-width-set($width) {
+  min-width: $width;
+  max-width: $width;
+}
+
+@mixin dims-height-set($height) {
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin sidebar-shadow() {
+  box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+@mixin border($direction, $color) {
+  border-#{$direction}: 1px solid $color;
+}
