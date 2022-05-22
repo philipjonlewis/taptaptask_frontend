@@ -8,6 +8,7 @@
   // width: calc(100vw - 20rem);
   width: 100%;
   overflow-x: scroll;
+
   //   margin: 1rem;
   // z-index: 1;
   padding: 1rem;
@@ -238,21 +239,23 @@
   position: relative;
   width: 100%;
   height: 100%;
-
+  // background-color: yellow;
   padding-right: 20rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-
+  // background-color: blue;
   height: 100%;
 
   overflow-x: scroll;
+  overflow-y: hidden;
 
+  // background-color: red;
   // @media (max-width: 1366px) {
   //   width: 100%;
   //   // padding-right: 1rem;
-  //   background-color: red;
+  // background-color: red;
   // }
 
   // z-index: 500;
@@ -274,7 +277,7 @@
 
   min-width: 300px;
 
-  height: 100%;
+  height: 30%;
   //   z-index: -5;
 
   &:hover {
@@ -393,14 +396,18 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
+    // background-color: rebeccapurple;
+    // padding-bottom: 100px;
+    max-height: 630px;
+    overflow-y: scroll;
+    scrollbar-color: white;
     .task-content-container {
       margin-top: 0.5rem;
       border-radius: 1rem;
       border: 1px solid transparent;
       transition: all 0.5s ease-out;
       padding: 0.5rem;
-      height: 100px;
+      min-height: 100px;
       width: 100%;
       background-color: lighten($color: #253449, $amount: 1);
       cursor: pointer;

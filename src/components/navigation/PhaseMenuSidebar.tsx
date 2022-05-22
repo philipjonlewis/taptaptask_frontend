@@ -213,12 +213,7 @@ const PhaseMenuSidebar = ({ fetchedTaskList, setFetchedTaskList }) => {
         </div>
       ) : (
         <div className="phase-menu-container-small">
-          <div
-            className="open-menu-icon-container"
-            onClick={() => {
-              setIsMenuOpen(!isMenuOpen);
-            }}
-          >
+          <div className="open-menu-icon-container" onClick={openMenuHandler}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
