@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { patchRequest } from "../../helpers/patchRequest";
 
-const Taskette = ({ _id, taskContent, isCompleted }) => {
-  const [isLocalCompleted, setIsLocalCompleted] = useState(isCompleted);
+const Taskette = ({ taskObject }) => {
+  const { _id, taskContent, isCompleted } = taskObject;
+  const [isLocalCompleted, setIsLocalCompleted] = useState(
+    taskObject.isCompleted
+  );
 
   return (
     <div
@@ -21,8 +24,10 @@ const Taskette = ({ _id, taskContent, isCompleted }) => {
               : "checkbox-container"
           }
           onClick={() => {
-            setIsLocalCompleted(!isLocalCompleted);
             patchRequest({ _id: _id, isCompleted: !isLocalCompleted });
+            setIsLocalCompleted(() => {
+              return !isLocalCompleted;
+            });
           }}
         >
           {isLocalCompleted ? (

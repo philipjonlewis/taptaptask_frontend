@@ -5,12 +5,13 @@
   background-color: #253449;
   color: #ffffff;
   height: calc(100vh - 8rem);
-  width: calc(100vw - 20rem);
-  //   width: 90%;
-  overflow-x: none;
+  // width: calc(100vw - 20rem);
+  width: 100%;
+  overflow-x: scroll;
   //   margin: 1rem;
   // z-index: 1;
   padding: 1rem;
+  // padding-right: 20rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -237,8 +238,8 @@
   position: relative;
   width: 100%;
   height: 100%;
-  // background-color: yellow;
-  //   padding: 1rem;
+
+  padding-right: 20rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -247,6 +248,12 @@
   height: 100%;
 
   overflow-x: scroll;
+
+  // @media (max-width: 1366px) {
+  //   width: 100%;
+  //   // padding-right: 1rem;
+  //   background-color: red;
+  // }
 
   // z-index: 500;
 }

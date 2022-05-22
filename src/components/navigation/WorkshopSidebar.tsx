@@ -9,7 +9,7 @@ import { fetchTaskList } from "../../redux/taskListState";
 import { setActivePhase } from "../../redux/activePhaseState";
 import { postRequest } from "../../helpers/postRequest";
 import { v4 as uuidv4 } from "uuid";
-
+import format from "date-fns/format";
 const WorkshopProjectSidebar = () => {
   const { auth, projectList } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const WorkshopProjectSidebar = () => {
     user: auth._id,
     projectId: uuidv4(),
     projectName: "",
-    dateOfDeadline: new Date().toISOString(),
+    dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
   });
 
   const linkHandler = (project) => {
@@ -87,15 +87,42 @@ const WorkshopProjectSidebar = () => {
     };
   }, []);
 
+  const sidebarHandler = () => {
+    setSidebarVisibility(!sidebarVisibility);
+  };
+
   return (
     <>
-      {sidebarVisibility && (
+      {sidebarVisibility ? (
         <div className="workshop-sidebar">
           <div className="upper-container">
-            <NavLink to={"/"}>
-              <img src="/datetask_logo.png" alt="" />
-              <p>datetask</p>
-            </NavLink>
+            <div className="first-upper">
+              <div className="logo-container">
+                <NavLink to={"/"}>
+                  <img src="/datetask_logo.png" alt="" />
+                  <p>datetask</p>
+                </NavLink>
+              </div>
+              <div
+                className="minimize-sidebar-container"
+                onClick={sidebarHandler}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                  />
+                </svg>
+              </div>
+            </div>
             <div className="profile-container">
               <img
                 className="profile-picture"
@@ -264,6 +291,25 @@ const WorkshopProjectSidebar = () => {
                 </NavLink>
               );
             })}
+          </div>
+        </div>
+      ) : (
+        <div className="workshop-sidbar-small">
+          <div className="maximize-sidebar-container" onClick={sidebarHandler}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13 5l7 7-7 7M5 5l7 7-7 7"
+              />
+            </svg>
           </div>
         </div>
       )}

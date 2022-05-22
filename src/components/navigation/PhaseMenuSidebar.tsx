@@ -18,7 +18,7 @@ const PhaseMenuSidebar = ({ fetchedTaskList, setFetchedTaskList }) => {
     projectReferenceId: activeProject.projectId,
     phaseReferenceId: activePhase.phaseId,
     taskContent: "",
-    dateOfDeadline: new Date(),
+    dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
     isCompleted: false,
   });
 
@@ -44,6 +44,10 @@ const PhaseMenuSidebar = ({ fetchedTaskList, setFetchedTaskList }) => {
 
   const submitTaskFormHandler = (e) => {
     e.preventDefault();
+
+    if (taskFormContent.taskContent.length <= 0) {
+      return;
+    }
 
     postRequest(taskFormContent, "http://192.168.0.22:4000/tasks");
 
@@ -101,7 +105,7 @@ const PhaseMenuSidebar = ({ fetchedTaskList, setFetchedTaskList }) => {
       return {
         ...state,
         taskContent: "",
-        dateOfDeadline: new Date(),
+        dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
         taskId: uuidv4(),
       };
     });

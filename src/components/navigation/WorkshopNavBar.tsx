@@ -33,7 +33,7 @@ const WorkshopNavBar = () => {
       </div> */}
 
       <div className="right-nav-container">
-        <div className="right-nav-container alert-container">
+        <div className="right-nav-icon alert-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -50,7 +50,7 @@ const WorkshopNavBar = () => {
           </svg>
         </div>
 
-        <div className="right-nav-container message-container">
+        <div className="right-nav-icon message-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -67,7 +67,7 @@ const WorkshopNavBar = () => {
           </svg>
         </div>
 
-        <div className="right-nav-container help-container">
+        <div className="right-nav-icon help-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"

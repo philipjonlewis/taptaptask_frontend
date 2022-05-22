@@ -20,7 +20,7 @@ const TaskCard = ({ taskObject }) => {
 
   const [taskForm, setTaskForm] = useState({
     user: auth._id,
-    dateOfDeadline: _id,
+    dateOfDeadline: format(new Date(_id), "yyyy-MM-dd"),
     isCompleted: false,
     phaseReferenceId: phaseId,
     projectReferenceId: projectId,
@@ -28,7 +28,7 @@ const TaskCard = ({ taskObject }) => {
   });
 
   useEffect(() => {
-    setLocalTaskList(taskObject.taskContent.reverse());
+    setLocalTaskList([...taskObject.taskContent].reverse());
   }, [taskObject]);
 
   // return (
@@ -59,7 +59,7 @@ const TaskCard = ({ taskObject }) => {
         {/* <p>Deadline</p> */}
       </div>
       <div className="deadline-container">
-        <p className="date-format">{format(new Date(_id), "MMMM dd yyyy")}</p>
+        <p className="date-format">{format(new Date(_id), "LLL dd y")}</p>
         <p className="date-distance">
           deadline{" "}
           {formatDistanceToNow(new Date(_id), {
@@ -124,15 +124,11 @@ const TaskCard = ({ taskObject }) => {
       </div>
 
       <div className="task-list-container">
-        {localTaskList.map(({ _id, taskContent, isCompleted }) => {
+        {localTaskList.map((taskObject) => {
           return (
-            <>
-              <Taskette
-                _id={_id}
-                taskContent={taskContent}
-                isCompleted={isCompleted}
-              />
-            </>
+            <React.Fragment key={taskObject._id}>
+              <Taskette taskObject={taskObject} />
+            </React.Fragment>
           );
         })}
       </div>

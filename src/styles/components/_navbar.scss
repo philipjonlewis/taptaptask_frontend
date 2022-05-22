@@ -17,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
 
-  //   background-color: yellow;
+  // background-color: yellow;
   .logo-container {
     img {
       height: 4rem;
@@ -39,6 +39,7 @@
 
 .workshop-navbar {
   // border-bottom: 1px solid gray;
+
   height: 4rem;
   background-color: #1e293b;
   color: white;
@@ -48,6 +49,8 @@
   align-items: center;
   // background-color: red;
   padding: 0 1rem;
+  width: 100%;
+  // padding-right: 2rem;
 
   .left-nav-container {
     display: flex;
@@ -123,10 +126,14 @@
     display: flex;
     flex-direction: row;
     // background-color: blue;
+    position: absolute;
+    right: 1rem;
+    // padding-right: 10rem;
+    .right-nav-icon {
+      display: flex;
 
-    .right-nav-container {
       height: 100%;
-      // background-color: yellow;
+
       cursor: pointer;
       margin-left: 1rem;
     }

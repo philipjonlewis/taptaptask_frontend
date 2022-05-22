@@ -17,12 +17,12 @@ const ProjectInformation = () => {
     },
   } = useSelector((state) => state);
 
-  // const creationDate = format(new Date(createdAt), "MMMM dd yyyy");
+  // const creationDate = format(new Date(createdAt), "yyyy-MM-dd");
   // const daysSinceCreation = formatDistanceToNow(new Date(createdAt), {
   //   addSuffix: true,
   // });
 
-  // const deadlineDate = format(new Date(dateOfDeadline), "MMMM dd yyyy");
+  // const deadlineDate = format(new Date(dateOfDeadline), "yyyy-MM-dd");
   // const daysTillDeadline = formatDistanceToNow(new Date(dateOfDeadline), {
   //   addSuffix: true,
   // });
