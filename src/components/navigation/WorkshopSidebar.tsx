@@ -30,7 +30,6 @@ const WorkshopProjectSidebar = () => {
     dispatch(
       setActivePhase({
         phaseId: "",
-
         phaseName: "",
       })
     );
@@ -110,6 +109,46 @@ const WorkshopProjectSidebar = () => {
 
           {/* End of Upper Container */}
 
+          <div className="project-button-container">
+            <button className="button-reset pro-button-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="link-icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                />
+              </svg>
+              <div className="pro-icon">PRO</div>
+              <p>Manage</p>
+            </button>
+
+            <button className="button-reset pro-button-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="link-icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                />
+              </svg>
+              <div className="pro-icon">PRO</div>
+              <p>Templates</p>
+            </button>
+          </div>
+
           <NavLink to={"dashboard"} className="link-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -146,8 +185,21 @@ const WorkshopProjectSidebar = () => {
             <p>Projects</p>
           </NavLink>
 
-          <div className="project-button-container">
-            <button className="pro-button-container">
+          <form action="#" className="add-project-form-container">
+            <input
+              type="text"
+              placeholder="Add Project"
+              autoCorrect="false"
+              spellCheck="false"
+              required
+              value={form.projectName}
+              onChange={(e) => {
+                setForm((state) => {
+                  return { ...state, projectName: e.target.value };
+                });
+              }}
+            />
+            <button onClick={handleFormSubmit}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -159,66 +211,11 @@ const WorkshopProjectSidebar = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                  d="M12 4v16m8-8H4"
                 />
               </svg>
-              <div className="pro-icon">PRO</div>
-              <p>Manage Projects</p>
             </button>
-
-            <button className="pro-button-container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
-                />
-              </svg>
-              <div className="pro-icon">PRO</div>
-              <p>Templates</p>
-            </button>
-          </div>
-
-          <div className="add-project-form-container">
-            <form action="#">
-              <input
-                type="text"
-                placeholder="Add Project"
-                autoCorrect="false"
-                spellCheck="false"
-                required
-                value={form.projectName}
-                onChange={(e) => {
-                  setForm((state) => {
-                    return { ...state, projectName: e.target.value };
-                  });
-                }}
-              />
-              <button onClick={handleFormSubmit}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 4v16m8-8H4"
-                  />
-                </svg>
-              </button>
-            </form>
-          </div>
+          </form>
 
           <div className="project-list-container">
             {projectList.map((project) => {

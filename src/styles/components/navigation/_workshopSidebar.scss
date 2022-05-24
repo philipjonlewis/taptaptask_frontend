@@ -13,92 +13,63 @@
 
   .upper-container {
     @include d-flex(row, flex-start, flex-start);
-    // display: block;
-    height: 6rem;
-    width: 100%;
     @include border(bottom, lighten($primary, 10));
-
-    // background-color: red;
+    @include dims(100%, 6rem);
+    // background-color: yellow;
     .logo-container {
       @include d-flex(row, flex-start, center);
-      @include dims(100%, 50%);
-
-      //   background-color: blue;
+      @include dims(50%, 50%);
+      // background-color: rebeccapurple;
+      padding-left: 0.5rem;
       .icon-container {
         img {
-          height: 1.4rem;
+          height: $svg-icon;
         }
       }
       .title-container {
         margin-left: 0.5rem;
+
         // height: 2rem;
       }
     }
   }
 
   .link-container {
-    // background-color: red;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0.6rem 0;
-
-    font-size: 1rem;
+    @include d-flex(row, flex-start, center);
+    @include dims(100%, 2rem);
+    font-size: $fs-link;
+    padding-left: 0.5rem;
     margin-top: 0.5rem;
-    padding-left: 1rem;
 
     .link-icon {
-      height: 1.6rem;
-      padding-right: 0.8rem;
+      height: $svg-icon;
     }
 
-    a {
-      padding-right: 4rem;
+    p {
+      margin-left: 0.5rem;
     }
 
     &:hover {
-      background-color: $hover-bg;
-      border-radius: 2rem;
+      background-color: $hover-darkbg;
     }
   }
 
   .link-container.active {
-    background-color: $hover-bg;
-    border-radius: 2rem;
+    background-color: $active-darkbg;
   }
 
   .project-button-container {
-    display: flex;
-    border-bottom: 1px solid $hover-bg;
+    @include d-flex(row, space-around, flex-start);
+    @include dims(100%, 4rem);
+    font-size: $fs-link;
+    margin: 0.5rem 0;
     // background-color: yellow;
-    margin-bottom: 1rem;
-    padding: 0;
+
     .pro-button-container {
-      background: none;
-      color: inherit;
-      border: none;
-      padding: 0;
-      font: inherit;
-      cursor: pointer;
-      outline: inherit;
-      //
-      display: inline-block;
-      padding: 0.6rem 0;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      margin-top: 0.5rem;
-      width: 50%;
-      margin-left: auto;
+      @include dims(50%, 100%);
+      @include d-flex(column, center, center);
 
       position: relative;
-
-      cursor: pointer;
-
-      // border-right: 0.2px solid $hover-bg;
       opacity: 50%;
 
       &:hover {
@@ -106,77 +77,62 @@
         // background-color: rgb(226, 126, 90);
       }
 
-      svg {
-        height: 1.2rem;
-      }
-
-      p {
-        margin-top: 0.4rem;
+      .link-icon {
+        height: $svg-icon;
       }
 
       &:hover {
-        background-color: $hover-bg;
+        background-color: $hover-darkbg;
       }
 
       .pro-icon {
+        @include d-flex(column, center, center);
         position: absolute;
         top: 4px;
         right: 4px;
-
         padding: 2px 0.4rem;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
         border-radius: 1rem;
-
-        background-color: rgb(67, 67, 198);
-
-        font-size: 0.7rem;
+        background-color: $accent-01;
+        font-size: $fs-pro;
       }
-    }
-
-    .pro-button-container:nth-of-type(1) {
-      border-right: 0.2px solid $hover-bg;
     }
   }
 
   .add-project-form-container {
-    width: 100%;
-    height: 3rem;
+    @include dims(100%, 3rem);
     // background-color: yellow;
     position: relative;
-
+    margin: 1rem 0;
     input {
-      padding: 0.5rem 1rem;
+      @include dims(100%, 100%);
+      @include border(bottom, lighten($primary, 10));
+      padding: 0.5rem;
 
-      background-color: #1e293b;
+      // background-color: $hover-darkbg;
+      background-color: transparent;
 
-      width: 100%;
-      height: 2.4rem;
-      border-radius: 2rem;
-      color: #0f172a;
+      // border-radius: 2rem;
+      color: white;
       font-size: 0.9rem;
+
       &::placeholder {
-        font-size: 0.9rem;
-        color: #475569;
+        // font-size: 0.9rem;
+        color: $input-placeholder;
       }
 
       &:focus,
       :hover {
-        background-color: #cbd5e1;
+        background-color: $input-focus;
       }
     }
 
     button {
       position: absolute;
-      top: 0.2rem;
-      right: 0.2rem;
+      top: 0.5rem;
+      right: 0.5rem;
       width: 2rem;
       height: 2rem;
-      border-radius: 2rem;
+      border-radius: .6rem;
       background-color: #475569;
       display: flex;
       flex-direction: column;
