@@ -1,26 +1,44 @@
 @use "../../abstracts/" as *;
 @use "../../base/" as *;
 
+.add-project-modal {
+  @include d-flex(column, center, center);
+  position: absolute;
+  z-index: 500;
+
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  .modal-form-container {
+    z-index: 200;
+    opacity: 100%;
+    width: 1200px;
+    height: 600px;
+    background-color: $hover-darkbg;
+  }
+}
+
 .workshop-sidebar {
   @include d-flex(column, flex-start, flex-start);
   @include dims-set(16rem, 100%);
   @include sidebar-shadow();
 
   z-index: 10;
-  padding: 1rem;
+  // padding: 1rem;
   background-color: $primary;
   color: white;
 
   .upper-container {
     @include d-flex(row, flex-start, flex-start);
-    @include border(bottom, lighten($primary, 10));
-    @include dims(100%, 6rem);
-    // background-color: yellow;
+    // @include border(bottom, lighten($primary, 10));
+    @include dims(100%, 4rem);
+    position: relative;
+    padding: 0.5rem;
+
     .logo-container {
       @include d-flex(row, flex-start, center);
-      @include dims(50%, 50%);
-      // background-color: rebeccapurple;
-      padding-left: 0.5rem;
+      height: 2rem;
+
       .icon-container {
         img {
           height: $svg-icon;
@@ -28,21 +46,26 @@
       }
       .title-container {
         margin-left: 0.5rem;
-
-        // height: 2rem;
       }
+    }
+
+    .minimize-icon-container {
+      @include small-icon-container;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
     }
   }
 
-  .link-container {
+  .sidebar-link-container {
     @include d-flex(row, flex-start, center);
     @include dims(100%, 2rem);
     font-size: $fs-link;
     padding-left: 0.5rem;
-    margin-top: 0.5rem;
-
+    position: relative;
+    margin-bottom: 0.5rem;
     .link-icon {
-      height: $svg-icon;
+      height: $link-icon;
     }
 
     p {
@@ -54,129 +77,201 @@
     }
   }
 
-  .link-container.active {
-    background-color: $active-darkbg;
-  }
+  // .sidebar-link-container:not(:nth-of-type(1)) {
+  //   margin-top: 0.5rem;
+  // }
 
-  .project-button-container {
-    @include d-flex(row, space-around, flex-start);
+  .sidebar-hotlinks-container {
+    @include d-flex(row, space-between, center);
     @include dims(100%, 4rem);
+    @include border(bottom, lighten($primary, 10));
+    @include border(top, lighten($primary, 10));
     font-size: $fs-link;
-    margin: 0.5rem 0;
+    padding: 0.5rem;
+    position: relative;
+
+    .link-icon {
+      height: $link-icon;
+    }
+
     // background-color: yellow;
+    // &:hover {
+    //   background-color: $hover-darkbg;
+    // }
 
-    .pro-button-container {
-      @include dims(50%, 100%);
+    .hotlink-icon-container {
       @include d-flex(column, center, center);
+      @include dims(7.2rem, 3rem);
+      cursor: pointer;
 
-      position: relative;
-      opacity: 50%;
+      border-radius: $icon-radius;
+      background-color: $icon-bg;
+      p {
+        padding-top: 0.2rem;
+        font-size: 0.8rem;
 
-      &:hover {
-        opacity: 100%;
-        // background-color: rgb(226, 126, 90);
+        width: 100%;
+        text-align: center;
       }
 
-      .link-icon {
+      svg {
         height: $svg-icon;
       }
 
       &:hover {
-        background-color: $hover-darkbg;
-      }
-
-      .pro-icon {
-        @include d-flex(column, center, center);
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        padding: 2px 0.4rem;
-        border-radius: 1rem;
+        background-color: $icon-hover;
         background-color: $accent-01;
-        font-size: $fs-pro;
+        border: 1px solid lighten($primary, 50);
       }
     }
   }
 
-  .add-project-form-container {
-    @include dims(100%, 3rem);
-    // background-color: yellow;
-    position: relative;
-    margin: 1rem 0;
-    input {
-      @include dims(100%, 100%);
-      @include border(bottom, lighten($primary, 10));
-      padding: 0.5rem;
-
-      // background-color: $hover-darkbg;
-      background-color: transparent;
-
-      // border-radius: 2rem;
-      color: white;
-      font-size: 0.9rem;
-
-      &::placeholder {
-        // font-size: 0.9rem;
-        color: $input-placeholder;
-      }
-
-      &:focus,
-      :hover {
-        background-color: $input-focus;
-      }
-    }
-
-    button {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      width: 2rem;
-      height: 2rem;
-      border-radius: .6rem;
-      background-color: #475569;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      svg {
-        transform: rotate(90deg);
-        height: 1rem;
-        stroke: #94a3b8;
-      }
-      &:hover {
-        background-color: #ca8a04;
-        svg {
-          stroke: white;
-        }
-      }
-    }
+  .sidebar-link-container.active {
+    background-color: $active-darkbg;
+    // border-left: 2px solid lighten($primary, 80);
+    // @include border(bottom, lighten($primary, 50));
   }
+
+  // .pro-buttons-container {
+  //   @include d-flex(row, space-around, flex-start);
+  //   @include dims(100%, 4rem);
+  //   font-size: $fs-link;
+  //   // margin: 0.5rem 0;
+  //   // background-color: yellow;
+
+  //   .pro-button-container {
+  //     @include dims(50%, 100%);
+  //     @include d-flex(column, center, center);
+
+  //     position: relative;
+  //     opacity: 50%;
+
+  //     &:hover {
+  //       opacity: 100%;
+  //       // background-color: rgb(226, 126, 90);
+  //     }
+
+  //     .link-icon {
+  //       height: $svg-icon;
+  //     }
+
+  //     &:hover {
+  //       background-color: $hover-darkbg;
+  //     }
+
+  //     .pro-icon {
+  //       @include d-flex(column, center, center);
+  //       position: absolute;
+  //       top: 4px;
+  //       right: 4px;
+  //       padding: 2px 0.4rem;
+  //       border-radius: 1rem;
+  //       background-color: $accent-01;
+  //       font-size: $fs-pro;
+  //     }
+  //   }
+  // }
+
+  // .add-project-form-container {
+  //   @include dims(100%, 3rem);
+  //   // background-color: yellow;
+  //   position: relative;
+  //   margin: 1rem 0;
+  //   input {
+  //     @include dims(100%, 100%);
+  //     @include border(bottom, lighten($primary, 10));
+  //     padding: 0.5rem;
+
+  //     // background-color: $hover-darkbg;
+  //     background-color: transparent;
+
+  //     // border-radius: 2rem;
+  //     color: white;
+  //     font-size: 0.9rem;
+
+  //     &::placeholder {
+  //       // font-size: 0.9rem;
+  //       color: $input-placeholder;
+  //     }
+
+  //     &:focus,
+  //     :hover {
+  //       background-color: $input-focus;
+  //     }
+  //   }
+
+  //   button {
+  //     position: absolute;
+  //     top: 0.5rem;
+  //     right: 0.5rem;
+  //     width: 2rem;
+  //     height: 2rem;
+  //     border-radius: 0.6rem;
+  //     background-color: #475569;
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: center;
+  //     align-items: center;
+  //     svg {
+  //       transform: rotate(90deg);
+  //       height: 1rem;
+  //       stroke: #94a3b8;
+  //     }
+  //     &:hover {
+  //       background-color: #ca8a04;
+  //       svg {
+  //         stroke: white;
+  //       }
+  //     }
+  //   }
+  // }
 
   .project-list-container {
     // padding-left: 3rem;
-    padding-top: 2rem;
+    padding: 0.5rem;
     // background-color: yellow;
-    height: 100%;
-    width: 100%;
+    // @include border(top, lighten($primary, 10));
+    @include border(bottom, lighten($primary, 10));
 
+    width: 100%;
+    // height: 19rem;
+    // overflow-y: scroll;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    // padding-left: 1.8rem;
+
+    .add-project-icon-container {
+      @include small-icon-container;
+      margin-left: auto;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-list-title-container {
+      @include border(bottom, lighten($primary, 10));
+      width: 100%;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      p {
+        font-size: 0.8rem;
+        font-weight: 200;
+      }
+    }
 
     .project-link {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
-      align-items: center;
+      align-items: flex-start;
+      height: 2rem;
 
       // background-color: red;
       // border-radius: 0.4rem;
-      margin-bottom: 0.5rem;
+      // margin-bottom: 0.5rem;
       width: 100%;
-      padding: 0.4rem 0;
-
-      padding-left: 0.6rem;
+      padding: 0.4rem 0 0.4rem 0.6rem;
 
       font-size: 0.8rem;
       font-weight: 400;
@@ -193,14 +288,13 @@
       }
 
       &:hover {
-        background-color: $hover-bg;
-        border-radius: 1rem;
+        background-color: $hover-darkbg;
       }
     }
 
     .project-link.active {
-      background-color: $hover-bg;
-      border-radius: 1rem;
+      background-color: $hover-darkbg;
+      // @include border(bottom, lighten($primary, 50));
       svg {
         display: block;
       }

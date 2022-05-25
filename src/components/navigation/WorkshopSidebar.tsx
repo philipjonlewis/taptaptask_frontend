@@ -17,6 +17,7 @@ const WorkshopProjectSidebar = () => {
   let projectId = uuidv4();
 
   const [sidebarVisibility, setSidebarVisibility] = useState(true);
+  const [addProjectModalVisibility, setAddProjectModal] = useState(false);
 
   const [form, setForm] = useState({
     user: auth._id,
@@ -90,8 +91,17 @@ const WorkshopProjectSidebar = () => {
     setSidebarVisibility(!sidebarVisibility);
   };
 
+  const addProjectModalHandler = () => {
+    setAddProjectModal(!addProjectModalVisibility);
+  };
+
   return (
     <>
+      {addProjectModalVisibility && (
+        <div className="add-project-modal">
+          <div className="modal-form-container">Form COntent</div>
+        </div>
+      )}
       {sidebarVisibility ? (
         <div className="workshop-sidebar">
           {/* Start of Upper Container */}
@@ -105,11 +115,28 @@ const WorkshopProjectSidebar = () => {
                 <p>datetask</p>
               </div>
             </NavLink>
+
+            <div className="minimize-icon-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                />
+              </svg>
+            </div>
           </div>
 
           {/* End of Upper Container */}
 
-          <div className="project-button-container">
+          {/* <div className="pro-buttons-container">
             <button className="button-reset pro-button-container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -147,9 +174,9 @@ const WorkshopProjectSidebar = () => {
               <div className="pro-icon">PRO</div>
               <p>Templates</p>
             </button>
-          </div>
+          </div> */}
 
-          <NavLink to={"dashboard"} className="link-container">
+          <NavLink to={"dashboard"} className="sidebar-link-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="link-icon"
@@ -167,7 +194,43 @@ const WorkshopProjectSidebar = () => {
             <p>Dashboard</p>
           </NavLink>
 
-          <NavLink to={"projects"} className="link-container">
+          <NavLink to={"notes"} className="sidebar-link-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="link-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
+            </svg>
+            <p>Notes</p>
+          </NavLink>
+
+          <NavLink to={"inbox"} className="sidebar-link-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="link-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
+              />
+            </svg>
+            <p>Inbox</p>
+          </NavLink>
+
+          <NavLink to={"projects"} className="sidebar-link-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="link-icon"
@@ -185,7 +248,45 @@ const WorkshopProjectSidebar = () => {
             <p>Projects</p>
           </NavLink>
 
-          <form action="#" className="add-project-form-container">
+          <div className="sidebar-hotlinks-container">
+            <div className="hotlink-icon-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              <p>Manage</p>
+            </div>
+
+            <div className="hotlink-icon-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                />
+              </svg>
+              <p>Templates</p>
+            </div>
+          </div>
+
+          {/* <form action="#" className="add-project-form-container">
             <input
               type="text"
               placeholder="Add Project"
@@ -215,35 +316,62 @@ const WorkshopProjectSidebar = () => {
                 />
               </svg>
             </button>
-          </form>
+          </form> */}
 
           <div className="project-list-container">
-            {projectList.map((project) => {
-              return (
-                <NavLink
-                  key={project.projectId}
-                  className="project-link"
-                  to={`projects/${project.projectId}`}
-                  onClick={() => linkHandler(project)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
+            <div
+              className="add-project-icon-container"
+              title="Add New Project"
+              onClick={addProjectModalHandler}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </div>
+            <div className="project-list-title-container">
+              <p>Project List</p>
+            </div>
+            {/* <p>Project List</p> */}
+            {projectList.length >= 1 &&
+              projectList.map((project) => {
+                return (
+                  <NavLink
+                    key={project.projectId}
+                    className="project-link"
+                    to={`projects/${project.projectId}`}
+                    onClick={() => linkHandler(project)}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                    />
-                  </svg>
-                  <p className="">{project.projectName}</p>
-                </NavLink>
-              );
-            })}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13 5l7 7-7 7M5 5l7 7-7 7"
+                      />
+                    </svg>
+                    <p className="">{project.projectName}</p>
+                  </NavLink>
+                );
+              })}
+
+            {/* <p>Scroll Down for more</p> */}
           </div>
         </div>
       ) : (
