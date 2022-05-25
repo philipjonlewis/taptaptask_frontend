@@ -1,10 +1,13 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
 .project-phase-container {
   //   background-color: blue;
   box-shadow: 1px 5px 8px -5px rgba(0, 0, 0, 0.73) inset;
 
-  background-color: #253449;
+  background-color: $neutral-800;
   color: #ffffff;
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 6rem);
   // width: calc(100vw - 20rem);
   width: 100%;
   overflow-x: scroll;

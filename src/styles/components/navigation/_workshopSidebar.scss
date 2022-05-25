@@ -3,33 +3,29 @@
 
 .add-project-modal {
   @include d-flex(column, center, center);
+  @include dims(100vw, 100vh);
+
   position: absolute;
   z-index: 500;
-
-  height: 100vh;
-  width: 100vw;
-  // background-color: rgba(0, 0, 0, 0.6);
-
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: saturate(100%) blur(1px);
 
   .modal-form-container {
     @include d-flex(row, flex-start, flex-start);
+    @include dims(1200px, 600px);
     // padding: 0.5rem;
     overflow: hidden;
     z-index: 200;
     opacity: 100%;
-    width: 1200px;
-    height: 600px;
-    background-color: $primary;
+    background-color: $neutral-900;
     position: relative;
     border-radius: 0.5rem;
 
     .close-add-form-modal-button {
       @include small-icon-container;
       position: absolute;
-      top: 0.5rem;
-      left: 0.5rem;
+      top: 1rem;
+      left: 1rem;
     }
 
     .left-segment,
@@ -39,11 +35,11 @@
 
     .left-segment {
       @include d-flex(column, flex-start, flex-start);
-      @include border(right, lighten($primary, 10));
-      padding: 4rem 0.5rem 0.5rem 0.5rem;
+      @include border(right, lighten($neutral-900, 10));
+      padding: 4rem 1rem 1rem 1rem;
       width: 30%;
       .form-title-container {
-        // @include border(bottom, lighten($primary, 10));
+        // @include border(bottom, lighten($neutral-900, 10));
         width: 100%;
         padding: 1rem 0;
         margin-bottom: 1rem;
@@ -61,41 +57,63 @@
         }
 
         input {
-          background-color: $hover-darkbg;
+          background-color: $neutral-800;
           height: 3rem;
           width: 100%;
           padding: 0.5rem 1rem;
-          margin-bottom: 1rem;
-
-          @include border(bottom, $accent-01);
+          margin-bottom: 1.2rem;
+          font-size: 0.9rem;
+          // @include border(bottom, $accent-01);
           // background-color: rebeccapurple;
           color: white;
           border-radius: $icon-radius;
-          // &:active,
-          // :focus,
-          // :focus-within {
-          //   @include border(bottom, $accent-02);
-          // }
+          &:focus {
+            @include border(bottom, $accent-01);
+          }
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
         }
 
         button {
-          margin-top: 1rem;
+          margin-top: 2rem;
           width: 100%;
-
-          background-color: $hover-darkbg;
+          font-weight: 300;
           height: 3rem;
           border-radius: $icon-radius;
-
+          border: 1px solid $accent-01;
+          background-color: $accent-01;
           &:hover {
-            background-color: $accent-01;
+            background-color: darken($accent-01, 20);
+            // background-color: $neutral-800;
           }
+        }
+      }
+
+      .clear-form-container {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        cursor: pointer;
+        border: 1px solid $accent-02;
+        border-radius: $icon-radius;
+        padding: 0.5rem;
+        p {
+          font-size: 0.8rem;
+          font-weight: 200;
+        }
+
+        &:hover {
+          // background-color: $neutral-800;
+          background-color: $accent-02;
         }
       }
     }
 
     .right-segment {
       width: 70%;
-      background-color: $primary;
+      background-color: $neutral-900;
     }
   }
 }
@@ -104,15 +122,15 @@
   @include d-flex(column, flex-start, flex-start);
   @include dims-set(16rem, 100%);
   @include sidebar-shadow();
-
+  transition: all 0.2s ease-out;
   z-index: 10;
   // padding: 1rem;
-  background-color: $primary;
+  background-color: $neutral-900;
   color: white;
 
   .upper-container {
     @include d-flex(row, flex-start, flex-start);
-    // @include border(bottom, lighten($primary, 10));
+    // @include border(bottom, lighten($neutral-900, 10));
     @include dims(100%, 4rem);
     position: relative;
     padding: 0.5rem;
@@ -155,7 +173,7 @@
     }
 
     &:hover {
-      background-color: $hover-darkbg;
+      background-color: $neutral-800;
     }
   }
 
@@ -166,8 +184,8 @@
   .sidebar-hotlinks-container {
     @include d-flex(row, space-between, center);
     @include dims(100%, 4rem);
-    @include border(bottom, lighten($primary, 10));
-    @include border(top, lighten($primary, 10));
+    @include border(bottom, lighten($neutral-900, 10));
+    @include border(top, lighten($neutral-900, 10));
     font-size: $fs-link;
     padding: 0.5rem;
     position: relative;
@@ -178,7 +196,7 @@
 
     // background-color: yellow;
     // &:hover {
-    //   background-color: $hover-darkbg;
+    //   background-color: $neutral-800;
     // }
 
     .hotlink-icon-container {
@@ -203,67 +221,25 @@
       &:hover {
         background-color: $icon-hover;
         background-color: $accent-01;
-        border: 1px solid lighten($primary, 50);
+        border: 1px solid lighten($neutral-900, 50);
       }
     }
   }
 
   .sidebar-link-container.active {
-    background-color: $active-darkbg;
-    // border-left: 2px solid lighten($primary, 80);
-    // @include border(bottom, lighten($primary, 50));
+    background-color: $neutral-700;
+    // border-left: 2px solid lighten($neutral-900, 80);
+    // @include border(bottom, lighten($neutral-900, 50));
   }
-
-  // .pro-buttons-container {
-  //   @include d-flex(row, space-around, flex-start);
-  //   @include dims(100%, 4rem);
-  //   font-size: $fs-link;
-  //   // margin: 0.5rem 0;
-  //   // background-color: yellow;
-
-  //   .pro-button-container {
-  //     @include dims(50%, 100%);
-  //     @include d-flex(column, center, center);
-
-  //     position: relative;
-  //     opacity: 50%;
-
-  //     &:hover {
-  //       opacity: 100%;
-  //       // background-color: rgb(226, 126, 90);
-  //     }
-
-  //     .link-icon {
-  //       height: $svg-icon;
-  //     }
-
-  //     &:hover {
-  //       background-color: $hover-darkbg;
-  //     }
-
-  //     .pro-icon {
-  //       @include d-flex(column, center, center);
-  //       position: absolute;
-  //       top: 4px;
-  //       right: 4px;
-  //       padding: 2px 0.4rem;
-  //       border-radius: 1rem;
-  //       background-color: $accent-01;
-  //       font-size: $fs-pro;
-  //     }
-  //   }
-  // }
 
   .project-list-container {
     // padding-left: 3rem;
     padding: 0.5rem;
     // background-color: yellow;
-    // @include border(top, lighten($primary, 10));
-    @include border(bottom, lighten($primary, 10));
+    // @include border(top, lighten($neutral-900, 10));
+    // @include border(bottom, lighten($neutral-900, 10));
 
     width: 100%;
-    // height: 19rem;
-    // overflow-y: scroll;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -277,7 +253,7 @@
     }
 
     .project-list-title-container {
-      @include border(bottom, lighten($primary, 10));
+      // @include border(bottom, lighten($neutral-900, 10));
       width: 100%;
       padding-bottom: 0.5rem;
       margin-bottom: 0.5rem;
@@ -288,86 +264,94 @@
       }
     }
 
-    .project-link {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: flex-start;
-      height: 2rem;
-
-      // background-color: red;
-      // border-radius: 0.4rem;
-      // margin-bottom: 0.5rem;
+    .list-of-projects {
       width: 100%;
-      padding: 0.4rem 0 0.4rem 0.6rem;
+      height: 20rem;
+      overflow-y: scroll;
+      // transition: all 0.5s ease-out;
+      .project-link {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        height: 2rem;
 
-      font-size: 0.8rem;
-      font-weight: 400;
+        // background-color: red;
+        // border-radius: 0.4rem;
+        // margin-bottom: 0.5rem;
+        width: 100%;
+        padding: 0.4rem 0 0.4rem 0.6rem;
 
-      svg {
-        height: 1rem;
-        margin-right: 1rem;
+        font-size: 0.8rem;
+        font-weight: 400;
 
-        display: none;
+        svg {
+          height: 1rem;
+          margin-right: 1rem;
+
+          display: none;
+        }
+
+        p {
+          display: inline-block;
+        }
+
+        &:hover {
+          background-color: $neutral-800;
+        }
       }
 
-      p {
-        display: inline-block;
-      }
-
-      &:hover {
-        background-color: $hover-darkbg;
+      .project-link.active {
+        background-color: $neutral-800;
+        // @include border(bottom, lighten($neutral-900, 50));
+        svg {
+          display: block;
+        }
       }
     }
+  }
 
-    .project-link.active {
-      background-color: $hover-darkbg;
-      // @include border(bottom, lighten($primary, 50));
-      svg {
-        display: block;
-      }
+  .bottom-link-container {
+    @include border(top, lighten($neutral-900, 10));
+    margin-top: auto;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    // background-color: red;
+    padding: 0 0.5rem;
+    svg {
+      margin-left: 0.5rem;
+      height: $link-icon;
+    }
+
+    p {
+      font-size: 0.8rem;
     }
   }
 }
 
+.minimized-sidebar {
+  transform: translateX(-16rem);
+  // width: 0;
+  position: absolute;
+}
+
 .workshop-sidbar-small {
-  min-width: 4rem;
+  min-width: 3rem;
   padding: 0.5rem;
   height: 100%;
   // margin-right: 1rem;
-  background-color: $slate-bg;
+  background-color: $neutral-900;
   // border-radius: 1rem;
   box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, 0.3);
   .maximize-sidebar-container {
-    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
-      drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    position: relative;
-    opacity: 60%;
-    min-width: 3rem;
-    height: 3rem;
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    // transition: all 0.5s ease-out;
-    background-color: #334155;
-    margin-bottom: 0.5rem;
-    cursor: pointer;
-
-    svg {
-      stroke: white;
-    }
-    &:hover {
-      opacity: 100%;
-      background-color: lighten($color: #253449, $amount: 10);
-      svg {
-        stroke: white;
-      }
-    }
-
-    svg {
-      height: 1rem;
-    }
+    @include small-icon-container;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
   }
 }

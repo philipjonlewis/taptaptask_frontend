@@ -1,0 +1,46 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.workshop-navbar {
+  // border-bottom: 1px solid gray;
+
+  height: 3rem;
+  background-color: $neutral-800;
+//   background-color: red;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: red;
+  padding: 0 1rem;
+  width: 100%;
+  // padding-right: 2rem;
+
+  .left-nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .right-nav-container {
+    display: flex;
+    flex-direction: row;
+    // background-color: blue;
+    position: absolute;
+    right: 1rem;
+    // padding-right: 10rem;
+    .right-nav-icon {
+      display: flex;
+
+      height: 100%;
+
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    svg {
+      height: 1.4rem;
+    }
+  }
+}
