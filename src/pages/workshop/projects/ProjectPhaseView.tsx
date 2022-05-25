@@ -49,7 +49,7 @@ const ProjectPhaseView = () => {
             })}
         </div>
       ) : (
-        <div style={{ backgroundColor: "#253449" }}></div>
+        <div style={{ backgroundColor: "$neutral-500" }}></div>
       )}
     </div>
   );

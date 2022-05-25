@@ -45,7 +45,7 @@
   cursor: pointer;
 
   border-radius: $icon-radius;
-  background-color: $icon-bg;
+  background-color: darken($color: $neutral-700, $amount: 5);
 
   svg {
     height: $svg-icon;

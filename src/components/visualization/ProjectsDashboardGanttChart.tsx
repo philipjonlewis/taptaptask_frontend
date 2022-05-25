@@ -62,7 +62,7 @@ export const options = {
   height: 200,
   gantt: {
     trackHeight: 30,
-    innerGridTrack: { fill: "#253449" },
+    innerGridTrack: { fill: "$neutral-500" },
     innerGridDarkTrack: { fill: "#273b57" },
     labelStyle: {
       fontName: "arial",
@@ -75,7 +75,7 @@ export const options = {
     },
   },
   backgroundColor: {
-    fill: "#253449",
+    fill: "$neutral-500",
   },
 };
 
