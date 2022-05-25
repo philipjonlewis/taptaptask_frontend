@@ -23,6 +23,7 @@ const WorkshopProjectSidebar = () => {
     user: auth._id,
     projectId: uuidv4(),
     projectName: "",
+    projectDescription: "",
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
   });
 
@@ -41,12 +42,20 @@ const WorkshopProjectSidebar = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     postRequest(form, "http://192.168.0.22:4000/projects");
     dispatch(addProject(form));
 
     setForm((state) => {
-      return { ...state, projectName: "", projectId: uuidv4() };
+      return {
+        ...state,
+        projectName: "",
+        projectDescription: "",
+        projectId: uuidv4(),
+      };
     });
+
+    setAddProjectModal(false);
   };
 
   useEffect(() => {
@@ -95,11 +104,85 @@ const WorkshopProjectSidebar = () => {
     setAddProjectModal(!addProjectModalVisibility);
   };
 
+  const inputHandler = (e) => {
+    setForm((state) => {
+      return { ...state, [e.target.name]: e.target.value };
+    });
+  };
+
   return (
     <>
       {addProjectModalVisibility && (
         <div className="add-project-modal">
-          <div className="modal-form-container">Form COntent</div>
+          <div className="modal-form-container">
+            <div
+              className="close-add-form-modal-button"
+              onClick={addProjectModalHandler}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+
+            <div className="left-segment">
+              <div className="form-title-container">
+                <p>Add New Project</p>
+              </div>
+              <form action="#" className="add-project-form-container">
+                {/* Project Name */}
+                <label htmlFor="projectName">Project Name</label>
+                <input
+                  name="projectName"
+                  type="text"
+                  placeholder="Add New Project"
+                  autoCorrect="false"
+                  spellCheck="false"
+                  value={form.projectName}
+                  required
+                  // value={form.projectName}
+                  onChange={inputHandler}
+                />
+                {/* Project Description */}
+                <label htmlFor="projectName">Project Description</label>
+                <input
+                  name="projectDescription"
+                  type="text"
+                  placeholder="Project Description"
+                  autoCorrect="false"
+                  spellCheck="false"
+                  value={form.projectDescription}
+                  required
+                  // value={form.projectDescription}
+                  onChange={inputHandler}
+                />
+                {/* Date of Deadline */}
+                <label htmlFor="projectName">Date of Deadline</label>
+                <input
+                  name="dateOfDeadline"
+                  type="date"
+                  autoCorrect="false"
+                  spellCheck="false"
+                  value={form.dateOfDeadline}
+                  required
+                  // value={form.dateOfDeadline}
+                  onChange={inputHandler}
+                />
+                <button onClick={handleFormSubmit}>submit</button>
+              </form>
+            </div>
+            <div className="right-segment">Right Segment</div>
+          </div>
         </div>
       )}
       {sidebarVisibility ? (
@@ -285,38 +368,6 @@ const WorkshopProjectSidebar = () => {
               <p>Templates</p>
             </div>
           </div>
-
-          {/* <form action="#" className="add-project-form-container">
-            <input
-              type="text"
-              placeholder="Add Project"
-              autoCorrect="false"
-              spellCheck="false"
-              required
-              value={form.projectName}
-              onChange={(e) => {
-                setForm((state) => {
-                  return { ...state, projectName: e.target.value };
-                });
-              }}
-            />
-            <button onClick={handleFormSubmit}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-            </button>
-          </form> */}
 
           <div className="project-list-container">
             <div

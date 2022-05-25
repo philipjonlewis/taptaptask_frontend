@@ -8,13 +8,95 @@
 
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.6);
+  // background-color: rgba(0, 0, 0, 0.6);
+
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: saturate(100%) blur(1px);
+
   .modal-form-container {
+    @include d-flex(row, flex-start, flex-start);
+    // padding: 0.5rem;
+    overflow: hidden;
     z-index: 200;
     opacity: 100%;
     width: 1200px;
     height: 600px;
-    background-color: $hover-darkbg;
+    background-color: $primary;
+    position: relative;
+    border-radius: 0.5rem;
+
+    .close-add-form-modal-button {
+      @include small-icon-container;
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+
+    .left-segment,
+    .right-segment {
+      height: 100%;
+    }
+
+    .left-segment {
+      @include d-flex(column, flex-start, flex-start);
+      @include border(right, lighten($primary, 10));
+      padding: 4rem 0.5rem 0.5rem 0.5rem;
+      width: 30%;
+      .form-title-container {
+        // @include border(bottom, lighten($primary, 10));
+        width: 100%;
+        padding: 1rem 0;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .add-project-form-container {
+        @include d-flex(column, flex-start, flex-start);
+        width: 100%;
+
+        label {
+          font-size: 0.8rem;
+          color: gray;
+          margin-bottom: 0.5rem;
+        }
+
+        input {
+          background-color: $hover-darkbg;
+          height: 3rem;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          margin-bottom: 1rem;
+
+          @include border(bottom, $accent-01);
+          // background-color: rebeccapurple;
+          color: white;
+          border-radius: $icon-radius;
+          // &:active,
+          // :focus,
+          // :focus-within {
+          //   @include border(bottom, $accent-02);
+          // }
+        }
+
+        button {
+          margin-top: 1rem;
+          width: 100%;
+
+          background-color: $hover-darkbg;
+          height: 3rem;
+          border-radius: $icon-radius;
+
+          &:hover {
+            background-color: $accent-01;
+          }
+        }
+      }
+    }
+
+    .right-segment {
+      width: 70%;
+      background-color: $primary;
+    }
   }
 }
 
@@ -168,60 +250,6 @@
   //       border-radius: 1rem;
   //       background-color: $accent-01;
   //       font-size: $fs-pro;
-  //     }
-  //   }
-  // }
-
-  // .add-project-form-container {
-  //   @include dims(100%, 3rem);
-  //   // background-color: yellow;
-  //   position: relative;
-  //   margin: 1rem 0;
-  //   input {
-  //     @include dims(100%, 100%);
-  //     @include border(bottom, lighten($primary, 10));
-  //     padding: 0.5rem;
-
-  //     // background-color: $hover-darkbg;
-  //     background-color: transparent;
-
-  //     // border-radius: 2rem;
-  //     color: white;
-  //     font-size: 0.9rem;
-
-  //     &::placeholder {
-  //       // font-size: 0.9rem;
-  //       color: $input-placeholder;
-  //     }
-
-  //     &:focus,
-  //     :hover {
-  //       background-color: $input-focus;
-  //     }
-  //   }
-
-  //   button {
-  //     position: absolute;
-  //     top: 0.5rem;
-  //     right: 0.5rem;
-  //     width: 2rem;
-  //     height: 2rem;
-  //     border-radius: 0.6rem;
-  //     background-color: #475569;
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: center;
-  //     align-items: center;
-  //     svg {
-  //       transform: rotate(90deg);
-  //       height: 1rem;
-  //       stroke: #94a3b8;
-  //     }
-  //     &:hover {
-  //       background-color: #ca8a04;
-  //       svg {
-  //         stroke: white;
-  //       }
   //     }
   //   }
   // }
