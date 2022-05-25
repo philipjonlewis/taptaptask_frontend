@@ -164,6 +164,7 @@
     padding-left: 0.5rem;
     position: relative;
     margin-bottom: 0.5rem;
+
     .link-icon {
       height: $link-icon;
     }
@@ -219,7 +220,6 @@
       }
 
       &:hover {
-        background-color: $icon-hover;
         background-color: $accent-01;
         border: 1px solid lighten($neutral-900, 50);
       }

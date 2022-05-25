@@ -1,0 +1,147 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.task-date-container {
+  //   display: inline-block;
+  background-color: darken($color: $neutral-700, $amount: 8);
+  //   background-color: $neutral-700;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border-radius: $icon-radius;
+  border: 1px solid transparent;
+  transition: all 0.5s ease-out;
+  // background-color: red;
+
+  // background-color: red;
+  //   min-width: 300px;
+  //   max-width: 300px;
+
+  min-width: 300px;
+  max-width: 300px;
+
+  height: 30%;
+  //   z-index: -5;
+
+  &:hover {
+    // border-color: gray;
+  }
+
+  .label-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    // justify-content: center;
+    svg {
+      margin-left: auto;
+      height: 1.4rem;
+      cursor: pointer;
+    }
+    p {
+      font-size: 0.7rem;
+      color: lighten($color: #253449, $amount: 20);
+    }
+  }
+  .deadline-container {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid lighten($color: #253449, $amount: 5);
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    .date-format {
+      font-size: 1rem;
+      font-weight: 400;
+      // letter-spacing: 0.1rem;
+    }
+    .date-distance {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: lighten($color: #253449, $amount: 20);
+      //   font-weight: bold;
+      padding-bottom: 1rem;
+      transition: all 0.5s ease-out;
+      &:hover {
+        color: white;
+      }
+    }
+
+    .new-task-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      form {
+        position: relative;
+        width: 100%;
+
+        input {
+          padding: 0.5rem 1rem;
+          transition: all 0.5s ease-out;
+          background-color: $neutral-800;
+
+          width: 100%;
+          visibility: hidden;
+          visibility: visible;
+          height: 2.4rem;
+          border-radius: 2rem;
+          color: #9399a1;
+          font-size: 0.9rem;
+
+          &::placeholder {
+            font-size: 0.9rem;
+            color: #475569;
+          }
+
+          &:focus,
+          :hover,
+          :valid {
+            color: white;
+            background-color: #334155;
+          }
+        }
+
+        // input[value=""] {
+        //   color: white;
+        //   background-color: #334155;
+        // }
+
+        .new-task-button-container {
+          position: absolute;
+          top: 0.2rem;
+          right: 0.2rem;
+          width: 2rem;
+          height: 2rem;
+          border-radius: 2rem;
+          background-color: #475569;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          svg {
+            transform: rotate(90deg);
+            height: 1rem;
+            stroke: #94a3b8;
+          }
+          &:hover {
+            background-color: #ca8a04;
+            svg {
+              stroke: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .task-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    // background-color: rebeccapurple;
+    // padding-bottom: 100px;
+    max-height: 630px;
+    overflow-y: scroll;
+    scrollbar-color: white;
+  }
+}
