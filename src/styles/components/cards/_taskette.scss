@@ -2,6 +2,7 @@
 @use "../../base/" as *;
 
 .task-content-container {
+  position: relative;
   margin-top: 0.5rem;
   border-radius: $icon-radius;
   border: 1px solid transparent;
@@ -9,7 +10,7 @@
   padding: 0.5rem;
   min-height: 8rem;
   max-height: 8rem;
-  overflow-y: scroll;
+  overflow-y: hidden;
   width: 100%;
 
   background-color: darken($color: $neutral-700, $amount: 5);
@@ -57,15 +58,39 @@
   }
 
   .task-content {
-    // background-color: yellow;
+    position: relative;
+    // background-color: red;
     padding: 0 0.5rem;
+    // margin-bottom: 0.5rem;
     width: 100%;
-    height: 100%;
-
-    p {
+    textarea {
+      color: white;
       opacity: 100%;
+      background-color: transparent;
       font-size: 0.9rem;
       font-weight: 300;
+      width: 100%;
+      height: 7rem;
+      border-radius: $icon-radius;
+      padding: 0.5rem;
+      resize: none;
+
+      &:not(:disabled) {
+        background-color: darken($color: $neutral-700, $amount: 7);
+      }
+    }
+
+    .submit-edited-task-button-container {
+      @include small-icon-container;
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      opacity: 50%;
+      transform: rotate(90deg);
+
+      &:hover {
+        opacity: 100%;
+      }
     }
   }
 
@@ -73,7 +98,7 @@
     opacity: 20%;
     min-width: 2rem;
     height: 2rem;
-    border-radius: 0.5rem;
+    border-radius: $icon-radius;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,6 +119,60 @@
 
     .feather-check-circle {
       stroke: greenyellow;
+    }
+  }
+
+  .taskette-menu-container {
+    @include d-flex(column, flex-start, flex-end);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border-radius: $icon-radius;
+    width: 10rem;
+    height: 5rem;
+    padding: 0.5rem;
+    // z-index: 200;
+    background-color: $neutral-700;
+    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07))
+      drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+
+    .edit-task-container,
+    .delete-task-container {
+      display: flex;
+      z-index: 200;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 0.5rem;
+      svg {
+        height: $svg-icon;
+      }
+      border-radius: $icon-radius;
+      p {
+        color: white;
+        padding-left: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      &:hover {
+        background-color: $neutral-600;
+      }
+      width: 100%;
+      height: 3rem;
+
+      cursor: pointer;
+    }
+
+    .edit-task-container {
+      &:hover {
+        background-color: $accent-01;
+      }
+    }
+
+    .delete-task-container {
+      &:hover {
+        background-color: $accent-02;
+      }
     }
   }
 }

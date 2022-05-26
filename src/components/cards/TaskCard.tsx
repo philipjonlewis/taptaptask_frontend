@@ -32,14 +32,6 @@ const TaskCard = ({ taskObject }) => {
     setLocalTaskList([...taskObject.taskContent].reverse());
   }, [taskObject]);
 
-  // return (
-  //   <>
-  //     {localTaskList.map((task) => {
-  //       console.log(task);
-  //     })}
-  //   </>
-  // );
-
   return (
     <div className="task-date-container">
       <div className="label-container">
@@ -96,7 +88,6 @@ const TaskCard = ({ taskObject }) => {
                 postRequest({ ...newTask }, "http://192.168.0.22:4000/tasks");
 
                 setLocalTaskList((state) => {
-                  console.log(newTask);
                   return [{ ...newTask }, ...state];
                 });
 
@@ -132,7 +123,10 @@ const TaskCard = ({ taskObject }) => {
         {localTaskList.map((taskObject) => {
           return (
             <React.Fragment key={taskObject._id}>
-              <Taskette taskObject={taskObject} />
+              <Taskette
+                taskObject={taskObject}
+                setLocalTaskList={setLocalTaskList}
+              />
             </React.Fragment>
           );
         })}

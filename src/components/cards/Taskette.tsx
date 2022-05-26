@@ -1,9 +1,43 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { patchRequest } from "../../helpers/patchRequest";
+import { deleteRequest } from "../../helpers/deleteRequest";
 
-const Taskette = ({ taskObject }) => {
+const Taskette = ({ taskObject, setLocalTaskList }) => {
   const { taskId, taskContent, isCompleted } = taskObject;
   const [isLocalCompleted, setIsLocalCompleted] = useState(isCompleted);
+  const [tasketteMenu, setTasketteMenu] = useState(false);
+  const [isTaskBeingEdited, setIsTaskBeingEdited] = useState(false);
+
+  const [localTaskContent, setLocalTaskContent] = useState(taskContent);
+
+  const editTaskHandler = (e) => {
+    setTasketteMenu(false);
+    setIsTaskBeingEdited(true);
+  };
+
+  const submitEditTaskHandler = (e) => {
+    setLocalTaskList((state) => {
+      const newState = state.map((task) => {
+        if (task.taskId == taskId) {
+          return { ...task, taskContent: localTaskContent };
+        }
+        return task;
+      });
+
+      return [...newState];
+    });
+    patchRequest({ taskId, taskContent: localTaskContent });
+    setIsTaskBeingEdited(false);
+  };
+
+  const deleteTaskhandler = () => {
+    setLocalTaskList((state) => {
+      deleteRequest({ taskId }, "http://192.168.0.25:4000/tasks/delete");
+      const newState = state.filter((task) => task.taskId !== taskId);
+      return [...newState];
+    });
+    setIsTaskBeingEdited(false);
+  };
 
   return (
     <div
@@ -68,9 +102,48 @@ const Taskette = ({ taskObject }) => {
         </div>
       </div>
       <div className="task-content">
-        <p>{taskContent}</p>
+        <textarea
+          maxLength={96}
+          required
+          autoCorrect="false"
+          spellCheck="false"
+          defaultValue={taskContent}
+          disabled={!isTaskBeingEdited}
+          name={taskId}
+          id=""
+          onChange={(e) => {
+            setLocalTaskContent(e.target.value);
+          }}
+        >
+          {/* {localTaskContent} */}
+        </textarea>
+        {isTaskBeingEdited && (
+          <div
+            className="submit-edited-task-button-container"
+            onClick={submitEditTaskHandler}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              />
+            </svg>
+          </div>
+        )}
+        {/* <input>{taskContent}</input> */}
       </div>
-      <div className="task-menu-container">
+      <div
+        className="task-menu-container"
+        onClick={() => setTasketteMenu(!tasketteMenu)}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -86,6 +159,49 @@ const Taskette = ({ taskObject }) => {
           />
         </svg>
       </div>
+
+      {tasketteMenu && (
+        <div
+          className="taskette-menu-container"
+          onMouseLeave={() => setTasketteMenu(!tasketteMenu)}
+        >
+          <div className="edit-task-container" onClick={editTaskHandler}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
+            </svg>
+            <p>Edit Task</p>
+          </div>
+
+          <div className="delete-task-container" onClick={deleteTaskhandler}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+            <p>Delete Task</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -42,8 +42,8 @@ const ProjectPhaseView = () => {
           {fetchedTaskList.length >= 1 &&
             fetchedTaskList.map((taskObject) => {
               return (
-                <React.Fragment key={taskObject._id}>
-                  <TaskCard taskObject={taskObject} key={taskObject._id} />
+                <React.Fragment key={taskObject.taskId}>
+                  <TaskCard taskObject={taskObject} key={taskObject.taskId} />
                 </React.Fragment>
               );
             })}
