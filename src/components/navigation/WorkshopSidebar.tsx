@@ -10,13 +10,16 @@ import { setActivePhase } from "../../redux/activePhaseState";
 import { postRequest } from "../../helpers/postRequest";
 import { v4 as uuidv4 } from "uuid";
 import format from "date-fns/format";
+
 const WorkshopProjectSidebar = () => {
   const { auth, projectList } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   let projectId = uuidv4();
 
-  const [sidebarVisibility, setSidebarVisibility] = useState(true);
+  const [sidebarVisibility, setSidebarVisibility] = useState(
+    JSON.parse(localStorage.getItem("workshopMenuSidebar")) || false
+  );
   const [addProjectModalVisibility, setAddProjectModal] = useState(false);
 
   const [form, setForm] = useState({
@@ -26,6 +29,13 @@ const WorkshopProjectSidebar = () => {
     projectDescription: "",
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
   });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "workshopMenuSidebar",
+      JSON.stringify(sidebarVisibility)
+    );
+  }, [sidebarVisibility]);
 
   const linkHandler = (project) => {
     // Clean active phase whenever changing project

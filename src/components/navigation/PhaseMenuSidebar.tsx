@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { isEqual, format } from "date-fns";
@@ -10,7 +10,9 @@ const PhaseMenuSidebar = ({ fetchedTaskList, setFetchedTaskList }) => {
     (state) => state
   );
 
-  const [isMenuOpen, setIsMenuOpen] = useState(fetchedTaskList.length >= 1);
+  const [isMenuOpen, setIsMenuOpen] = useState(
+    JSON.parse(localStorage.getItem("phaseMenuSidebar")) || false
+  );
 
   const [taskFormContent, setTaskFormContent] = useState({
     user: auth._id,
@@ -21,6 +23,10 @@ const PhaseMenuSidebar = ({ fetchedTaskList, setFetchedTaskList }) => {
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
     isCompleted: false,
   });
+
+  useEffect(() => {
+    localStorage.setItem("phaseMenuSidebar", JSON.stringify(isMenuOpen));
+  }, [isMenuOpen]);
 
   const openMenuHandler = () => {
     setIsMenuOpen(!isMenuOpen);
