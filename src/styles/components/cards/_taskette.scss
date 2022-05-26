@@ -7,7 +7,9 @@
   border: 1px solid transparent;
   transition: all 0.5s ease-out;
   padding: 0.5rem;
-  min-height: 100px;
+  min-height: 8rem;
+  max-height: 8rem;
+  overflow-y: scroll;
   width: 100%;
 
   background-color: darken($color: $neutral-700, $amount: 5);

@@ -152,83 +152,65 @@ const PhaseMenuSidebar = ({ fetchedTaskList, setFetchedTaskList }) => {
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
             </div>
           </div>
 
           <div className="phase-information-container">
-            <p>Add New Task</p>
+            <p>Add a new task</p>
           </div>
 
-          <div className="add-task-form-container">
-            <form action="#">
-              <label htmlFor="taskContent">Task</label>
-              <input
-                required
-                spellCheck="false"
-                autoCorrect="false"
-                type="text"
-                placeholder="Add Task"
-                value={taskFormContent.taskContent}
-                onChange={taskContentFormHandler}
-              />
-              <label htmlFor="dateOfDeadine">Deadline</label>
-              <input
-                required
-                type="date"
-                value={taskFormContent.dateOfDeadline}
-                onChange={dateOfDeadlineFormHandler}
-              />
-              <button onClick={submitTaskFormHandler}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 4v16m8-8H4"
-                  />
-                </svg>
-              </button>
-            </form>
+          <form action="#" className="add-task-form-container">
+            <label htmlFor="taskContent">Task</label>
+            <input
+              required
+              spellCheck="false"
+              autoCorrect="false"
+              type="text"
+              placeholder="Add Task"
+              value={taskFormContent.taskContent}
+              onChange={taskContentFormHandler}
+            />
+            <label htmlFor="dateOfDeadine">Deadline</label>
+            <input
+              required
+              type="date"
+              value={taskFormContent.dateOfDeadline}
+              onChange={dateOfDeadlineFormHandler}
+            />
+            <button onClick={submitTaskFormHandler}>Add Task</button>
+          </form>
+          <div
+            className="clear-form-container"
+            onClick={() => {
+              setTaskFormContent((state) => {
+                return {
+                  ...state,
+                  taskContent: "",
+                };
+              });
+            }}
+          >
+            <p>Clear Form</p>
           </div>
         </div>
       ) : (
         <div className="phase-menu-container-small">
-        <div className="open-menu-icon-container" onClick={openMenuHandler}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </div>
+          <div className="open-menu-icon-container" onClick={openMenuHandler}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
         </div>
       )}
     </>

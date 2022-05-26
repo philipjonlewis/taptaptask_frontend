@@ -1,3 +1,4 @@
+@use "../../abstracts/" as *;
 @use "../../base/" as *;
 
 .workshop {
@@ -10,7 +11,7 @@
   width: 100%;
   color: white;
   // background-color: red;
-  background-color: #334155;
+  background-color: $neutral-900;
 }
 
 .workshop-main-contents {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import { motion } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
@@ -20,6 +20,7 @@ const TaskCard = ({ taskObject }) => {
 
   const [taskForm, setTaskForm] = useState({
     user: auth._id,
+    taskId: uuidv4(),
     dateOfDeadline: format(new Date(_id), "yyyy-MM-dd"),
     isCompleted: false,
     phaseReferenceId: phaseId,
@@ -70,6 +71,7 @@ const TaskCard = ({ taskObject }) => {
         <div className="new-task-container">
           <form action="#">
             <input
+              maxLength={96}
               required
               type="text"
               placeholder="Add Task"
@@ -82,17 +84,20 @@ const TaskCard = ({ taskObject }) => {
                 });
               }}
             />
+            <div className="character-count-container">
+              <p>{taskForm.taskContent.length} / 96</p>
+            </div>
             <button
               className="new-task-button-container"
               onClick={(e) => {
                 e.preventDefault();
-                const taskId = uuidv4();
-                const newTask = { ...taskForm, taskId };
+                const newTask = { ...taskForm, taskId: uuidv4() };
 
-                postRequest(newTask, "http://192.168.0.22:4000/tasks");
+                postRequest({ ...newTask }, "http://192.168.0.22:4000/tasks");
 
                 setLocalTaskList((state) => {
-                  return [newTask, ...state];
+                  console.log(newTask);
+                  return [{ ...newTask }, ...state];
                 });
 
                 setTaskForm((state) => {

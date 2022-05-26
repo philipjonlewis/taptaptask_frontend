@@ -19,13 +19,13 @@
     opacity: 100%;
     background-color: $neutral-900;
     position: relative;
-    border-radius: 0.5rem;
+    border-radius: $icon-radius;
 
     .close-add-form-modal-button {
       @include small-icon-container;
       position: absolute;
-      top: 1rem;
-      left: 1rem;
+      top: 0.5rem;
+      left: 0.5rem;
     }
 
     .left-segment,
@@ -36,7 +36,7 @@
     .left-segment {
       @include d-flex(column, flex-start, flex-start);
       @include border(right, lighten($neutral-900, 10));
-      padding: 4rem 1rem 1rem 1rem;
+      padding: 4rem 0.5rem 1rem 0.5rem;
       width: 30%;
       .form-title-container {
         // @include border(bottom, lighten($neutral-900, 10));
@@ -93,8 +93,8 @@
 
       .clear-form-container {
         position: absolute;
-        bottom: 1rem;
-        left: 1rem;
+        bottom: 0.5rem;
+        left: 0.5rem;
         cursor: pointer;
         border: 1px solid $accent-02;
         border-radius: $icon-radius;
