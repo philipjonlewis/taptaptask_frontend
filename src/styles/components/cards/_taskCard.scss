@@ -5,7 +5,7 @@
   //   display: inline-block;
   background-color: darken($color: $neutral-700, $amount: 8);
   // background-color: $neutral-700;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
   padding: 0.5rem;
   border-radius: $icon-radius;
   border: 1px solid transparent;
@@ -53,16 +53,42 @@
       font-size: 1rem;
       font-weight: 400;
       // letter-spacing: 0.1rem;
+      width: 100%;
+
+      .year {
+        display: inline-block;
+        // margin-left: 1rem;
+        opacity: 10%;
+
+        text-align: end;
+      }
     }
     .date-distance {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-end;
       font-size: 0.8rem;
       font-weight: 300;
       color: lighten($color: $neutral-500, $amount: 20);
       //   font-weight: bold;
+      width: 100%;
       padding-bottom: 1rem;
       transition: all 0.5s ease-out;
+
+      .due-statement {
+        margin-right: auto;
+        font-size: 0.8rem;
+      }
+
+      .task-count {
+        font-size: 0.7rem;
+        opacity: 40%;
+      }
+
       &:hover {
         color: white;
+        opacity: 100%;
       }
     }
 

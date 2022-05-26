@@ -52,12 +52,31 @@ const TaskCard = ({ taskObject }) => {
         {/* <p>Deadline</p> */}
       </div>
       <div className="deadline-container">
-        <p className="date-format">{format(new Date(_id), "LLL dd y")}</p>
+        <p className="date-format">
+          {format(new Date(_id), "LLL dd ")}{" "}
+          <span className="year">{format(new Date(_id), "y")}</span>
+        </p>
         <p className="date-distance">
-          deadline{" "}
-          {formatDistanceToNow(new Date(_id), {
-            addSuffix: true,
-          })}
+          <p className="due-statement">
+            due{" "}
+            {formatDistanceToNow(new Date(_id), {
+              addSuffix: true,
+            })}
+          </p>
+
+          {localTaskList.filter((task) => task.isCompleted == false).length ==
+          0 ? (
+            <p className="task-count">Everything looks great for this day</p>
+          ) : (
+            <p className="task-count">
+              {localTaskList.filter((task) => task.isCompleted == true).length}{" "}
+              / {localTaskList.length} completed{" "}
+              {/* {localTaskList.filter((task) => task.isCompleted == true)
+                .length <= 1
+                ? "task"
+                : "tasks"}{" "} */}
+            </p>
+          )}
         </p>
 
         <div className="new-task-container">

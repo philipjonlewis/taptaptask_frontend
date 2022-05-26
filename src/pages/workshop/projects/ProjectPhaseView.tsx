@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTaskList } from "../../../redux/taskListState";
+import {
+  addTaskToExistingDate,
+  fetchTaskList,
+} from "../../../redux/taskListState";
 import { format, formatDistanceToNow } from "date-fns";
 import { TaskCard } from "../../../components";
 import axios from "axios";
@@ -42,8 +45,8 @@ const ProjectPhaseView = () => {
           {fetchedTaskList.length >= 1 &&
             fetchedTaskList.map((taskObject) => {
               return (
-                <React.Fragment key={taskObject.taskId}>
-                  <TaskCard taskObject={taskObject} key={taskObject.taskId} />
+                <React.Fragment key={taskObject._id}>
+                  <TaskCard taskObject={taskObject} key={taskObject._id} />
                 </React.Fragment>
               );
             })}

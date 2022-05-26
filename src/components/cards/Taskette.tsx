@@ -36,6 +36,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
       const newState = state.filter((task) => task.taskId !== taskId);
       return [...newState];
     });
+    setTasketteMenu(false);
     setIsTaskBeingEdited(false);
   };
 
@@ -57,6 +58,16 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
           }
           onClick={() => {
             if (taskId !== undefined) {
+              setLocalTaskList((state) => {
+                const newState = state.map((task) => {
+                  if (task.taskId == taskId) {
+                    return { ...task, isCompleted: !isLocalCompleted };
+                  }
+                  return task;
+                });
+
+                return [...newState];
+              });
               patchRequest({
                 taskId: taskId,
                 isCompleted: !isLocalCompleted,
