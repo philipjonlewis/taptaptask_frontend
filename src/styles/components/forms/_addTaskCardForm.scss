@@ -1,0 +1,22 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.add-task-card-form {
+  //   border: 1px solid darken($color: $neutral-700, $amount: 8);
+  border: 1px dashed $neutral-500;
+  background-color: $neutral-800;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  border-radius: $icon-radius;
+  //   border: 1px solid transparent;
+  transition: all 0.5s ease-out;
+  // background-color: red;
+
+  // background-color: red;
+  //   min-width: 300px;
+  //   max-width: 300px;
+
+  min-width: 20rem;
+  max-width: 20rem;
+  height: calc(100% - 0.5rem);
+}

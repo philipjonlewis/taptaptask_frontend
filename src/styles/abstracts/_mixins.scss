@@ -58,5 +58,38 @@
   }
 }
 
-@mixin primary-icon-container {
+@mixin medium-icon-container {
+  white-space: nowrap;
+  // margin-right: 1rem;
+  // padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-width: 4rem;
+  min-height: 4rem;
+  border-radius: $icon-radius;
+  cursor: pointer;
+  // background-color: red;
+  height: 100%;
+  color: white;
+  background-color: darken($color: $neutral-700, $amount: 5);
+  border: 1px solid transparent;
+  padding: 0.5rem 0;
+  p {
+    padding-top: 0.2rem;
+    font-size: 0.7rem;
+
+    width: 100%;
+    text-align: center;
+  }
+
+  svg {
+    height: $svg-icon;
+  }
+
+  &:hover {
+    border-color: lighten($neutral-900, 50);
+    background-color: $accent-01;
+  }
 }

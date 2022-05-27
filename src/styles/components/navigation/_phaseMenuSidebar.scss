@@ -6,18 +6,24 @@
   height: 100%;
   min-width: 20rem;
   max-width: 20rem;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
   background-color: darken($color: $neutral-700, $amount: 8);
   //   background-color: $neutral-900;
   //   border: 1px solid $neutral-500;
   border-radius: $icon-radius;
   padding: 0.5rem;
 
+  .minimize-phase-sidebar-container {
+    @include small-icon-container;
+    margin-left: auto;
+    margin-bottom: 0.5rem;
+  }
+
   .icon-links-container {
     display: flex;
     flex-direction: row;
     // background-color: red;
-    justify-content: space-between;
+    justify-content: flex-start;
     // border-bottom: 1px solid gray;
 
     width: 100%;
@@ -27,8 +33,8 @@
       @include small-icon-container;
     }
 
-    .close-icon-menu-container {
-      @include small-icon-container;
+    .task-history-icon-menu-container {
+      // margin-right: 0.5rem;
     }
   }
 
@@ -110,13 +116,38 @@
   // padding: 0.5rem;
   height: fit-content;
   margin-right: 0.5rem;
-  width: 3rem;
-  height: 3rem;
-  background-color: darken($color: $neutral-700, $amount: 8);
-  border-radius: $icon-radius;
+  // padding: 0.5rem 0;
+  // width: 3rem;
+  // height: 3rem;
+  // background-color: darken($color: $neutral-700, $amount: 8);
+  // border-radius: $icon-radius;
 
   .open-menu-icon-container {
     @include small-icon-container;
     margin: auto;
+  }
+
+  .add-task-icon-container {
+    @include small-icon-container;
+    margin-top: 0.5rem;
+
+    &:hover {
+      width: 10rem;
+    }
+  }
+
+  .task-history-icon-menu-container {
+    @include small-icon-container;
+    margin-top: 0.5rem;
+  }
+
+  .filter-icon-menu-container {
+    @include small-icon-container;
+    margin-top: 0.5rem;
+  }
+
+  .active-sidebar-icon {
+    background-color: $accent-03;
+    // background-color: $neutral-700;
   }
 }

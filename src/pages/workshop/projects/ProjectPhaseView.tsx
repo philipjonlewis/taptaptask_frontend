@@ -5,9 +5,15 @@ import {
   fetchTaskList,
 } from "../../../redux/taskListState";
 import { format, formatDistanceToNow } from "date-fns";
-import { TaskCard } from "../../../components";
+import {
+  TaskCard,
+  AddTaskCardForm,
+  PhaseMenuSidebar,
+  TaskHistoryModal,
+  FilterTasksModal,
+} from "../../../components";
 import axios from "axios";
-import { PhaseMenuSidebar } from "../../../components";
+
 const ProjectPhaseView = () => {
   const dispatch = useDispatch();
   const {
@@ -18,7 +24,7 @@ const ProjectPhaseView = () => {
 
   const [fetchedTaskList, setFetchedTaskList] = useState([]);
   const [isFinishedFetching, setIsFinishedFetching] = useState(false);
-
+  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("");
   const getData = async () => {
     const resData = await axios.get(
       `http://192.168.0.22:4000/aggregate/tasks/date/${projectId}/${phaseId}`
@@ -37,7 +43,21 @@ const ProjectPhaseView = () => {
         <PhaseMenuSidebar
           setFetchedTaskList={setFetchedTaskList}
           fetchedTaskList={fetchedTaskList}
+          setActivePhaseSidebarTab={setActivePhaseSidebarTab}
+          activePhaseSidebarTab={activePhaseSidebarTab}
         />
+      )}
+
+      {activePhaseSidebarTab == "add-task" && (
+        <AddTaskCardForm setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
+      )}
+
+      {activePhaseSidebarTab == "task-history" && (
+        <TaskHistoryModal setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
+      )}
+
+      {activePhaseSidebarTab == "filter-tasks" && (
+        <FilterTasksModal setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
       )}
 
       {isFinishedFetching ? (

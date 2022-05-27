@@ -125,6 +125,9 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
           onChange={(e) => {
             setLocalTaskContent(e.target.value);
           }}
+          onMouseLeave={() => {
+            setIsTaskBeingEdited(false);
+          }}
         >
           {/* {localTaskContent} */}
         </textarea>

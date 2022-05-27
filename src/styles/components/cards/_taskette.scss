@@ -14,7 +14,7 @@
   width: 100%;
 
   background-color: darken($color: $neutral-700, $amount: 5);
-  cursor: pointer;
+  // cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -39,6 +39,7 @@
     transition: all 0.5s ease-out;
     background-color: $neutral-700;
     margin-bottom: 0.5rem;
+    cursor: pointer;
     &:hover {
       opacity: 100%;
       border: 1px solid lighten($color: $neutral-500, $amount: 20);
@@ -107,6 +108,7 @@
     // background-color: $neutral-700;
     // background-color: red;
     margin-bottom: 0.5rem;
+    cursor: pointer;
     &:hover {
       opacity: 100%;
       background-color: $neutral-600;
