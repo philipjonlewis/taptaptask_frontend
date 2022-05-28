@@ -5,7 +5,7 @@ import PhaseTaskSummaryVisualization from "../../../components/visualization/Pha
 
 import GanttChartVisualization from "../../../components/visualization/GanttChartVisualization";
 import { format, formatDistanceToNow } from "date-fns";
-
+import { PhaseManagerForm } from "../../../components";
 const ProjectInformation = () => {
   const {
     activeProject: {
@@ -112,10 +112,6 @@ const ProjectInformation = () => {
               <p className="label">Team Members</p>
               <div className="facepile-container">
                 <img
-                  src="https://randomuser.me/api/portraits/women/51.jpg"
-                  alt=""
-                />
-                <img
                   src="https://randomuser.me/api/portraits/women/20.jpg"
                   alt=""
                 />
@@ -159,7 +155,9 @@ const ProjectInformation = () => {
             </div>
           </div>
         </div>
-        <div className="lower-left-container">Upper left</div>
+        <div className="lower-left-container">
+          <PhaseManagerForm />
+        </div>
       </div>
       <div className="right-container">Right</div>
     </div>

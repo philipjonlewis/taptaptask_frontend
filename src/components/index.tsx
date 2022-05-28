@@ -12,6 +12,7 @@ import AddTaskCardForm from "./forms/AddTaskCardForm";
 import TaskHistoryTab from "./tabs/TaskHistoryTab";
 import FilterTasksTab from "./tabs/FilterTasksTab";
 import PhaseDataTab from "./tabs/PhaseDataTab";
+import PhaseManagerForm from "./forms/PhaseManagerForm";
 export {
   LandingNavBar,
   ProjectNavbar,
@@ -26,4 +27,5 @@ export {
   TaskHistoryTab,
   FilterTasksTab,
   PhaseDataTab,
+  PhaseManagerForm,
 };
