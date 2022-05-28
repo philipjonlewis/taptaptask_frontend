@@ -9,8 +9,9 @@ import ProjectsDashboardGanttChart from "./visualization/ProjectsDashboardGanttC
 import Taskette from "./cards/Taskette";
 import PhaseMenuSidebar from "./navigation/PhaseMenuSidebar";
 import AddTaskCardForm from "./forms/AddTaskCardForm";
-import TaskHistoryModal from "./modals/TaskHistoryModal";
-import FilterTasksModal from "./modals/FilterTasksModal";
+import TaskHistoryTab from "./tabs/TaskHistoryTab";
+import FilterTasksTab from "./tabs/FilterTasksTab";
+import PhaseDataTab from "./tabs/PhaseDataTab";
 export {
   LandingNavBar,
   ProjectNavbar,
@@ -22,6 +23,7 @@ export {
   Taskette,
   PhaseMenuSidebar,
   AddTaskCardForm,
-  TaskHistoryModal,
-  FilterTasksModal,
+  TaskHistoryTab,
+  FilterTasksTab,
+  PhaseDataTab,
 };

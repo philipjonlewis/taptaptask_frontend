@@ -1,7 +1,7 @@
 @use "../../abstracts/" as *;
 @use "../../base/" as *;
 
-.task-history-modal-container {
+.task-history-tab-container {
   border: 1px dashed $neutral-500;
   background-color: $neutral-800;
   margin-right: 0.5rem;
@@ -15,7 +15,7 @@
   //   min-width: 300px;
   //   max-width: 300px;
 
-  min-width: 40rem;
-  max-width: 40rem;
+  min-width: 20rem;
+  max-width: 20rem;
   height: calc(100% - 0.5rem);
 }

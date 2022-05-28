@@ -9,8 +9,9 @@ import {
   TaskCard,
   AddTaskCardForm,
   PhaseMenuSidebar,
-  TaskHistoryModal,
-  FilterTasksModal,
+  TaskHistoryTab,
+  FilterTasksTab,
+  PhaseDataTab,
 } from "../../../components";
 import axios from "axios";
 
@@ -48,16 +49,22 @@ const ProjectPhaseView = () => {
         />
       )}
 
+      {activePhaseSidebarTab == "phase-data" && <PhaseDataTab />}
+
       {activePhaseSidebarTab == "add-task" && (
-        <AddTaskCardForm setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
+        <AddTaskCardForm
+          setFetchedTaskList={setFetchedTaskList}
+          fetchedTaskList={fetchedTaskList}
+          setActivePhaseSidebarTab={setActivePhaseSidebarTab}
+        />
       )}
 
       {activePhaseSidebarTab == "task-history" && (
-        <TaskHistoryModal setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
+        <TaskHistoryTab setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
       )}
 
       {activePhaseSidebarTab == "filter-tasks" && (
-        <FilterTasksModal setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
+        <FilterTasksTab setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
       )}
 
       {isFinishedFetching ? (

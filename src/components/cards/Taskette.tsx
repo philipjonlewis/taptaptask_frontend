@@ -15,7 +15,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
     setIsTaskBeingEdited(true);
   };
 
-  const submitEditTaskHandler = (e) => {
+  const submitEditTaskHandler = () => {
     setLocalTaskList((state) => {
       const newState = state.map((task) => {
         if (task.taskId == taskId) {
@@ -48,6 +48,12 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
           ? "task-content-container completed-task"
           : "task-content-container"
       }
+      onMouseLeave={() => {
+        if (isTaskBeingEdited) {
+          setIsTaskBeingEdited(false);
+          submitEditTaskHandler();
+        }
+      }}
     >
       <div className="icon-container">
         <div
@@ -124,9 +130,6 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
           id=""
           onChange={(e) => {
             setLocalTaskContent(e.target.value);
-          }}
-          onMouseLeave={() => {
-            setIsTaskBeingEdited(false);
           }}
         >
           {/* {localTaskContent} */}

@@ -3,8 +3,9 @@
 
 .project-navbar-container {
   // padding: 0 1rem;
-  // border-bottom: 1px solid gray;
-  height: 4rem;
+  border-top: 1px solid $neutral-600;
+  border-bottom: 1px solid $neutral-600;
+  height: 3rem;
   font-size: 0.9rem;
   display: flex;
   flex-direction: row;
@@ -14,8 +15,8 @@
   overflow-y: scroll;
   background-color: $neutral-800;
   //   border-top: 1px solid gray;
-
-  padding: 0.5rem;
+  // background-color: red;
+  // padding: 0.5rem;
 
   .phase-information-container {
     display: flex;
@@ -31,26 +32,31 @@
       // background-color: blue;
       height: 100%;
       .phase-link {
-        width: 12rem;
-        margin-left: 0.5rem;
-
+        // width is like this so it fits perfectly with the smaller half of the golden ratio layout in the phase information view
+        width: 12.27rem;
+        // margin-left: 0.5rem;
+        border-right: 1px solid $neutral-600;
         padding: 0 1rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
-        border: 1px solid transparent;
+        // padding-bottom: 0.5rem;
+        color: $neutral-300;
+        // border-bottom: 1px solid transparent;
         height: 100%;
         font-size: 0.8rem;
-        border-radius: $icon-radius;
+        // border-radius: $icon-radius;
         &:hover {
-          border-color: lighten($neutral-900, 50);
+          color: white;
+          // border-color: lighten($neutral-900, 50);
           background-color: $accent-01;
         }
       }
 
       .active-phase-tab {
+        color: white;
         background-color: $neutral-700;
+        // border-bottom-color: $neutral-400;
       }
     }
   }
@@ -64,14 +70,14 @@
     justify-content: space-evenly;
     align-items: center;
     min-width: 7.2rem;
-    border-radius: $icon-radius;
+    min-width: 3rem;
 
     // background-color: red;
     height: 100%;
-    color: white;
+    color: $neutral-300;
 
-    border: 1px solid transparent;
-
+    // border-bottom: 1px solid transparent;
+    border-right: 1px solid $neutral-600;
     p {
       padding-top: 0.2rem;
       font-size: 0.8rem;
@@ -85,12 +91,15 @@
     }
 
     &:hover {
-      border-color: lighten($neutral-900, 50);
+      color: white;
+      // border-color: lighten($neutral-900, 50);
       background-color: $accent-01;
     }
   }
 
   .active-information {
+    color: white;
     background-color: $neutral-700;
+    // border-bottom-color: $neutral-400;
   }
 }
