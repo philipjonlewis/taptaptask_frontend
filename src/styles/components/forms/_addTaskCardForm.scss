@@ -6,7 +6,7 @@
   background-color: darken($neutral-700, 8);
   margin-right: 0.5rem;
   padding: 0.5rem;
-  border-radius: $icon-radius;
+  border-radius: $standard-radius;
   border: 1px solid $neutral-600;
   transition: all 0.5s ease-out;
 
@@ -42,7 +42,7 @@
       // @include border(bottom, $accent-01);
       // background-color: rebeccapurple;
       color: white;
-      border-radius: $icon-radius;
+      border-radius: $standard-radius;
       &:focus {
         @include border(bottom, $accent-01);
       }
@@ -57,7 +57,7 @@
       width: 100%;
       font-weight: 300;
       height: 2.4rem;
-      border-radius: $icon-radius;
+      border-radius: $standard-radius;
       border: 1px solid $accent-01;
       background-color: $accent-01;
       &:hover {
@@ -72,7 +72,7 @@
     width: fit-content;
     cursor: pointer;
     border: 1px solid $accent-02;
-    border-radius: $icon-radius;
+    border-radius: $standard-radius;
     padding: 0.5rem;
     margin-top: 1rem;
     p {

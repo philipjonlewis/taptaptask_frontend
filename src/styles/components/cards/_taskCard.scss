@@ -7,7 +7,7 @@
   // background-color: $neutral-700;
   margin-right: 0.5rem;
   padding: 0.5rem;
-  border-radius: $icon-radius;
+  border-radius: $standard-radius;
   border: 1px solid transparent;
   transition: all 0.5s ease-out;
   // background-color: red;
@@ -112,7 +112,7 @@
           visibility: hidden;
           visibility: visible;
           height: 2.4rem;
-          border-radius: $icon-radius;
+          border-radius: $standard-radius;
           color: $neutral-500;
           font-size: 0.9rem;
 

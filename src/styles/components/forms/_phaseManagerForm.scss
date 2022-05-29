@@ -4,7 +4,7 @@
 .phase-management-container {
   width: 100%;
   height: 100%;
-  //   background-color: yellow;
+  // background-color: yellow;
 
   //   display: flex;
   //   flex-direction: column;
@@ -13,9 +13,11 @@
 
   .title-container {
     width: 100%;
-    height: 2rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+
     p {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 
@@ -23,5 +25,42 @@
     // background-color: red;
     width: 100%;
     height: 100%;
+
+    li {
+      border-radius: $standard-radius;
+      list-style: none;
+      width: 100%;
+      height: 3rem;
+      margin-bottom: .5rem;
+
+      background-color: lighten($neutral-800, 2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+
+      .reorder-container {
+        // background-color: blue;
+        height: 100%;
+        width: 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: grab;
+        svg {
+          opacity: 40%;
+          height: 1rem;
+
+          // background-color: red;
+          // height: 4rem;
+        }
+      }
+
+      &:hover {
+        background-color: $accent-01;
+      }
+    }
   }
 }

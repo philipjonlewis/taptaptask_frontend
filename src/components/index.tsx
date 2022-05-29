@@ -13,6 +13,7 @@ import TaskHistoryTab from "./tabs/TaskHistoryTab";
 import FilterTasksTab from "./tabs/FilterTasksTab";
 import PhaseDataTab from "./tabs/PhaseDataTab";
 import PhaseManagerForm from "./forms/PhaseManagerForm";
+import PhaseReorderCard from "./cards/PhaseReorderCard";
 export {
   LandingNavBar,
   ProjectNavbar,
@@ -28,4 +29,5 @@ export {
   FilterTasksTab,
   PhaseDataTab,
   PhaseManagerForm,
+  PhaseReorderCard,
 };

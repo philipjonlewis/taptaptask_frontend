@@ -19,7 +19,7 @@
     opacity: 100%;
     background-color: $neutral-900;
     position: relative;
-    border-radius: $icon-radius;
+    border-radius: $standard-radius;
 
     .close-add-form-modal-button {
       @include small-icon-container;
@@ -66,7 +66,7 @@
           // @include border(bottom, $accent-01);
           // background-color: rebeccapurple;
           color: white;
-          border-radius: $icon-radius;
+          border-radius: $standard-radius;
           &:focus {
             @include border(bottom, $accent-01);
           }
@@ -81,7 +81,7 @@
           width: 100%;
           font-weight: 300;
           height: 2.4rem;
-          border-radius: $icon-radius;
+          border-radius: $standard-radius;
           border: 1px solid $accent-01;
           background-color: $accent-01;
           &:hover {
@@ -98,7 +98,7 @@
         left: 0.5rem;
         cursor: pointer;
         border: 1px solid $accent-02;
-        border-radius: $icon-radius;
+        border-radius: $standard-radius;
         padding: 0.5rem;
         p {
           font-size: 0.8rem;
@@ -167,7 +167,6 @@
     position: relative;
     margin-bottom: 0.5rem;
 
-
     .link-icon {
       height: $link-icon;
     }
@@ -208,7 +207,7 @@
       @include dims(7.2rem, 3.5rem);
       cursor: pointer;
 
-      border-radius: $icon-radius;
+      border-radius: $standard-radius;
       background-color: $icon-bg;
       p {
         padding-top: 0.2rem;
