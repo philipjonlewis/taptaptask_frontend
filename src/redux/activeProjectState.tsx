@@ -15,7 +15,7 @@ export const activeProjectSlice = createSlice({
       // get id payload
       // Make API call for the project, its phases and tasks - better if GraphQL
       // console.log(actions.payload);
-      console.log("hello", actions.payload);
+      // console.log("hello", actions.payload);
       return actions.payload;
     },
   },

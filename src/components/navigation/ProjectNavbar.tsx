@@ -9,6 +9,7 @@ import { addPhase } from "../../redux/phaseListState";
 // import { mockPhaseList } from "../../redux/mockdata/phases";
 const ProjectNavbar = () => {
   const [activeTab, setActiveTab] = useState("hello");
+  const [localPhaseList, setLocalPhaseList] = useState([]);
   const dispatch = useDispatch();
 
   const {
@@ -18,9 +19,18 @@ const ProjectNavbar = () => {
     activePhase,
   } = useSelector((state) => state);
 
-  const filteredProjectPhases = phaseList.filter(
-    (phase) => phase.projectReferenceId == projectId
-  );
+  useEffect(() => {
+    const filteredPhaseList = phaseList.filter(
+      (phase) => phase._id == projectId
+    )[0].phaseList;
+
+    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
+      return a.phaseOrder - b.phaseOrder;
+    });
+
+    console.log(sortedPhaseList);
+    setLocalPhaseList(sortedPhaseList);
+  }, [phaseList]);
 
   const [phaseForm, setPhaseForm] = useState({
     user: auth._id,
@@ -116,8 +126,8 @@ const ProjectNavbar = () => {
           <p>Project Phases</p>
         </div> */}
         <div className="phase-link-container">
-          {filteredProjectPhases.length >= 1 &&
-            filteredProjectPhases.map((phase) => {
+          {localPhaseList.length >= 1 &&
+            localPhaseList.map((phase) => {
               return (
                 <Link
                   className={

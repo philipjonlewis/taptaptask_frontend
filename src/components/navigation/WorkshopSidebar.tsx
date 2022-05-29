@@ -71,10 +71,12 @@ const WorkshopProjectSidebar = () => {
   useEffect(() => {
     Promise.all([
       fetch("http://localhost:4000/projects"),
-      fetch("http://localhost:4000/phases"),
+      fetch(`http://localhost:4000/phases/byproject/${auth._id}`),
       fetch("http://localhost:4000/tasks"),
     ]).then(async ([projects, phases, tasks]) => {
+      // console.log(await phases.json());
       dispatch(fetchProjectList(await projects.json()));
+      // console.log(await phases.json());
       dispatch(fetchPhaseList(await phases.json()));
       // dispatch(fetchTaskList(tasks));
     });

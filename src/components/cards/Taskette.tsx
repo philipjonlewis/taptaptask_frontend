@@ -26,7 +26,10 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
 
       return [...newState];
     });
-    patchRequest({ taskId, taskContent: localTaskContent });
+    patchRequest("http://192.168.0.22:4000/tasks/edit", {
+      taskId,
+      taskContent: localTaskContent,
+    });
     setIsTaskBeingEdited(false);
   };
 

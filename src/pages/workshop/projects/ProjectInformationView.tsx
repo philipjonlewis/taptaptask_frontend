@@ -86,24 +86,24 @@ const ProjectInformation = () => {
           <div className="upper-left-right-container">
             <div className="project-date">
               <div className="label-title-container">
-                <p className="label">
+                <div className="label">
                   Created{" "}
                   <p className="sublabel">
                     {daysSinceCreation && daysSinceCreation}
                   </p>
-                </p>
+                </div>
                 <p className="title">{creationDate && creationDate}</p>
               </div>
               <div className="label-subtitle-container">
                 {/* <p className="label">days since creation</p> */}
               </div>
               <div className="label-title-container">
-                <p className="label">
+                <div className="label">
                   Deadline{" "}
                   <p className="sublabel">
                     {daysTillDeadline && daysTillDeadline}
                   </p>
-                </p>
+                </div>
                 <p className="title">{deadlineDate && deadlineDate}</p>
               </div>
             </div>
