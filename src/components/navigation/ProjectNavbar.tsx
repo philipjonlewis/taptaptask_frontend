@@ -28,9 +28,8 @@ const ProjectNavbar = () => {
       return a.phaseOrder - b.phaseOrder;
     });
 
-    console.log(sortedPhaseList);
-    setLocalPhaseList(sortedPhaseList);
-  }, [phaseList]);
+    setLocalPhaseList([...sortedPhaseList]);
+  }, [projectId, phaseList]);
 
   const [phaseForm, setPhaseForm] = useState({
     user: auth._id,
@@ -135,7 +134,7 @@ const ProjectNavbar = () => {
                       ? "phase-link active-phase-tab"
                       : "phase-link"
                   }
-                  key={phase.phaseId}
+                  key={uuidv4()}
                   to={"phase"}
                   onClick={() => activePhaseHandler(phase)}
                 >

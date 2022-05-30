@@ -26,6 +26,8 @@ export const phaseListSlice = createSlice({
         };
       });
 
+      patchRequest("http://192.168.0.22:4000/phases/changeorder", newPhaseList);
+
       state = state.map((groupedPhase) => {
         if (groupedPhase._id == projectId) {
           const newObject = { _id: projectId, phaseList: newPhaseList };
