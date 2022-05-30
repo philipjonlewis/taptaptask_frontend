@@ -104,6 +104,12 @@
         transition: all 0.5s ease-out;
         // display: none;
       }
+
+      .delete-phase-container {
+        &:hover {
+          background-color: $accent-02;
+        }
+      }
       &:hover {
         .edit-phase-container,
         .delete-phase-container {

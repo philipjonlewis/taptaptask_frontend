@@ -15,6 +15,7 @@ const ProjectInformation = () => {
       dateOfDeadline,
       createdAt,
     },
+    phaseList,
   } = useSelector((state) => state);
 
   const creationDate = format(new Date(createdAt), "LLL dd y");
@@ -26,29 +27,6 @@ const ProjectInformation = () => {
   const daysTillDeadline = formatDistanceToNow(new Date(dateOfDeadline), {
     addSuffix: true,
   });
-
-  // return (
-  //   <div className="project-information-view-container ">
-
-  // <div className="project-date-container">
-  //   <div className="project-created">
-  //     <p>Created</p>
-  //     <p>{creationDate && creationDate}</p>
-  //     <div className="days-since-container">
-  //       <p>{daysSinceCreation && daysSinceCreation}</p>
-  //     </div>
-  //   </div>
-  //   <div className="project-deadline">
-  //     <p>Deadline</p>
-  //     <p>{deadlineDate && deadlineDate}</p>
-  //     <div className="days-since-container">
-  //       <p>{daysTillDeadline && daysTillDeadline}</p>
-  //     </div>
-  //   </div>
-  // </div>;
-  //     <hr />
-  //   </div>
-  // );
 
   return (
     <div className="project-information-view-container">
@@ -94,9 +72,7 @@ const ProjectInformation = () => {
                 </div>
                 <p className="title">{creationDate && creationDate}</p>
               </div>
-              <div className="label-subtitle-container">
-                {/* <p className="label">days since creation</p> */}
-              </div>
+
               <div className="label-title-container">
                 <div className="label">
                   Deadline{" "}
@@ -156,7 +132,7 @@ const ProjectInformation = () => {
           </div>
         </div>
         <div className="lower-left-container">
-          <PhaseManagerForm />
+          {phaseList.length >= 1 && <PhaseManagerForm />}
         </div>
       </div>
       <div className="right-container">Right</div>

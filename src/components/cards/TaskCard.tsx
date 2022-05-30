@@ -141,7 +141,7 @@ const TaskCard = ({ taskObject }) => {
       <div className="task-list-container">
         {localTaskList.map((taskObject) => {
           return (
-            <React.Fragment key={taskObject._id}>
+            <React.Fragment key={taskObject.taskId}>
               <Taskette
                 taskObject={taskObject}
                 setLocalTaskList={setLocalTaskList}

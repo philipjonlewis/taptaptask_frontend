@@ -35,7 +35,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
 
   const deleteTaskhandler = () => {
     setLocalTaskList((state) => {
-      deleteRequest({ taskId }, "http://192.168.0.25:4000/tasks/delete");
+      deleteRequest(taskId, "http://192.168.0.25:4000/tasks/delete");
       const newState = state.filter((task) => task.taskId !== taskId);
       return [...newState];
     });

@@ -5,10 +5,31 @@ import {
   useDragControls,
   DragControls,
 } from "framer-motion";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { deletePhase } from "../../redux/phaseListState";
 
-const PhaseReorderCard = ({ item }) => {
+const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
+  const {
+    auth,
+    activeProject: { projectId, projectName, projectDescription },
+    phaseList,
+    activePhase,
+  } = useSelector((state) => state);
   const y = useMotionValue(0);
   const dragControls = useDragControls();
+
+  const dispatch = useDispatch();
+
+  const deletePhaseHandler = ({ phaseId, projectReferenceId }) => {
+    // console.log(phaseId);
+    dispatch(deletePhase({ phaseId, projectReferenceId }));
+    setLocalPhaseList((state) => {
+      const newState = state.filter((phases) => phases.phaseId !== phaseId);
+      return [...newState];
+    });
+  };
+
   return (
     <Reorder.Item
       value={item}
@@ -33,7 +54,15 @@ const PhaseReorderCard = ({ item }) => {
           />
         </svg>
       </div>
-      <div className="delete-phase-container">
+      <div
+        className="delete-phase-container"
+        onClick={() =>
+          deletePhaseHandler({
+            phaseId: item.phaseId,
+            projectReferenceId: projectId,
+          })
+        }
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"

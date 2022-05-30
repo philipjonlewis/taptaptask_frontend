@@ -20,15 +20,23 @@ const ProjectNavbar = () => {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    const filteredPhaseList = phaseList.filter(
-      (phase) => phase._id == projectId
-    )[0].phaseList;
+    setLocalPhaseList((state) => {
+      if (phaseList?.length >= 1) {
+        const filteredPhaseList = [...phaseList].filter(
+          (phase) => phase._id == projectId
+        )[0]?.phaseList;
 
-    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
-      return a.phaseOrder - b.phaseOrder;
+        if (filteredPhaseList?.length >= 1) {
+          const sortedPhaseList = [...filteredPhaseList]?.sort((a, b) => {
+            return a.phaseOrder - b.phaseOrder;
+          });
+
+          return [...sortedPhaseList];
+        }
+      }
+
+      return state;
     });
-
-    setLocalPhaseList([...sortedPhaseList]);
   }, [projectId, phaseList]);
 
   const [phaseForm, setPhaseForm] = useState({
@@ -88,37 +96,6 @@ const ProjectNavbar = () => {
         </svg>
         {/* <p>Project Details</p> */}
       </Link>
-      {/* 
-      <div className="add-phase-container">
-        <form action="#">
-          <input
-            type="text"
-            placeholder="Add Phase"
-            value={phaseForm.phaseName}
-            onChange={(e) => {
-              setPhaseForm((state) => {
-                return { ...state, phaseName: e.target.value };
-              });
-            }}
-          />
-          <button onClick={submitPhaseFormHandler}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-          </button>
-        </form>
-      </div> */}
 
       <div className="phase-information-container">
         {/* <div className="phase-title-container">

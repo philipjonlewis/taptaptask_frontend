@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export const deleteRequest = async (taskId, url) => {
+export const deleteRequest = async (id, url) => {
   axios
-    .post(url, await taskId)
+    .post(url, await { id: id })
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
     })
     .catch(function (error) {
-      console.log(error);
+      // console.log(error);
     });
 };
 
