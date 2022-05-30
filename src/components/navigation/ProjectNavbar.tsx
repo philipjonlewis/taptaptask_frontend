@@ -13,38 +13,76 @@ const ProjectNavbar = () => {
   const dispatch = useDispatch();
 
   const {
-    auth,
+    auth: { _id },
     activeProject: { projectId, projectName, projectDescription },
     phaseList,
     activePhase,
   } = useSelector((state) => state);
 
+  const [phaseForm, setPhaseForm] = useState({
+    user: _id,
+    projectReferenceId: projectId,
+    phaseId: uuidv4(),
+    phaseName: "",
+  });
   useEffect(() => {
     setLocalPhaseList((state) => {
       if (phaseList?.length >= 1) {
-        const filteredPhaseList = [...phaseList].filter(
-          (phase) => phase._id == projectId
-        )[0]?.phaseList;
+      const filteredPhaseList = [...phaseList].filter(
+        (phase) => phase._id == projectId
+      )[0]?.phaseList;
 
-        if (filteredPhaseList?.length >= 1) {
-          const sortedPhaseList = [...filteredPhaseList]?.sort((a, b) => {
-            return a.phaseOrder - b.phaseOrder;
-          });
+      if (filteredPhaseList?.length >= 1) {
+        const sortedPhaseList = [...filteredPhaseList]?.sort((a, b) => {
+          return a.phaseOrder - b.phaseOrder;
+        });
 
-          return [...sortedPhaseList];
-        }
+        return [...sortedPhaseList];
+      } else {
+        setLocalPhaseList([]);
+
+        // if (localPhaseList.length == 0) {
+        //   dispatch(
+        //     addPhase({
+        //       newPhase: {
+        //         user: _id,
+        //         projectReferenceId: projectId,
+        //         phaseId: uuidv4(),
+        //         phaseName: "New Phase",
+        //       },
+        //       projectReferenceId: projectId,
+        //     })
+        //   );
+        // }
+        console.log("walang laman");
+      }
       }
 
       return state;
     });
   }, [projectId, phaseList]);
 
-  const [phaseForm, setPhaseForm] = useState({
-    user: auth._id,
-    projectReferenceId: projectId,
-    phaseId: uuidv4(),
-    phaseName: "",
-  });
+  // useEffect(() => {
+  //   const filteredPhaseList = [...phaseList].filter(
+  //     (phase) => phase._id == projectId
+  //   )[0]?.phaseList;
+
+  //   if (filteredPhaseList == undefined || filteredPhaseList.length < 1) {
+  //     setLocalPhaseList([]);
+  //     dispatch(
+  //       addPhase({
+  //         newPhase: {
+  //           user: _id,
+  //           projectReferenceId: projectId,
+  //           phaseId: uuidv4(),
+  //           phaseName: "New Phase",
+  //         },
+  //         projectReferenceId: projectId,
+  //       })
+  //     );
+  //   }
+  // }, [phaseList]);
+
   //Must have a use effect that removes the current phase as the active phase whenever it unmounts
 
   const submitPhaseFormHandler = (e) => {

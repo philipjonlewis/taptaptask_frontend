@@ -7,7 +7,7 @@ import { deleteRequest } from "../helpers/deleteRequest";
 import { postRequest } from "../helpers/postRequest";
 export const phaseListSlice = createSlice({
   name: "phaseList",
-  initialState: mockPhaseList,
+  initialState: [],
   reducers: {
     addPhase: (state, actions) => {
       const { newPhase, projectReferenceId } = actions.payload;
@@ -24,7 +24,7 @@ export const phaseListSlice = createSlice({
         }
         return phases;
       });
-      // console.log([...state]);
+
       return [...state];
     },
     editPhase: (state) => {
@@ -51,6 +51,7 @@ export const phaseListSlice = createSlice({
         }
         return phases;
       });
+
       return [...state];
     },
     editPhaseListOrder: (state, actions) => {

@@ -6,8 +6,13 @@ import PhaseTaskSummaryVisualization from "../../../components/visualization/Pha
 import GanttChartVisualization from "../../../components/visualization/GanttChartVisualization";
 import { format, formatDistanceToNow } from "date-fns";
 import { PhaseManagerForm } from "../../../components";
+import { v4 as uuidv4 } from "uuid";
+
+import { useDispatch } from "react-redux";
+import { addPhase } from "../../../redux/phaseListState";
 const ProjectInformation = () => {
   const {
+    auth: { _id },
     activeProject: {
       projectId,
       projectName,
@@ -17,16 +22,16 @@ const ProjectInformation = () => {
     },
     phaseList,
   } = useSelector((state) => state);
+  const dispatch = useDispatch;
+  // const creationDate = format(new Date(createdAt), "LLL dd y");
+  // const daysSinceCreation = formatDistanceToNow(new Date(createdAt), {
+  //   addSuffix: true,
+  // });
 
-  const creationDate = format(new Date(createdAt), "LLL dd y");
-  const daysSinceCreation = formatDistanceToNow(new Date(createdAt), {
-    addSuffix: true,
-  });
-
-  const deadlineDate = format(new Date(dateOfDeadline), "LLL dd y");
-  const daysTillDeadline = formatDistanceToNow(new Date(dateOfDeadline), {
-    addSuffix: true,
-  });
+  // const deadlineDate = format(new Date(dateOfDeadline), "LLL dd y");
+  // const daysTillDeadline = formatDistanceToNow(new Date(dateOfDeadline), {
+  //   addSuffix: true,
+  // });
 
   return (
     <div className="project-information-view-container">
@@ -67,20 +72,20 @@ const ProjectInformation = () => {
                 <div className="label">
                   Created{" "}
                   <p className="sublabel">
-                    {daysSinceCreation && daysSinceCreation}
+                    {/* {daysSinceCreation && daysSinceCreation} */}
                   </p>
                 </div>
-                <p className="title">{creationDate && creationDate}</p>
+                {/* <p className="title">{creationDate && creationDate}</p> */}
               </div>
 
               <div className="label-title-container">
                 <div className="label">
                   Deadline{" "}
                   <p className="sublabel">
-                    {daysTillDeadline && daysTillDeadline}
+                    {/* {daysTillDeadline && daysTillDeadline} */}
                   </p>
                 </div>
-                <p className="title">{deadlineDate && deadlineDate}</p>
+                {/* <p className="title">{deadlineDate && deadlineDate}</p>s */}
               </div>
             </div>
 
@@ -132,7 +137,7 @@ const ProjectInformation = () => {
           </div>
         </div>
         <div className="lower-left-container">
-          {phaseList.length >= 1 && <PhaseManagerForm />}
+          <PhaseManagerForm />
         </div>
       </div>
       <div className="right-container">Right</div>

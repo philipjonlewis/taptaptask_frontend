@@ -41,23 +41,27 @@ const PhaseManagerForm = () => {
   };
 
   useEffect(() => {
-    // if (phaseList["projectId"]) {
+    setLocalPhaseList((state) => {
+      if (phaseList?.length >= 1) {
+        const filteredPhaseList = [...phaseList].filter(
+          (phase) => phase._id == projectId
+        )[0]?.phaseList;
 
-    // const filteredPhaseList = [...phaseList].filter(
-    //   (phase) => phase._id == projectId
-    // )[0]?.phaseList;
-    // console.log(filteredPhaseList);
+        if (filteredPhaseList?.length >= 1) {
+          const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
+            return a.phaseOrder - b.phaseOrder;
+          });
 
-    // if (filteredPhaseList.length >= 1) {
-    //   const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
-    //     return a.phaseOrder - b.phaseOrder;
-    //   });
+          return [...sortedPhaseList];
+        }
+      }
 
-    //   setLocalPhaseList((state) => {
-    //     return [...sortedPhaseList];
-    //   });
-    // }
+      return state;
+    });
+  }, [phaseList]);
 
+  useEffect(() => {
+    // console.log(projectId);
     setLocalPhaseList((state) => {
       if (phaseList?.length >= 1) {
         const filteredPhaseList = [...phaseList].filter(
@@ -84,6 +88,7 @@ const PhaseManagerForm = () => {
     setLocalPhaseList((state) => {
       return [...state, form];
     });
+
     setForm((state) => {
       return { ...state, phaseId: uuidv4(), phaseName: "" };
     });
@@ -96,23 +101,6 @@ const PhaseManagerForm = () => {
     }
   }, [localPhaseList]);
 
-  // useEffect(() => {
-  //   if (canFetch) {
-  //     const newPhaseList = [...localPhaseList].map((phaseObject) => {
-  //       return {
-  //         ...phaseObject,
-  //         phaseOrder: localPhaseList.indexOf(phaseObject) + 1,
-  //       };
-  //     });
-
-  //     console.log(newPhaseList);
-
-  //     // patchRequest("http://192.168.0.22:4000/phases/changeorder", newPhaseList);
-  //     // setCanFetch(false);
-  //   }
-  // }, [localPhaseList]);
-
-  // useEffect(() => {}, [localPhaseList]);
   return (
     <div className="phase-management-container">
       <div className="title-container">

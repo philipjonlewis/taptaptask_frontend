@@ -69,7 +69,6 @@ const WorkshopProjectSidebar = () => {
   };
 
   useEffect(() => {
- 
     Promise.all([
       fetch("http://localhost:4000/projects"),
       fetch(`http://localhost:4000/phases/byproject/${auth._id}`),
@@ -79,6 +78,7 @@ const WorkshopProjectSidebar = () => {
       dispatch(fetchProjectList(await projects.json()));
       // console.log(await phases.json());
       dispatch(fetchPhaseList(await phases.json()));
+      // console.log(phases);
       // dispatch(fetchTaskList(tasks));
     });
 
