@@ -42,9 +42,7 @@ const PhaseManagerForm = () => {
   };
 
   useEffect(() => {
-    console.log("trial");
     localPhaseListResetter(phaseList);
-
     return () => {
       setLocalPhaseList([]);
     };

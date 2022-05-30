@@ -18,21 +18,23 @@ const ProjectNavbar = () => {
   const [localPhaseList, setLocalPhaseList] = useState([]);
   const [phaseListEditingState, setPhaseListEditingState] = useState(false);
 
-  const filteredPhaseList = [...phaseList].filter(
-    (phase) => phase._id == projectId
-  )[0]?.phaseList;
+  const localPhaseListResetter = (phaseList) => {
+    const filteredPhaseList = [...phaseList].filter(
+      (phase) => phase._id == projectId
+    )[0]?.phaseList;
 
-  const sortedPhaseList = [...filteredPhaseList]?.sort((a, b) => {
-    return a.phaseOrder - b.phaseOrder;
-  });
+    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
+      return a.phaseOrder - b.phaseOrder;
+    });
+
+    setLocalPhaseList([...sortedPhaseList]);
+  };
 
   useEffect(() => {
     setPhaseListEditingState(true);
 
     if (phaseListEditingState) {
-      setLocalPhaseList(() => {
-        return [...sortedPhaseList];
-      });
+      localPhaseListResetter(phaseList);
     }
 
     return () => {
