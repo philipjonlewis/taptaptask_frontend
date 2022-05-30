@@ -12,14 +12,13 @@ import { v4 as uuidv4 } from "uuid";
 import { postRequest } from "../../helpers/postRequest";
 
 const PhaseManagerForm = () => {
-  const dispatch = useDispatch();
   const {
     auth: { _id },
     phaseList,
     activeProject: { projectId },
   } = useSelector((state) => state);
 
-  const [canFetch, setCanFetch] = useState(false);
+  const dispatch = useDispatch();
 
   const [localPhaseList, setLocalPhaseList] = useState([]);
 
@@ -30,76 +29,26 @@ const PhaseManagerForm = () => {
     phaseName: "",
   });
 
-  const formHandler = (e) => {
-    setForm((state) => {
-      return {
-        ...state,
-        [e.target.name]: e.target.value,
-        phaseOrder: localPhaseList.length + 1,
-      };
+  const localPhaseListResetter = (phaseList) => {
+    const filteredPhaseList = [...phaseList].filter(
+      (phase) => phase._id == projectId
+    )[0]?.phaseList;
+
+    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
+      return a.phaseOrder - b.phaseOrder;
     });
+
+    setLocalPhaseList([...sortedPhaseList]);
   };
 
   useEffect(() => {
-    setLocalPhaseList((state) => {
-      if (phaseList?.length >= 1) {
-        const filteredPhaseList = [...phaseList].filter(
-          (phase) => phase._id == projectId
-        )[0]?.phaseList;
+    console.log("trial");
+    localPhaseListResetter(phaseList);
 
-        if (filteredPhaseList?.length >= 1) {
-          const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
-            return a.phaseOrder - b.phaseOrder;
-          });
-
-          return [...sortedPhaseList];
-        }
-      }
-
-      return state;
-    });
-  }, [phaseList]);
-
-  useEffect(() => {
-    // console.log(projectId);
-    setLocalPhaseList((state) => {
-      if (phaseList?.length >= 1) {
-        const filteredPhaseList = [...phaseList].filter(
-          (phase) => phase._id == projectId
-        )[0]?.phaseList;
-
-        if (filteredPhaseList?.length >= 1) {
-          const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
-            return a.phaseOrder - b.phaseOrder;
-          });
-
-          return [...sortedPhaseList];
-        }
-      }
-
-      return state;
-    });
-  }, [projectId]);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(addPhase({ newPhase: form, projectReferenceId: projectId }));
-
-    setLocalPhaseList((state) => {
-      return [...state, form];
-    });
-
-    setForm((state) => {
-      return { ...state, phaseId: uuidv4(), phaseName: "" };
-    });
-  };
-
-  useEffect(() => {
-    if (canFetch) {
-      dispatch(editPhaseListOrder({ projectId, localPhaseList }));
-      // setCanFetch(false);
-    }
-  }, [localPhaseList]);
+    return () => {
+      setLocalPhaseList([]);
+    };
+  }, [projectId, phaseList]);
 
   return (
     <div className="phase-management-container">
@@ -117,9 +66,34 @@ const PhaseManagerForm = () => {
             name="phaseName"
             id="phaseName"
             value={form.phaseName}
-            onChange={formHandler}
+            onChange={(e) => {
+              setForm((state) => {
+                return {
+                  ...state,
+                  [e.target.name]: e.target.value,
+                  phaseOrder: localPhaseList.length + 1,
+                };
+              });
+            }}
           />
-          <button onClick={submitHandler}>Add Phase</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(
+                addPhase({ newPhase: form, projectReferenceId: projectId })
+              );
+
+              setLocalPhaseList((state) => {
+                return [...state, form];
+              });
+
+              setForm((state) => {
+                return { ...state, phaseId: uuidv4(), phaseName: "" };
+              });
+            }}
+          >
+            Add Phase
+          </button>
         </div>
       </form>
       <Reorder.Group
@@ -127,8 +101,11 @@ const PhaseManagerForm = () => {
         values={localPhaseList}
         onReorder={setLocalPhaseList}
         className="interactive-phase-container"
-        onMouseEnter={() => setCanFetch(true)}
-        onMouseLeave={() => setCanFetch(false)}
+        onMouseUp={() => {
+          // setCanFetch(true);
+          dispatch(editPhaseListOrder({ projectId, localPhaseList }));
+        }}
+        // onMouseUp={() => setCanFetch(false)}
 
         // onMouseLeave={() => setCanFetch(false)}
       >
@@ -145,24 +122,6 @@ const PhaseManagerForm = () => {
       </Reorder.Group>
     </div>
   );
-  // return (
-  //   <div className="phase-management-container">
-  //     <div className="title-container">
-  //       <p>Phase Manager</p>
-  //     </div>
-
-  //     <Reorder.Group axis="y" values={phases} onReorder={setPhases}>
-  //       {phases.map((phase) => {
-  //         return (
-  //           <Reorder.Item key={phase.phaseOrder} value={phase.phaseName}>
-  //             {phase.phaseName}
-  //           </Reorder.Item>
-  //         );
-  //       })}
-  //     </Reorder.Group>
-
-  //   </div>
-  // );
 };
 
 export default PhaseManagerForm;

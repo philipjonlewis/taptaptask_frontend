@@ -8,104 +8,38 @@ import { postRequest } from "../../helpers/postRequest";
 import { addPhase } from "../../redux/phaseListState";
 // import { mockPhaseList } from "../../redux/mockdata/phases";
 const ProjectNavbar = () => {
-  const [activeTab, setActiveTab] = useState("hello");
-  const [localPhaseList, setLocalPhaseList] = useState([]);
-  const dispatch = useDispatch();
-
   const {
-    auth: { _id },
-    activeProject: { projectId, projectName, projectDescription },
+    activeProject: { projectId },
     phaseList,
     activePhase,
   } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-  const [phaseForm, setPhaseForm] = useState({
-    user: _id,
-    projectReferenceId: projectId,
-    phaseId: uuidv4(),
-    phaseName: "",
+  const [localPhaseList, setLocalPhaseList] = useState([]);
+  const [phaseListEditingState, setPhaseListEditingState] = useState(false);
+
+  const filteredPhaseList = [...phaseList].filter(
+    (phase) => phase._id == projectId
+  )[0]?.phaseList;
+
+  const sortedPhaseList = [...filteredPhaseList]?.sort((a, b) => {
+    return a.phaseOrder - b.phaseOrder;
   });
+
   useEffect(() => {
-    setLocalPhaseList((state) => {
-      if (phaseList?.length >= 1) {
-      const filteredPhaseList = [...phaseList].filter(
-        (phase) => phase._id == projectId
-      )[0]?.phaseList;
+    setPhaseListEditingState(true);
 
-      if (filteredPhaseList?.length >= 1) {
-        const sortedPhaseList = [...filteredPhaseList]?.sort((a, b) => {
-          return a.phaseOrder - b.phaseOrder;
-        });
-
+    if (phaseListEditingState) {
+      setLocalPhaseList(() => {
         return [...sortedPhaseList];
-      } else {
-        setLocalPhaseList([]);
+      });
+    }
 
-        // if (localPhaseList.length == 0) {
-        //   dispatch(
-        //     addPhase({
-        //       newPhase: {
-        //         user: _id,
-        //         projectReferenceId: projectId,
-        //         phaseId: uuidv4(),
-        //         phaseName: "New Phase",
-        //       },
-        //       projectReferenceId: projectId,
-        //     })
-        //   );
-        // }
-        console.log("walang laman");
-      }
-      }
-
-      return state;
-    });
+    return () => {
+      setLocalPhaseList([]);
+      setPhaseListEditingState(false);
+    };
   }, [projectId, phaseList]);
-
-  // useEffect(() => {
-  //   const filteredPhaseList = [...phaseList].filter(
-  //     (phase) => phase._id == projectId
-  //   )[0]?.phaseList;
-
-  //   if (filteredPhaseList == undefined || filteredPhaseList.length < 1) {
-  //     setLocalPhaseList([]);
-  //     dispatch(
-  //       addPhase({
-  //         newPhase: {
-  //           user: _id,
-  //           projectReferenceId: projectId,
-  //           phaseId: uuidv4(),
-  //           phaseName: "New Phase",
-  //         },
-  //         projectReferenceId: projectId,
-  //       })
-  //     );
-  //   }
-  // }, [phaseList]);
-
-  //Must have a use effect that removes the current phase as the active phase whenever it unmounts
-
-  const submitPhaseFormHandler = (e) => {
-    e.preventDefault();
-    dispatch(addPhase(phaseForm));
-    postRequest(phaseForm, "http://192.168.0.22:4000/phases");
-    setPhaseForm((state) => {
-      return { ...state, phaseId: uuidv4(), phaseName: "" };
-    });
-  };
-
-  const activePhaseHandler = (phase) => {
-    dispatch(setActivePhase(phase));
-  };
-
-  const activeTabHandler = () => {
-    dispatch(
-      setActivePhase({
-        phaseId: "",
-        phaseName: "",
-      })
-    );
-  };
 
   return (
     <div className="project-navbar-container">
@@ -116,7 +50,14 @@ const ProjectNavbar = () => {
             ? "project-information-link active-information"
             : "project-information-link"
         }
-        onClick={activeTabHandler}
+        onClick={() => {
+          dispatch(
+            setActivePhase({
+              phaseId: "",
+              phaseName: "",
+            })
+          );
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -132,13 +73,9 @@ const ProjectNavbar = () => {
             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
           />
         </svg>
-        {/* <p>Project Details</p> */}
       </Link>
 
       <div className="phase-information-container">
-        {/* <div className="phase-title-container">
-          <p>Project Phases</p>
-        </div> */}
         <div className="phase-link-container">
           {localPhaseList.length >= 1 &&
             localPhaseList.map((phase) => {
@@ -149,9 +86,9 @@ const ProjectNavbar = () => {
                       ? "phase-link active-phase-tab"
                       : "phase-link"
                   }
-                  key={uuidv4()}
+                  key={phase.phaseId}
                   to={"phase"}
-                  onClick={() => activePhaseHandler(phase)}
+                  onClick={() => dispatch(setActivePhase(phase))}
                 >
                   {phase.phaseName}
                 </Link>

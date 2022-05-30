@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Reorder,
   useMotionValue,
@@ -8,6 +8,7 @@ import {
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deletePhase } from "../../redux/phaseListState";
+import axios from "axios";
 
 const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
   const {
@@ -16,22 +17,21 @@ const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
     phaseList,
     activePhase,
   } = useSelector((state) => state);
-  const y = useMotionValue(0);
-  const dragControls = useDragControls();
 
   const dispatch = useDispatch();
 
+  const y = useMotionValue(0);
+  const dragControls = useDragControls();
+
   const deletePhaseHandler = ({ phaseId, projectReferenceId }) => {
-    console.log(localPhaseList);
-    if (localPhaseList.length > 1) {
-      // console.log(phaseId);
-      dispatch(deletePhase({ phaseId, projectReferenceId }));
-      setLocalPhaseList((state) => {
-        state = state.filter((phases) => phases.phaseId !== phaseId);
-        return [...state];
-      });
-    } else {
+    if (localPhaseList.length <= 1) {
       alert("cant have no phases");
+    } else {
+      setLocalPhaseList((state) => {
+        const newState = state.filter((phases) => phases.phaseId !== phaseId);
+        return [...newState];
+      });
+      dispatch(deletePhase({ phaseId, projectReferenceId }));
     }
   };
 
@@ -43,7 +43,23 @@ const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
       dragListener={false}
       dragControls={dragControls}
     >
-      <div className="edit-phase-container">
+      <div
+        className="edit-phase-container"
+        onClick={() => {
+          axios
+            .delete("http://192.168.0.25:4000/phases/trial/delete", {
+              // headers: {
+              //   Authorization: authorizationToken
+              // },
+              data: {
+                phaseId: item.phaseId,
+              },
+            })
+            .then((res) => {
+              console.log(res);
+            });
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -61,12 +77,12 @@ const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
       </div>
       <div
         className="delete-phase-container"
-        onClick={() =>
+        onClick={() => {
           deletePhaseHandler({
             phaseId: item.phaseId,
             projectReferenceId: projectId,
-          })
-        }
+          });
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

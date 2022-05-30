@@ -56,7 +56,7 @@ const TaskCard = ({ taskObject }) => {
           {format(new Date(_id), "LLL dd ")}{" "}
           <span className="year">{format(new Date(_id), "y")}</span>
         </p>
-        <p className="date-distance">
+        <div className="date-distance">
           <p className="due-statement">
             due{" "}
             {formatDistanceToNow(new Date(_id), {
@@ -77,7 +77,7 @@ const TaskCard = ({ taskObject }) => {
                 : "tasks"}{" "} */}
             </p>
           )}
-        </p>
+        </div>
 
         <div className="new-task-container">
           <form action="#">

@@ -35,7 +35,7 @@ export const phaseListSlice = createSlice({
 
       deleteRequest(phaseId, "http://192.168.0.22:4000/phases/delete");
 
-      state = [...state].filter((phases) => {
+      state = [...state].map((phases) => {
         if (phases._id == projectReferenceId) {
           // console.log(phases._id, projectReferenceId);
 

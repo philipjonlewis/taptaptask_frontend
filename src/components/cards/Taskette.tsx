@@ -77,7 +77,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
 
                 return [...newState];
               });
-              patchRequest({
+              patchRequest("http://192.168.0.22:4000/tasks/edit", {
                 taskId: taskId,
                 isCompleted: !isLocalCompleted,
               });
