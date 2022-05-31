@@ -54,7 +54,7 @@ const PhaseManagerForm = () => {
         <p>Phase Manager</p>
       </div>
       <form className="add-phase-form-container">
-        <label htmlFor="addPhase">Add Phase</label>
+        <label htmlFor="addPhase">Add New Phase</label>
 
         <div className="input-button-container">
           <input

@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setActivePhase } from "../../redux/activePhaseState";
-import { v4 as uuidv4 } from "uuid";
-import { postRequest } from "../../helpers/postRequest";
-import { addPhase } from "../../redux/phaseListState";
-// import { mockPhaseList } from "../../redux/mockdata/phases";
+
 const ProjectNavbar = () => {
   const {
     activeProject: { projectId },
@@ -18,16 +14,18 @@ const ProjectNavbar = () => {
   const [localPhaseList, setLocalPhaseList] = useState([]);
   const [phaseListEditingState, setPhaseListEditingState] = useState(false);
 
-  const localPhaseListResetter = (phaseList) => {
-    const filteredPhaseList = [...phaseList].filter(
+  const localPhaseListResetter = async (phaseList) => {
+    const filteredPhaseList = [...(await phaseList)].filter(
       (phase) => phase._id == projectId
     )[0]?.phaseList;
 
-    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
+    const sortedPhaseList = [...(await filteredPhaseList)].sort((a, b) => {
       return a.phaseOrder - b.phaseOrder;
     });
 
-    setLocalPhaseList([...sortedPhaseList]);
+    setLocalPhaseList(() => {
+      return [...sortedPhaseList];
+    });
   };
 
   useEffect(() => {

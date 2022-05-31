@@ -21,10 +21,10 @@ const WorkshopProjectSidebar = () => {
     JSON.parse(localStorage.getItem("workshopMenuSidebar")) || false
   );
   const [addProjectModalVisibility, setAddProjectModal] = useState(false);
+  const [triggerFetch, setTriggerFetch] = useState(false);
 
   const [form, setForm] = useState({
     user: auth._id,
-    projectId: uuidv4(),
     projectName: "",
     projectDescription: "",
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
@@ -38,7 +38,6 @@ const WorkshopProjectSidebar = () => {
   }, [sidebarVisibility]);
 
   const linkHandler = (project) => {
-    // Clean active phase whenever changing project
     dispatch(
       setActivePhase({
         phaseId: "",
@@ -46,25 +45,27 @@ const WorkshopProjectSidebar = () => {
       })
     );
     dispatch(setActiveProject(project));
-
-    // already fetch the phases?
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    postRequest(form, "http://192.168.0.22:4000/projects");
-    dispatch(addProject(form));
+    const projectId = uuidv4();
+    postRequest(
+      { ...form, projectId },
+      "http://192.168.0.22:4000/projects"
+    ).then(() => {
+      dispatch(addProject({ ...form, projectId }));
+      setTriggerFetch(!triggerFetch);
+    });
 
     setForm((state) => {
       return {
         ...state,
         projectName: "",
         projectDescription: "",
-        projectId: uuidv4(),
       };
     });
-
+    setTriggerFetch(!triggerFetch);
     setAddProjectModal(false);
   };
 
@@ -74,18 +75,14 @@ const WorkshopProjectSidebar = () => {
       fetch(`http://localhost:4000/phases/byproject/${auth._id}`),
       fetch("http://localhost:4000/tasks"),
     ]).then(async ([projects, phases, tasks]) => {
-      // console.log(await phases.json());
       dispatch(fetchProjectList(await projects.json()));
-      // console.log(await phases.json());
       dispatch(fetchPhaseList(await phases.json()));
-      // console.log(phases);
-      // dispatch(fetchTaskList(tasks));
     });
 
     return () => {
       // removes the active project right after unmounting
     };
-  }, []);
+  }, [triggerFetch]);
 
   const sidebarHandler = (e) => {
     e.stopPropagation();
@@ -356,33 +353,32 @@ const WorkshopProjectSidebar = () => {
           </div>
           {/* <p>Project List</p> */}
           <div className="list-of-projects">
-            {projectList.length >= 1 &&
-              projectList.map((project) => {
-                return (
-                  <NavLink
-                    key={project.projectId}
-                    className="project-link"
-                    to={`projects/${project.projectId}`}
-                    onClick={() => linkHandler(project)}
+            {projectList.map((project) => {
+              return (
+                <NavLink
+                  key={project.projectId}
+                  className="project-link"
+                  to={`projects/${project.projectId}`}
+                  onClick={() => linkHandler(project)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                      />
-                    </svg>
-                    <p className="">{project.projectName}</p>
-                  </NavLink>
-                );
-              })}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 5l7 7-7 7M5 5l7 7-7 7"
+                    />
+                  </svg>
+                  <p className="">{project.projectName}</p>
+                </NavLink>
+              );
+            })}
           </div>
           {/* <p>Scroll Down for more</p> */}
         </div>

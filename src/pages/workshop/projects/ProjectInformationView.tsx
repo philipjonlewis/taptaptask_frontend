@@ -23,15 +23,45 @@ const ProjectInformation = () => {
     phaseList,
   } = useSelector((state) => state);
   const dispatch = useDispatch;
-  // const creationDate = format(new Date(createdAt), "LLL dd y");
-  // const daysSinceCreation = formatDistanceToNow(new Date(createdAt), {
-  //   addSuffix: true,
-  // });
+  const [isLoading, setIsLoading] = useState(false);
+  const [projectDates, setProjectDates] = useState({
+    creation: {
+      date: new Date(),
+      daysSince: new Date(),
+    },
+    deadline: {
+      date: new Date(),
+      daysTill: new Date(),
+    },
+  });
 
-  // const deadlineDate = format(new Date(dateOfDeadline), "LLL dd y");
-  // const daysTillDeadline = formatDistanceToNow(new Date(dateOfDeadline), {
-  //   addSuffix: true,
-  // });
+  useEffect(() => {
+    const creationDate = format(new Date(createdAt), "LLL dd y") || "";
+    const daysSinceCreation =
+      formatDistanceToNow(new Date(createdAt), {
+        addSuffix: true,
+      }) || "";
+    const deadlineDate = format(new Date(dateOfDeadline), "LLL dd y") || "";
+    const daysTillDeadline =
+      formatDistanceToNow(new Date(dateOfDeadline), {
+        addSuffix: true,
+      }) || "";
+
+    setProjectDates(() => {
+      return {
+        creation: {
+          date: creationDate,
+          daysSince: daysSinceCreation,
+        },
+        deadline: {
+          date: deadlineDate,
+          daysTill: daysTillDeadline,
+        },
+      };
+    });
+
+    setIsLoading(true);
+  }, []);
 
   return (
     <div className="project-information-view-container">
@@ -48,7 +78,7 @@ const ProjectInformation = () => {
                 <p className="title">{projectDescription}</p>
               </div>
             </div>
-            <div className="edit-content-button-container">
+            <div className="expand-project-information-button-container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -60,7 +90,7 @@ const ProjectInformation = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
                 />
               </svg>
             </div>
@@ -72,20 +102,22 @@ const ProjectInformation = () => {
                 <div className="label">
                   Created{" "}
                   <p className="sublabel">
-                    {/* {daysSinceCreation && daysSinceCreation} */}
+                    {isLoading && projectDates.creation.daysSince}
                   </p>
                 </div>
-                {/* <p className="title">{creationDate && creationDate}</p> */}
+                <p className="title">
+                  {isLoading && projectDates.creation.date}
+                </p>
               </div>
 
               <div className="label-title-container">
                 <div className="label">
                   Deadline{" "}
                   <p className="sublabel">
-                    {/* {daysTillDeadline && daysTillDeadline} */}
+                    {isLoading && projectDates.deadline.daysTill}
                   </p>
                 </div>
-                {/* <p className="title">{deadlineDate && deadlineDate}</p>s */}
+                {isLoading && projectDates.deadline.date}
               </div>
             </div>
 
