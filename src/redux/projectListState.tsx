@@ -3,7 +3,7 @@ import { mockProjectList } from "./mockdata/projects";
 
 export const projectListSlice = createSlice({
   name: "projectList",
-  initialState: mockProjectList,
+  initialState: [],
   reducers: {
     addProject: (state, actions) => {
       return [...state, actions.payload];

@@ -14,6 +14,8 @@ import FilterTasksTab from "./tabs/FilterTasksTab";
 import PhaseDataTab from "./tabs/PhaseDataTab";
 import PhaseManagerForm from "./forms/PhaseManagerForm";
 import PhaseReorderCard from "./cards/PhaseReorderCard";
+
+import ExpandedProjectInformation from "./modals/ExpandedProjectInformation";
 export {
   LandingNavBar,
   ProjectNavbar,
@@ -30,4 +32,5 @@ export {
   PhaseDataTab,
   PhaseManagerForm,
   PhaseReorderCard,
+  ExpandedProjectInformation,
 };

@@ -5,7 +5,10 @@ import PhaseTaskSummaryVisualization from "../../../components/visualization/Pha
 
 import GanttChartVisualization from "../../../components/visualization/GanttChartVisualization";
 import { format, formatDistanceToNow } from "date-fns";
-import { PhaseManagerForm } from "../../../components";
+import {
+  PhaseManagerForm,
+  ExpandedProjectInformation,
+} from "../../../components";
 import { v4 as uuidv4 } from "uuid";
 
 import { useDispatch } from "react-redux";
@@ -13,15 +16,18 @@ import { addPhase } from "../../../redux/phaseListState";
 const ProjectInformation = () => {
   const {
     auth: { _id },
-    activeProject: {
-      projectId,
-      projectName,
-      projectDescription,
-      dateOfDeadline,
-      createdAt,
-    },
+    activeProject,
     phaseList,
   } = useSelector((state) => state);
+
+  const {
+    projectId,
+    projectName,
+    projectDescription,
+    dateOfDeadline,
+    createdAt,
+  } = activeProject;
+
   const dispatch = useDispatch;
   const [isLoading, setIsLoading] = useState(false);
   const [projectDates, setProjectDates] = useState({
@@ -34,6 +40,9 @@ const ProjectInformation = () => {
       daysTill: new Date(),
     },
   });
+
+  const [expandedInformationModal, setExpandedInformationModal] =
+    useState(false);
 
   useEffect(() => {
     const creationDate = format(new Date(createdAt), "LLL dd y") || "";
@@ -65,6 +74,13 @@ const ProjectInformation = () => {
 
   return (
     <div className="project-information-view-container">
+      {expandedInformationModal && (
+        <ExpandedProjectInformation
+          setExpandedInformationModal={setExpandedInformationModal}
+          activeProject={activeProject}
+          projectDates={projectDates}
+        />
+      )}
       <div className="left-container">
         <div className="upper-left-container">
           <div className="upper-left-left-container">
@@ -78,7 +94,12 @@ const ProjectInformation = () => {
                 <p className="title">{projectDescription}</p>
               </div>
             </div>
-            <div className="expand-project-information-button-container">
+            <div
+              className="expand-project-information-button-container"
+              onClick={() => {
+                setExpandedInformationModal(true);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -172,7 +193,7 @@ const ProjectInformation = () => {
           <PhaseManagerForm />
         </div>
       </div>
-      <div className="right-container">Right</div>
+      <div className="right-container"></div>
     </div>
   );
 };

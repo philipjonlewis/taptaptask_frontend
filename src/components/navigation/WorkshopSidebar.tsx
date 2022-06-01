@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setActiveProject } from "../../redux/activeProjectState";
 import { addProject, fetchProjectList } from "../../redux/projectListState";
 import { fetchPhaseList } from "../../redux/phaseListState";
-
+import axios from "axios";
 import { fetchTaskList } from "../../redux/taskListState";
 import { setActivePhase } from "../../redux/activePhaseState";
 import { postRequest } from "../../helpers/postRequest";
@@ -29,6 +29,21 @@ const WorkshopProjectSidebar = () => {
     projectDescription: "",
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
   });
+
+  const getCSRFToken = async () => {
+    const response = await axios.get("http://192.168.0.25:4000/getCSRFToken", {
+      withCredentials: true,
+    });
+
+    console.log(response);
+    axios.defaults.headers.post["XSRF-TOKEN"] = response.data.CSRFToken;
+  };
+
+  useEffect(() => {
+    getCSRFToken();
+  }, []);
+
+  // const response = await axios.get('/getCSRFToken');
 
   useEffect(() => {
     localStorage.setItem(
@@ -358,7 +373,7 @@ const WorkshopProjectSidebar = () => {
                 <NavLink
                   key={project.projectId}
                   className="project-link"
-                  to={`projects/${project.projectId}`}
+                  to={`projects/${project.projectName.split(" ").join("_")}`}
                   onClick={() => linkHandler(project)}
                 >
                   <svg

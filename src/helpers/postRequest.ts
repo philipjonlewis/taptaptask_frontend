@@ -3,9 +3,11 @@ import axios from "axios";
 export const postRequest = async (formContent, url) => {
   axios
     .post(url, await formContent)
-    .then(function (response) {})
+    .then(function (response: any) {
+      console.log(response.json());
+    })
     .catch(function (error) {
-      console.log(error);
+      console.log(error.response);
     });
 };
 

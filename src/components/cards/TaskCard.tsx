@@ -19,10 +19,13 @@ const TaskCard = ({ taskObject }) => {
   const [localTaskList, setLocalTaskList] = useState([]);
 
   const [taskForm, setTaskForm] = useState({
+    // user: uuidv4(),
     user: auth._id,
     taskId: uuidv4(),
     dateOfDeadline: format(new Date(_id), "yyyy-MM-dd"),
     isCompleted: false,
+    // phaseReferenceId: uuidv4(),
+    // projectReferenceId: uuidv4(),
     phaseReferenceId: phaseId,
     projectReferenceId: projectId,
     taskContent: "",
@@ -104,7 +107,10 @@ const TaskCard = ({ taskObject }) => {
                 e.preventDefault();
                 const newTask = { ...taskForm, taskId: uuidv4() };
 
-                postRequest({ ...newTask }, "http://192.168.0.22:4000/tasks");
+                postRequest(
+                  { ...newTask },
+                  "http://192.168.0.25:4000/tasks/create/"
+                );
 
                 setLocalTaskList((state) => {
                   return [{ ...newTask }, ...state];

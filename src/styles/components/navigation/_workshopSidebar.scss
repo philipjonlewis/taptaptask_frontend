@@ -11,6 +11,7 @@
   backdrop-filter: saturate(100%) blur(1px);
 
   .modal-form-container {
+    
     @include d-flex(row, flex-start, flex-start);
     @include dims(1200px, 600px);
     // padding: 0.5rem;

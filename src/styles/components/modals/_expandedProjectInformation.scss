@@ -1,0 +1,183 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.expanded-project-information-container {
+  @include d-flex(column, center, center);
+  @include dims(100%, 100%);
+
+  position: absolute;
+  z-index: 400;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: saturate(100%) blur(1px);
+
+  .information-container {
+    width: 800px;
+    height: 600px;
+    background-color: $neutral-900;
+    border-radius: $standard-radius;
+    position: relative;
+    padding: 4rem 0.5rem 0.5rem 0.5rem;
+    // background-color: red;
+    .close-modal-button {
+      @include small-icon-container;
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+    }
+
+    .project-description {
+      font-size: 0.8rem;
+      color: $neutral-300;
+      padding-bottom: 0.5rem;
+
+      border-bottom: 1px solid $neutral-500;
+    }
+
+    .creation-date-container {
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      // background-color: red;
+      font-size: 0.8rem;
+      color: $neutral-400;
+      p:nth-of-type(1) {
+        width: 4rem;
+      }
+
+      p {
+        // border-right: 1px solid $neutral-500;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .deadline-date-container {
+      display: flex;
+      align-items: center;
+
+      font-size: 0.8rem;
+      color: $neutral-400;
+      height: 3rem;
+      color: white;
+      background-color: $neutral-800;
+      border-radius: $standard-radius;
+
+      &:hover {
+        background-color: $accent-01;
+      }
+      .edit-deadline-button-container {
+        @include small-icon-container;
+        margin: 0.5rem;
+      }
+
+      p:nth-of-type(1) {
+        width: 4rem;
+      }
+
+      p {
+        // border-right: 1px solid $neutral-500;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .delete-project-container {
+      .delete-project-title {
+        display: flex;
+        align-items: center;
+
+        padding: 0.5rem;
+        margin: 1rem 0;
+        border-radius: $standard-radius;
+
+        // border: 1px solid $accent-04;
+        background-color: darken($accent-05, 5);
+        // background-color: $accent-05;
+        .warning-icon {
+          @include small-icon-container;
+          background-color: lighten($accent-05, 10);
+          margin-right: 0.5rem;
+
+          &:hover {
+            background-color: lighten($accent-05, 15);
+            border-color: darken($accent-05, 5);
+          }
+        }
+
+        p {
+          font-size: 1rem;
+          // color: darken($accent-05, 25);
+          color: white;
+          font-weight: 500;
+        }
+      }
+      // border-top: 1px solid $neutral-500;
+
+      position: absolute;
+      bottom: 1rem;
+      left: 0;
+      width: 100%;
+
+      height: fit-content;
+
+      padding: 0.5rem;
+      .delete-project-form {
+        @include d-flex(column, flex-start, flex-start);
+        width: 100%;
+
+        label {
+          font-size: 0.8rem;
+          color: gray;
+          margin-bottom: 0.5rem;
+        }
+
+        input {
+          background-color: $neutral-800;
+          height: 2.4rem;
+          // height: 3rem;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          margin-bottom: 1.2rem;
+          font-size: 0.9rem;
+          // @include border(bottom, $accent-01);
+          // background-color: rebeccapurple;
+          color: white;
+          border-radius: $standard-radius;
+          &:focus {
+            @include border(bottom, $accent-01);
+          }
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+        }
+
+        button {
+          // margin-top: 2rem;
+          margin-left: auto;
+
+          width: 30%;
+          font-weight: 300;
+          height: 2.4rem;
+          border-radius: $standard-radius;
+          border: 1px solid lighten($accent-04, 10);
+          background-color: $accent-04;
+
+          &:hover:not(:disabled) {
+            opacity: 100%;
+            background-color: $accent-04;
+            // background-color: $neutral-800;
+          }
+
+          &:disabled {
+            opacity: 30%;
+            border: none;
+            background-color: gray;
+          }
+        }
+      }
+    }
+  }
+}
