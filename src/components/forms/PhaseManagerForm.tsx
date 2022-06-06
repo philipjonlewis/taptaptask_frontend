@@ -16,7 +16,7 @@ const PhaseManagerForm = () => {
     auth: { _id },
     phaseList,
     activeProject: { projectId },
-  } = useSelector((state) => state);
+  } = useSelector((state: any) => state);
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const PhaseManagerForm = () => {
     phaseName: "",
   });
 
-  const localPhaseListResetter = (phaseList) => {
+  const localPhaseListResetter = (phaseList: any) => {
     const filteredPhaseList = [...phaseList].filter(
       (phase) => phase._id == projectId
     )[0]?.phaseList;
@@ -100,14 +100,10 @@ const PhaseManagerForm = () => {
         onReorder={setLocalPhaseList}
         className="interactive-phase-container"
         onMouseUp={() => {
-          // setCanFetch(true);
           dispatch(editPhaseListOrder({ projectId, localPhaseList }));
         }}
-        // onMouseUp={() => setCanFetch(false)}
-
-        // onMouseLeave={() => setCanFetch(false)}
       >
-        {localPhaseList.map((phase) => {
+        {localPhaseList.map((phase: any) => {
           return (
             <PhaseReorderCard
               key={phase.phaseId}

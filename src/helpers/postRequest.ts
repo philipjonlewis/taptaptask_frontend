@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const postRequest = async (formContent, url) => {
+export const postRequest = async (formContent: Object[], url: string) => {
   axios
     .post(url, await formContent)
     .then(function (response: any) {
-      console.log(response.json());
+      console.log(response);
     })
     .catch(function (error) {
       console.log(error.response);

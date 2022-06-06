@@ -54,7 +54,7 @@ export const phaseListSlice = createSlice({
 
       return [...state];
     },
-    editPhaseListOrder: (state, actions) => {
+    editPhaseListOrder: (state, actions): any => {
       const { projectId, localPhaseList } = actions.payload;
 
       const newPhaseList = [...localPhaseList].map((phaseObject) => {

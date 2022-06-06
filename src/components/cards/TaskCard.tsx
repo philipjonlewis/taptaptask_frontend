@@ -108,7 +108,7 @@ const TaskCard = ({ taskObject }) => {
                 const newTask = { ...taskForm, taskId: uuidv4() };
 
                 postRequest(
-                  { ...newTask },
+                  [{ ...newTask }],
                   "http://192.168.0.25:4000/tasks/create/"
                 );
 
