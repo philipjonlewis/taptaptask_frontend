@@ -11,7 +11,7 @@ export const phaseListSlice = createSlice({
   reducers: {
     addPhase: (state, actions) => {
       const { newPhase, projectReferenceId } = actions.payload;
-      postRequest(newPhase, "http://192.168.0.22:4000/phases");
+      postRequest(newPhase, "http://192.168.0.22:4000/phase/create");
 
       state = [...state].map((phases) => {
         if (phases._id == projectReferenceId) {
@@ -64,7 +64,7 @@ export const phaseListSlice = createSlice({
         };
       });
 
-      patchRequest("http://192.168.0.22:4000/phases/changeorder", newPhaseList);
+      patchRequest("http://192.168.0.22:4000/phase/update", newPhaseList);
 
       state = [...state].map((groupedPhase) => {
         if (groupedPhase._id == projectId) {

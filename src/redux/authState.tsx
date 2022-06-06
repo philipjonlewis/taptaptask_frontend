@@ -16,10 +16,9 @@ export const authSlice = createSlice({
       // console.log(action.payload);
       // validation code should be here
       // Make API calls here
-      const { username, password } = action.payload;
-      state.username = username;
-      state.password = password;
-      state.isAuthenticated = true;
+      const { username, password, _id } = action.payload;
+
+      return { ...state, isAuthenticated: true, username, password, _id };
     },
     logout: (state) => {
       state = {

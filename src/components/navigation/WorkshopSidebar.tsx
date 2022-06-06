@@ -52,7 +52,7 @@ const WorkshopProjectSidebar = () => {
     const projectId = uuidv4();
     postRequest(
       { ...form, projectId },
-      "http://192.168.0.22:4000/projects"
+      "http://192.168.0.22:4000/project"
     ).then(() => {
       dispatch(addProject({ ...form, projectId }));
       setTriggerFetch(!triggerFetch);
@@ -70,14 +70,46 @@ const WorkshopProjectSidebar = () => {
   };
 
   useEffect(() => {
-    Promise.all([
-      fetch("http://localhost:4000/projects"),
-      fetch(`http://localhost:4000/phases/byproject/${auth._id}`),
-      fetch("http://localhost:4000/tasks"),
-    ]).then(async ([projects, phases, tasks]) => {
-      dispatch(fetchProjectList(await projects.json()));
-      dispatch(fetchPhaseList(await phases.json()));
-    });
+    // Promise.all([
+    //   fetch("http://localhost:4000/project/read", { credentials: "include" }),
+    //   fetch(`http://localhost:4000/phase/read`, { credentials: "include" }),
+    // ]).then(async ([projects, phases]) => {
+    //   console.log(await projects.json());
+    //   console.log(await phases.json());
+    //   dispatch(fetchProjectList(await projects.json()));
+    //   dispatch(fetchPhaseList(await phases.json()));
+    // });
+
+    axios
+      .get("http://192.168.0.25:4000/project/read/", {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((dat: any) => {
+        console.log(dat);
+        dispatch(fetchProjectList(dat.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get("http://192.168.0.25:4000/phase/read/", {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((dat: any) => {
+        dispatch(fetchPhaseList(dat.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     return () => {
       // removes the active project right after unmounting

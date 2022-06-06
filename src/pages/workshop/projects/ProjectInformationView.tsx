@@ -191,6 +191,7 @@ const ProjectInformation = () => {
         </div>
         <div className="lower-left-container">
           <PhaseManagerForm />
+        
         </div>
       </div>
       <div className="right-container"></div>

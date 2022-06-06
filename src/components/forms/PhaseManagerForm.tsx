@@ -31,14 +31,16 @@ const PhaseManagerForm = () => {
 
   const localPhaseListResetter = (phaseList: any) => {
     const filteredPhaseList = [...phaseList].filter(
-      (phase) => phase._id == projectId
-    )[0]?.phaseList;
+      (phase) => phase.projectReferenceId == projectId
+    );
 
     const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
       return a.phaseOrder - b.phaseOrder;
     });
 
-    setLocalPhaseList([...sortedPhaseList]);
+    setLocalPhaseList((): any => {
+      return [...sortedPhaseList];
+    });
   };
 
   useEffect(() => {

@@ -47,7 +47,10 @@ const AddTaskCardForm = ({
       return;
     }
 
-    postRequest(taskFormContent, "http://192.168.0.22:4000/tasks");
+    postRequest(
+      [{ ...taskFormContent, taskId: uuidv4() }],
+      "http://192.168.0.25:4000/task/create"
+    );
 
     setFetchedTaskList((state) => {
       // this is what happens if theres already an existing date

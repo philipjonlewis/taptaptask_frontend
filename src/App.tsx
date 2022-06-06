@@ -23,7 +23,7 @@ import { LandingNavBar } from "./components";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 const App = () => {
-  const [isInWorkshop, setIsInWorkshop] = useState(false);
+  const [isInWorkshop, setIsInWorkshop]: any = useState(false);
 
   const location = useLocation();
 

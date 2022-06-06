@@ -16,19 +16,21 @@ const ProjectNavbar = () => {
 
   const localPhaseListResetter = async (phaseList) => {
     const filteredPhaseList = [...(await phaseList)].filter(
-      (phase) => phase._id == projectId
-    )[0]?.phaseList;
+      (phase) => phase.projectReferenceId == projectId
+    );
 
     const sortedPhaseList = [...(await filteredPhaseList)].sort((a, b) => {
       return a.phaseOrder - b.phaseOrder;
     });
 
-    setLocalPhaseList(() => {
+    setLocalPhaseList((): any => {
       return [...sortedPhaseList];
     });
   };
 
   useEffect(() => {
+    // console.log(projectId);
+    // console.log(phaseList);
     setPhaseListEditingState(true);
 
     if (phaseListEditingState) {

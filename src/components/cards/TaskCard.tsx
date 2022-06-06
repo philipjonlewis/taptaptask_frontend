@@ -109,7 +109,7 @@ const TaskCard = ({ taskObject }) => {
 
                 postRequest(
                   [{ ...newTask }],
-                  "http://192.168.0.25:4000/tasks/create/"
+                  "http://192.168.0.25:4000/task/create/"
                 );
 
                 setLocalTaskList((state) => {
