@@ -10,23 +10,32 @@ import {
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { fetchPhaseList } from "../../../redux/phaseListState";
-
+import axios from "axios";
 const IndividualProject = () => {
   const {
     auth,
     projectList,
     phaseList,
-    activeProject: { projectPhases },
+    activeProject: { projectPhases, projectId },
   } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/phases/byproject/${auth._id}`).then(
-      async (res) => {
-        dispatch(fetchPhaseList(await res.json()));
-      }
-    );
+    axios
+      .get(`http://192.168.0.25:4000/aggregate/phase/${projectId}`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((dat: any) => {
+        dispatch(fetchPhaseList(dat.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   return (
     <div className="individual-project-container">

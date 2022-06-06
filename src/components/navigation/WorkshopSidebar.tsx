@@ -96,20 +96,20 @@ const WorkshopProjectSidebar = () => {
         console.log(err);
       });
 
-    axios
-      .get("http://192.168.0.25:4000/phase/read/", {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-      .then((dat: any) => {
-        dispatch(fetchPhaseList(dat.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get("http://192.168.0.25:4000/phase/read/", {
+    //     withCredentials: true,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Accept: "application/json",
+    //     },
+    //   })
+    //   .then((dat: any) => {
+    //     dispatch(fetchPhaseList(dat.data));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     return () => {
       // removes the active project right after unmounting

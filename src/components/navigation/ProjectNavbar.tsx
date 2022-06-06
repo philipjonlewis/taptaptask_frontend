@@ -14,25 +14,21 @@ const ProjectNavbar = () => {
   const [localPhaseList, setLocalPhaseList] = useState([]);
   const [phaseListEditingState, setPhaseListEditingState] = useState(false);
 
-  const localPhaseListResetter = async (phaseList: any) => {
-    const filteredPhaseList = [...(await phaseList)].filter(
-      (phase) => phase.projectReferenceId == projectId
-    );
-
-    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
-      return a.phaseOrder - b.phaseOrder;
-    });
-
-    setLocalPhaseList((): any => {
-      return [...sortedPhaseList];
-    });
+  const localPhaseListResetter = (phaseList: any) => {
+    // const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
+    //   return a.phaseOrder - b.phaseOrder;
+    // });
   };
 
   useEffect(() => {
-    setPhaseListEditingState(true);
-    console.log("running ba to");
-    localPhaseListResetter(phaseList);
-    // setPhaseListEditingState(false);
+    setLocalPhaseList((state): any => {
+      const filteredPhaseList = [...phaseList].sort((a, b) => {
+        return a.phaseOrder - b.phaseOrder;
+      });
+      console.log(phaseList);
+      return [...filteredPhaseList];
+    });
+
     return () => {
       setLocalPhaseList([]);
     };
@@ -74,26 +70,22 @@ const ProjectNavbar = () => {
 
       <div className="phase-information-container">
         <div className="phase-link-container">
-          {!phaseListEditingState && localPhaseList.length >= 1 ? (
-            localPhaseList.map((phase: any) => {
-              return (
-                <Link
-                  className={
-                    activePhase.phaseName == phase.phaseName
-                      ? "phase-link active-phase-tab"
-                      : "phase-link"
-                  }
-                  key={phase.phaseId}
-                  to={"phase"}
-                  onClick={() => dispatch(setActivePhase(phase))}
-                >
-                  {phase.phaseName}
-                </Link>
-              );
-            })
-          ) : (
-            <></>
-          )}
+          {localPhaseList.map((phase: any) => {
+            return (
+              <Link
+                className={
+                  activePhase.phaseName == phase.phaseName
+                    ? "phase-link active-phase-tab"
+                    : "phase-link"
+                }
+                key={phase.phaseId}
+                to={"phase"}
+                onClick={() => dispatch(setActivePhase(phase))}
+              >
+                {phase.phaseName}
+              </Link>
+            );
+          })}
           {/* {localPhaseList.length >= 1 &&
             localPhaseList.map((phase) => {
               return (

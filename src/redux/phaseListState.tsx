@@ -68,19 +68,27 @@ export const phaseListSlice = createSlice({
         ...newPhaseList,
       ]);
 
-      const newState = [...state].map((groupedPhase) => {
-        if (groupedPhase._id == projectId) {
-          const newObject = { _id: projectId, phaseList: [...newPhaseList] };
-          // console.log(newObject);
-          return { ...newObject };
-        }
-        return groupedPhase;
-      });
+      // const newState = [...state].map((groupedPhase) => {
+      //   if (groupedPhase._id == projectId) {
+      //     const newObject = {
+      //       _id: projectId,
+      //       phaseList: [...newPhaseList].sort((a, b) => {
+      //         return a.phaseOrder - b.phaseOrder;
+      //       }),
+      //     };
+      //     // console.log(newObject);
+      //     return { ...newObject };
+      //   }
+      //   return { ...groupedPhase };
+      // });
 
-      return [...newState];
+      return [...newPhaseList];
       // return [...state];
     },
-    fetchPhaseList: (state, actions) => {
+    fetchPhaseList: (state, actions): any => {
+      console.log(actions.payload);
+
+      
       // state = actions.payload;
       return [...actions.payload];
     },
