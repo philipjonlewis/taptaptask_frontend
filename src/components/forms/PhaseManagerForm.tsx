@@ -20,7 +20,18 @@ const PhaseManagerForm = () => {
 
   const dispatch = useDispatch();
 
-  const [localPhaseList, setLocalPhaseList] = useState([]);
+  const [localPhaseList, setLocalPhaseList] = useState(() => {
+    const filteredPhaseList = [...phaseList].filter(
+      (phase) => phase.projectReferenceId == projectId
+    );
+
+    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
+      return a.phaseOrder - b.phaseOrder;
+    });
+
+    return [...sortedPhaseList];
+  });
+  const [mouseDownState, setMouseDownState] = useState(false);
 
   const [form, setForm] = useState({
     user: _id,
@@ -44,11 +55,17 @@ const PhaseManagerForm = () => {
   };
 
   useEffect(() => {
-    localPhaseListResetter(phaseList);
-    return () => {
-      setLocalPhaseList([]);
-    };
+    console.log("hello");
+    // localPhaseListResetter(phaseList);
+
+    // return () => {
+    //   setLocalPhaseList([]);
+    // };
   }, [projectId, phaseList]);
+
+  useEffect(() => {
+    localPhaseListResetter(phaseList);
+  }, [mouseDownState]);
 
   return (
     <div className="phase-management-container">
@@ -102,6 +119,7 @@ const PhaseManagerForm = () => {
         onReorder={setLocalPhaseList}
         className="interactive-phase-container"
         onMouseUp={() => {
+          
           dispatch(editPhaseListOrder({ projectId, localPhaseList }));
         }}
       >

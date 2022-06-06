@@ -14,12 +14,12 @@ const ProjectNavbar = () => {
   const [localPhaseList, setLocalPhaseList] = useState([]);
   const [phaseListEditingState, setPhaseListEditingState] = useState(false);
 
-  const localPhaseListResetter = async (phaseList) => {
+  const localPhaseListResetter = async (phaseList: any) => {
     const filteredPhaseList = [...(await phaseList)].filter(
       (phase) => phase.projectReferenceId == projectId
     );
 
-    const sortedPhaseList = [...(await filteredPhaseList)].sort((a, b) => {
+    const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
       return a.phaseOrder - b.phaseOrder;
     });
 
@@ -29,17 +29,12 @@ const ProjectNavbar = () => {
   };
 
   useEffect(() => {
-    // console.log(projectId);
-    // console.log(phaseList);
     setPhaseListEditingState(true);
-
-    if (phaseListEditingState) {
-      localPhaseListResetter(phaseList);
-    }
-
+    console.log("running ba to");
+    localPhaseListResetter(phaseList);
+    // setPhaseListEditingState(false);
     return () => {
       setLocalPhaseList([]);
-      setPhaseListEditingState(false);
     };
   }, [projectId, phaseList]);
 
@@ -79,7 +74,27 @@ const ProjectNavbar = () => {
 
       <div className="phase-information-container">
         <div className="phase-link-container">
-          {localPhaseList.length >= 1 &&
+          {!phaseListEditingState && localPhaseList.length >= 1 ? (
+            localPhaseList.map((phase: any) => {
+              return (
+                <Link
+                  className={
+                    activePhase.phaseName == phase.phaseName
+                      ? "phase-link active-phase-tab"
+                      : "phase-link"
+                  }
+                  key={phase.phaseId}
+                  to={"phase"}
+                  onClick={() => dispatch(setActivePhase(phase))}
+                >
+                  {phase.phaseName}
+                </Link>
+              );
+            })
+          ) : (
+            <></>
+          )}
+          {/* {localPhaseList.length >= 1 &&
             localPhaseList.map((phase) => {
               return (
                 <Link
@@ -95,7 +110,7 @@ const ProjectNavbar = () => {
                   {phase.phaseName}
                 </Link>
               );
-            })}
+            })} */}
         </div>
       </div>
     </div>

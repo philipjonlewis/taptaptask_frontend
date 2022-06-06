@@ -54,7 +54,7 @@ export const phaseListSlice = createSlice({
 
       return [...state];
     },
-    editPhaseListOrder: (state, actions): any => {
+    editPhaseListOrder: (state: any, actions: any): any => {
       const { projectId, localPhaseList } = actions.payload;
 
       const newPhaseList = [...localPhaseList].map((phaseObject) => {
@@ -64,19 +64,21 @@ export const phaseListSlice = createSlice({
         };
       });
 
-      patchRequest("http://192.168.0.22:4000/phase/update", newPhaseList);
+      patchRequest("http://192.168.0.25:4000/phase/changeorder", [
+        ...newPhaseList,
+      ]);
 
-      state = [...state].map((groupedPhase) => {
+      const newState = [...state].map((groupedPhase) => {
         if (groupedPhase._id == projectId) {
-          const newObject = { _id: projectId, phaseList: newPhaseList };
+          const newObject = { _id: projectId, phaseList: [...newPhaseList] };
           // console.log(newObject);
           return { ...newObject };
         }
         return groupedPhase;
       });
 
-      // return [...newState];
-      return [...state];
+      return [...newState];
+      // return [...state];
     },
     fetchPhaseList: (state, actions) => {
       // state = actions.payload;
