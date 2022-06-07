@@ -43,10 +43,10 @@ export const aggregationApiSlice = createApi({
           phaseReferenceId: string;
         }) =>
           `/aggregate/phases/project?projectReferenceId=${projectReferenceId}`,
-        // transformResponse: (res) =>
-        //   res.sort((a, b) => {
-        //     return a.phaseOrder - b.phaseOrder;
-        //   }),
+        transformResponse: (res) =>
+          res.sort((a: any, b: any) => {
+            return a.phaseOrder - b.phaseOrder;
+          }),
 
         providesTags: ["Aggregate"],
       }),

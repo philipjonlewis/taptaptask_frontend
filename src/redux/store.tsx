@@ -27,7 +27,11 @@ export default configureStore({
     [aggregationApiSlice.reducerPath]: aggregationApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(projectApiSlice.middleware),
+    getDefaultMiddleware()
+      .concat(projectApiSlice.middleware)
+      .concat(phaseApiSlice.middleware)
+      .concat(taskApiSlice.middleware)
+      .concat(aggregationApiSlice.middleware),
 });
 
-// setupListeners(configureStore.dispatch)
+// setupListeners(configureStore.dispatch);

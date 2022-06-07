@@ -40,15 +40,10 @@ const PhaseManagerForm = () => {
   ) as any;
 
   useEffect(() => {
-    if (isLoading == false && error == undefined) {
+    if (isLoading == false && error == undefined && projectId) {
+      dispatch(fetchPhaseList([...data]));
       setLocalPhaseList(() => {
-        const newPhaseList = [...data].sort((a, b) => {
-          return a.phaseOrder - b.phaseOrder;
-        });
-
-        dispatch(fetchPhaseList([...newPhaseList]));
-
-        return [...newPhaseList];
+        return [...data];
       });
     }
 

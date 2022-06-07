@@ -17,9 +17,7 @@ const ProjectNavbar = () => {
   const [phaseListEditingState, setPhaseListEditingState] = useState(false);
 
   useEffect(() => {
-    setLocalPhaseList(() => {
-      return [...phaseList];
-    });
+    setLocalPhaseList(phaseList);
   }, [phaseList, projectId]);
 
   return (
@@ -80,23 +78,6 @@ const ProjectNavbar = () => {
               </Link>
             );
           })}
-          {/* {localPhaseList.length >= 1 &&
-            localPhaseList.map((phase) => {
-              return (
-                <Link
-                  className={
-                    activePhase.phaseName == phase.phaseName
-                      ? "phase-link active-phase-tab"
-                      : "phase-link"
-                  }
-                  key={phase.phaseId}
-                  to={"phase"}
-                  onClick={() => dispatch(setActivePhase(phase))}
-                >
-                  {phase.phaseName}
-                </Link>
-              );
-            })} */}
         </div>
       </div>
     </div>

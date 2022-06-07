@@ -11,24 +11,43 @@ import { postRequest } from "../../helpers/postRequest";
 import { v4 as uuidv4 } from "uuid";
 import format from "date-fns/format";
 
-import { useGetPhasesByProjectQuery } from "../../redux/rtkQuery/phaseApiSlice";
+import AddProjectModal from "../forms/AddProjectModal";
+// const {
+//   auth,
+//   // activePhase: { phaseId, phaseName },
+//   // activeProject: { projectId },
+// } = useSelector((state) => state);
 
 const WorkshopProjectSidebar = () => {
-  const { auth, projectList } = useSelector((state: any) => state);
   const dispatch = useDispatch();
 
   const [sidebarVisibility, setSidebarVisibility] = useState(
     JSON.parse(localStorage.getItem("workshopMenuSidebar")) || false
   );
-  const [addProjectModalVisibility, setAddProjectModal] = useState(false);
-  const [triggerFetch, setTriggerFetch] = useState(false);
 
-  const [form, setForm] = useState({
-    user: auth._id,
-    projectName: "",
-    projectDescription: "",
-    dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
-  });
+  const [addProjectModalVisibility, setAddProjectModal] = useState(false);
+  const [localProjectList, setLocalProjectList] = useState([]) as any;
+
+  const { data, isLoading, isSuccess, isError, error, refetch } =
+    useGetProjectQuery(false);
+
+  useEffect(() => {
+    if (isLoading == false && error == undefined) {
+      setLocalProjectList(data);
+    }
+
+    return () => {
+      setLocalProjectList([]);
+    };
+  }, []);
+
+  if (isLoading) {
+    refetch();
+  } else if (isSuccess) {
+    // console.log("success");
+  } else if (isError) {
+    console.log("error");
+  }
 
   useEffect(() => {
     localStorage.setItem(
@@ -47,30 +66,6 @@ const WorkshopProjectSidebar = () => {
     dispatch(setActiveProject(project));
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const projectId = uuidv4();
-    postRequest(
-      { ...form, projectId },
-      `${import.meta.env.VITE_BACKEND_PORT}/project`
-    ).then(() => {
-      dispatch(addProject({ ...form, projectId }));
-      setTriggerFetch(!triggerFetch);
-    });
-
-    setForm((state) => {
-      return {
-        ...state,
-        projectName: "",
-        projectDescription: "",
-      };
-    });
-    setTriggerFetch(!triggerFetch);
-    setAddProjectModal(false);
-  };
-
-  const { data, error, isLoading } = useGetProjectQuery(false);
-
   const sidebarHandler = (e) => {
     e.stopPropagation();
     setSidebarVisibility(!sidebarVisibility);
@@ -80,108 +75,13 @@ const WorkshopProjectSidebar = () => {
     setAddProjectModal(!addProjectModalVisibility);
   };
 
-  const inputHandler = (e) => {
-    setForm((state) => {
-      return { ...state, [e.target.name]: e.target.value };
-    });
-  };
-
-  const modalVisibilityHandler = (e) => {
-    if (e.target.className == "add-project-modal") {
-      confirm("Are you sure you want to close this modal?") &&
-        setAddProjectModal(false);
-    }
-  };
-
   return (
     <>
       {addProjectModalVisibility && (
-        <div className="add-project-modal" onClick={modalVisibilityHandler}>
-          <div className="modal-form-container">
-            <div
-              className="close-add-form-modal-button"
-              onClick={addProjectModalHandler}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </div>
-
-            <div className="left-segment">
-              <div className="form-title-container">
-                <p>Create a new project</p>
-              </div>
-              <form action="#" className="add-project-form-container">
-                {/* Project Name */}
-                <label htmlFor="projectName">Project Name</label>
-                <input
-                  name="projectName"
-                  type="text"
-                  placeholder="Add New Project"
-                  autoCorrect="false"
-                  spellCheck="false"
-                  value={form.projectName}
-                  required
-                  // value={form.projectName}
-                  onChange={inputHandler}
-                />
-                {/* Project Description */}
-                <label htmlFor="projectName">Project Description</label>
-                <input
-                  name="projectDescription"
-                  type="text"
-                  placeholder="Project Description"
-                  autoCorrect="false"
-                  spellCheck="false"
-                  value={form.projectDescription}
-                  required
-                  // value={form.projectDescription}
-                  onChange={inputHandler}
-                />
-                {/* Date of Deadline */}
-                <label htmlFor="projectName">Date of Intended Deadline</label>
-                <input
-                  name="dateOfDeadline"
-                  type="date"
-                  autoCorrect="false"
-                  spellCheck="false"
-                  value={form.dateOfDeadline}
-                  required
-                  // value={form.dateOfDeadline}
-                  onChange={inputHandler}
-                />
-                <button onClick={handleFormSubmit}>Add Project</button>
-              </form>
-              <div
-                className="clear-form-container"
-                onClick={() => {
-                  setForm((state) => {
-                    return {
-                      ...state,
-                      projectName: "",
-                      projectDescription: "",
-                      projectId: uuidv4(),
-                    };
-                  });
-                }}
-              >
-                <p>Clear Form</p>
-              </div>
-            </div>
-            <div className="right-segment"></div>
-          </div>
-        </div>
+        <AddProjectModal
+          addProjectModalHandler={addProjectModalHandler}
+          setAddProjectModal={setAddProjectModal}
+        />
       )}
 
       <div
@@ -341,8 +241,8 @@ const WorkshopProjectSidebar = () => {
           {/* <p>Project List</p> */}
           <div className="list-of-projects">
             {isLoading == false &&
-              // data.length >= 1 &&
-              data.map((project) => {
+              localProjectList.length >= 1 &&
+              localProjectList.map((project) => {
                 return (
                   <NavLink
                     key={project.projectId}

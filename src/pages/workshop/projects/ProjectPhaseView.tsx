@@ -12,6 +12,7 @@ import {
 } from "../../../components";
 import axios from "axios";
 import { useGetTasksByDateQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
+
 const ProjectPhaseView = () => {
   const dispatch = useDispatch();
   const {
@@ -19,49 +20,57 @@ const ProjectPhaseView = () => {
     activeProject: { projectId },
   } = useSelector((state) => state);
 
-  const [fetchedTaskList, setFetchedTaskList] = useState([]);
-  const [isFinishedFetching, setIsFinishedFetching] = useState(false);
-  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("");
+  const [fetchedTaskList, setFetchedTaskList] = useState([]) as any;
+  const [isFinishedFetching, setIsFinishedFetching] = useState(false) as any;
+  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("") as any;
+  const [skip, setSkip] = useState(false);
 
   const { data, isLoading, isSuccess, isError, error, refetch } =
-    useGetTasksByDateQuery({
-      projectReferenceId: projectId,
-      phaseReferenceId: phaseId,
-    });
-
-  console.log("phase id", phaseId);
-  console.log("project id", projectId);
+    useGetTasksByDateQuery(
+      {
+        projectReferenceId: projectId,
+        phaseReferenceId: phaseId,
+      },
+      { skip }
+    );
 
   useEffect(() => {
+    setSkip(false);
+
     if (isLoading == false && data !== undefined) {
       setFetchedTaskList(() => {
-        return [...data];
+        return data;
       });
     }
 
     return () => {
+      setSkip(true);
       setFetchedTaskList([]);
     };
-  }, [phaseId, projectId]);
+  }, [phaseId, projectId, isLoading]);
 
-  let content;
+  let taskDataContent;
 
   if (isLoading) {
     refetch();
-    content = <p>Loading</p>;
+    taskDataContent = <p>Loading</p>;
   } else if (isSuccess) {
-    content = <p>Tama</p>;
+    taskDataContent = (
+      <div className="task-card-container ">
+        {fetchedTaskList.length >= 1 &&
+          fetchedTaskList.map((taskObject) => {
+            return (
+              <React.Fragment key={taskObject._id}>
+                <TaskCard taskObject={taskObject} key={taskObject._id} />
+              </React.Fragment>
+            );
+          })}
+      </div>
+    );
   } else if (isError) {
     refetch();
-    content = <div>{error.toString()}</div>;
+    taskDataContent = <div style={{ backgroundColor: "$neutral-500" }}></div>;
   }
-
-  // return (
-  //   <section className="posts-list">
-  //     <h2>Posts</h2>
-  //     {content}
-  //   </section>
-  // );
 
   return (
     <div className="project-phase-container">
@@ -92,20 +101,7 @@ const ProjectPhaseView = () => {
         <FilterTasksTab setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
       )}
 
-      {isSuccess ? (
-        <div className="task-card-container ">
-          {fetchedTaskList.length >= 1 &&
-            fetchedTaskList.map((taskObject) => {
-              return (
-                <React.Fragment key={taskObject._id}>
-                  <TaskCard taskObject={taskObject} key={taskObject._id} />
-                </React.Fragment>
-              );
-            })}
-        </div>
-      ) : (
-        <div style={{ backgroundColor: "$neutral-500" }}></div>
-      )}
+      {taskDataContent}
     </div>
   );
 };
