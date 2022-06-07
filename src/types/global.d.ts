@@ -30,4 +30,8 @@ declare global {
     auth: any;
     isOn: boolean;
   }
+
+  interface ImportMeta {
+    readonly env: ImportMetaEnv
+  }
 }

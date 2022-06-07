@@ -23,13 +23,16 @@ const IndividualProject = () => {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.25:4000/aggregate/phase/${projectId}`, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
+      .get(
+        `${import.meta.env.VITE_BACKEND_PORT}/aggregate/phase/${projectId}`,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
       .then((dat: any) => {
         dispatch(fetchPhaseList(dat.data));
       })

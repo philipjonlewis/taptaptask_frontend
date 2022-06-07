@@ -20,36 +20,34 @@ const LogIn = () => {
   };
 
   const handleLogin = () => {
-    axios
-      .post(
-        "http://192.168.0.25:4000/auth/login",
-        { email, password },
-        axiosConfig
-      )
-      .then(function (response: any) {
-        console.log("login", response);
-
-        if (response.status == 200) {
-          dispatch(login({ email, password,_id:response.data.payload._id }));
-
-          return navigate(redirectPath, { replace: true });
-        }
-      })
-      .catch(function (error) {
-        console.log(error.response);
-      });
-
     // axios
-    //   .get("http://192.168.0.25:4000/project/read", axiosConfig)
-    //   .then((res) => {
-    //     return JSON.stringify(res);
+    //   .post(
+    //     `${import.meta.env.VITE_BACKEND_PORT}/auth/login`,
+    //     { email, password },
+    //     axiosConfig
+    //   )
+    //   .then(function (response: any) {
+    //     console.log("login", response);
+
+    //     if (response.status == 200) {
+    //       dispatch(login({ email, password,_id:response.data.payload._id }));
+
+    //       return navigate(redirectPath, { replace: true });
+    //     }
     //   })
-    //   .then((dat) => {
-    //     console.log(dat);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
+    //   .catch(function (error) {
+    //     console.log(error.response);
     //   });
+
+    dispatch(
+      login({
+        email,
+        password,
+        _id: "629db2e331f8a5f114d8af88",
+      })
+    );
+
+    return navigate(redirectPath, { replace: true });
   };
 
   return (

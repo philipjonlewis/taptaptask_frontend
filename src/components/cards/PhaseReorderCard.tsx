@@ -47,14 +47,17 @@ const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
         className="edit-phase-container"
         onClick={() => {
           axios
-            .delete("http://192.168.0.25:4000/phases/trial/delete", {
-              // headers: {
-              //   Authorization: authorizationToken
-              // },
-              data: {
-                phaseId: item.phaseId,
-              },
-            })
+            .delete(
+              `${import.meta.env.VITE_BACKEND_PORT}/phases/trial/delete`,
+              {
+                // headers: {
+                //   Authorization: authorizationToken
+                // },
+                data: {
+                  phaseId: item.phaseId,
+                },
+              }
+            )
             .then((res) => {
               console.log(res);
             });

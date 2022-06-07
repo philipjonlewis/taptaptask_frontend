@@ -28,7 +28,7 @@ const ProjectPhaseView = () => {
   const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("");
   const getData = async () => {
     const resData = await axios.get(
-      `http://192.168.0.22:4000/aggregate/tasks/date/${projectId}/${phaseId}`
+      `${import.meta.env.VITE_BACKEND_PORT}/aggregate/tasks/date/${projectId}/${phaseId}`
     );
     setFetchedTaskList(await resData.data);
     setIsFinishedFetching(true);

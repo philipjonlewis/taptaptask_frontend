@@ -11,7 +11,10 @@ export const phaseListSlice = createSlice({
   reducers: {
     addPhase: (state, actions) => {
       const { newPhase, projectReferenceId } = actions.payload;
-      postRequest(newPhase, "http://192.168.0.22:4000/phase/create");
+      postRequest(
+        newPhase,
+        `${import.meta.env.VITE_BACKEND_PORT}/phase/create`
+      );
 
       state = [...state].map((phases) => {
         if (phases._id == projectReferenceId) {
@@ -33,7 +36,10 @@ export const phaseListSlice = createSlice({
     deletePhase: (state, actions) => {
       const { phaseId, projectReferenceId } = actions.payload;
 
-      deleteRequest(phaseId, "http://192.168.0.22:4000/phases/delete");
+      deleteRequest(
+        phaseId,
+        `${import.meta.env.VITE_BACKEND_PORT}/phases/delete`
+      );
 
       state = [...state].map((phases) => {
         if (phases._id == projectReferenceId) {
@@ -64,7 +70,7 @@ export const phaseListSlice = createSlice({
         };
       });
 
-      patchRequest("http://192.168.0.25:4000/phase/changeorder", [
+      patchRequest(`${import.meta.env.VITE_BACKEND_PORT}/phase/changeorder`, [
         ...newPhaseList,
       ]);
 
@@ -88,7 +94,6 @@ export const phaseListSlice = createSlice({
     fetchPhaseList: (state, actions): any => {
       console.log(actions.payload);
 
-      
       // state = actions.payload;
       return [...actions.payload];
     },

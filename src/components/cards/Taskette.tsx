@@ -26,7 +26,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
 
       return [...newState];
     });
-    patchRequest("http://192.168.0.22:4000/tasks/edit", {
+    patchRequest(`${import.meta.env.VITE_BACKEND_PORT}/tasks/edit`, {
       taskId,
       taskContent: localTaskContent,
     });
@@ -35,7 +35,10 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
 
   const deleteTaskhandler = () => {
     setLocalTaskList((state) => {
-      deleteRequest(taskId, "http://192.168.0.25:4000/tasks/delete");
+      deleteRequest(
+        taskId,
+        `${import.meta.env.VITE_BACKEND_PORT}/tasks/delete`
+      );
       const newState = state.filter((task) => task.taskId !== taskId);
       return [...newState];
     });
@@ -77,7 +80,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
 
                 return [...newState];
               });
-              patchRequest("http://192.168.0.22:4000/tasks/edit", {
+              patchRequest(`${import.meta.env.VITE_BACKEND_PORT}/tasks/edit`, {
                 taskId: taskId,
                 isCompleted: !isLocalCompleted,
               });

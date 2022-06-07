@@ -10,5 +10,3 @@ export const deleteRequest = async (id, url) => {
       // console.log(error);
     });
 };
-
-// .post("http://192.168.0.22:4000/tasks", await formContent)

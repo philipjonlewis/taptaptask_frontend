@@ -27,14 +27,17 @@ const AddPhaseForm = () => {
     dispatch(addPhase(form));
 
     (async () => {
-      const rawResponse = await fetch("http://192.168.0.22:4000/phases", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+      const rawResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_PORT}/phases`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
       const content = await rawResponse.json();
     })();
     setForm({

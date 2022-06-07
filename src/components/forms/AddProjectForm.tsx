@@ -33,14 +33,17 @@ const AddProjectForm = () => {
     dispatch(addProject(form));
 
     (async () => {
-      const rawResponse = await fetch("http://localhost:4000/projects", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+      const rawResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_PORT}/projects`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
       const content = await rawResponse.json();
 
       console.log(content);
