@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setActivePhase } from "../../redux/activePhaseState";
+import { useGetPhasesByProjectQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 
+import { useGetTasksByDateQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 const ProjectNavbar = () => {
   const {
     activeProject: { projectId },
@@ -11,28 +13,14 @@ const ProjectNavbar = () => {
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const [localPhaseList, setLocalPhaseList] = useState([]);
+  const [localPhaseList, setLocalPhaseList] = useState([]) as any;
   const [phaseListEditingState, setPhaseListEditingState] = useState(false);
 
-  const localPhaseListResetter = (phaseList: any) => {
-    // const sortedPhaseList = [...filteredPhaseList].sort((a, b) => {
-    //   return a.phaseOrder - b.phaseOrder;
-    // });
-  };
-
   useEffect(() => {
-    setLocalPhaseList((state): any => {
-      const filteredPhaseList = [...phaseList].sort((a, b) => {
-        return a.phaseOrder - b.phaseOrder;
-      });
-      console.log(phaseList);
-      return [...filteredPhaseList];
+    setLocalPhaseList(() => {
+      return [...phaseList];
     });
-
-    return () => {
-      setLocalPhaseList([]);
-    };
-  }, [projectId, phaseList]);
+  }, [phaseList, projectId]);
 
   return (
     <div className="project-navbar-container">
@@ -80,7 +68,13 @@ const ProjectNavbar = () => {
                 }
                 key={phase.phaseId}
                 to={"phase"}
-                onClick={() => dispatch(setActivePhase(phase))}
+                onClick={() => {
+                  dispatch(setActivePhase(phase));
+                }}
+                // onMouseEnter={() => {
+                //   console.log("entering");
+                //   dispatch(setActivePhase(phase));
+                // }}
               >
                 {phase.phaseName}
               </Link>

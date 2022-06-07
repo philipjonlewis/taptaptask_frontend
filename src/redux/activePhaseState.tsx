@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { mockPhaseList } from "./mockdata/phases";
+
 
 export const activePhaseSlice = createSlice({
   name: "activePhase",

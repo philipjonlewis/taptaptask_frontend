@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { fetchPhaseList } from "../../../redux/phaseListState";
 import axios from "axios";
+import { useGetPhasesByProjectQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
 const IndividualProject = () => {
   const {
     auth,
@@ -21,25 +22,6 @@ const IndividualProject = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios
-      .get(
-        `${import.meta.env.VITE_BACKEND_PORT}/aggregate/phase/${projectId}`,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      )
-      .then((dat: any) => {
-        dispatch(fetchPhaseList(dat.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   return (
     <div className="individual-project-container">
       {/* <HotLink />

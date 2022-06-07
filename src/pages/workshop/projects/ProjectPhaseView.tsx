@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addTaskToExistingDate,
-  fetchTaskList,
-} from "../../../redux/taskListState";
+
 import { format, formatDistanceToNow } from "date-fns";
 import {
   TaskCard,
@@ -14,29 +11,57 @@ import {
   PhaseDataTab,
 } from "../../../components";
 import axios from "axios";
-
+import { useGetTasksByDateQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
 const ProjectPhaseView = () => {
   const dispatch = useDispatch();
   const {
     activePhase: { phaseId, phaseName },
     activeProject: { projectId },
-    taskList,
   } = useSelector((state) => state);
 
   const [fetchedTaskList, setFetchedTaskList] = useState([]);
   const [isFinishedFetching, setIsFinishedFetching] = useState(false);
   const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("");
-  const getData = async () => {
-    const resData = await axios.get(
-      `${import.meta.env.VITE_BACKEND_PORT}/aggregate/tasks/date/${projectId}/${phaseId}`
-    );
-    setFetchedTaskList(await resData.data);
-    setIsFinishedFetching(true);
-  };
+
+  const { data, isLoading, isSuccess, isError, error, refetch } =
+    useGetTasksByDateQuery({
+      projectReferenceId: projectId,
+      phaseReferenceId: phaseId,
+    });
+
+  console.log("phase id", phaseId);
+  console.log("project id", projectId);
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (isLoading == false && data !== undefined) {
+      setFetchedTaskList(() => {
+        return [...data];
+      });
+    }
+
+    return () => {
+      setFetchedTaskList([]);
+    };
+  }, [phaseId, projectId]);
+
+  let content;
+
+  if (isLoading) {
+    refetch();
+    content = <p>Loading</p>;
+  } else if (isSuccess) {
+    content = <p>Tama</p>;
+  } else if (isError) {
+    refetch();
+    content = <div>{error.toString()}</div>;
+  }
+
+  // return (
+  //   <section className="posts-list">
+  //     <h2>Posts</h2>
+  //     {content}
+  //   </section>
+  // );
 
   return (
     <div className="project-phase-container">
@@ -67,7 +92,7 @@ const ProjectPhaseView = () => {
         <FilterTasksTab setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
       )}
 
-      {isFinishedFetching ? (
+      {isSuccess ? (
         <div className="task-card-container ">
           {fetchedTaskList.length >= 1 &&
             fetchedTaskList.map((taskObject) => {

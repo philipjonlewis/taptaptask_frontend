@@ -16,5 +16,3 @@ export const postRequest = async (formContent: Object[], url: string) => {
       console.log(error.response);
     });
 };
-
-

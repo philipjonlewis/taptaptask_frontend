@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { mockProjectList } from "./mockdata/projects";
+
 
 export const activeProjectSlice = createSlice({
   name: "activeProject",

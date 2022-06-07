@@ -11,6 +11,8 @@ import { patchRequest } from "../../helpers/patchRequest";
 import { v4 as uuidv4 } from "uuid";
 import { postRequest } from "../../helpers/postRequest";
 import { fetchPhaseList } from "../../redux/phaseListState";
+
+import { useGetPhasesByProjectQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 const PhaseManagerForm = () => {
   const {
     auth: { _id },
@@ -20,7 +22,7 @@ const PhaseManagerForm = () => {
 
   const dispatch = useDispatch();
 
-  const [localPhaseList, setLocalPhaseList] = useState(phaseList);
+  const [localPhaseList, setLocalPhaseList] = useState([]) as any;
   const [mouseDownState, setMouseDownState] = useState(false);
 
   const [form, setForm] = useState({
@@ -30,33 +32,30 @@ const PhaseManagerForm = () => {
     phaseName: "",
   });
 
+  const { data, error, isLoading, refetch } = useGetPhasesByProjectQuery(
+    {
+      projectReferenceId: projectId,
+    },
+    { refetchOnMountOrArgChange: true }
+  ) as any;
+
   useEffect(() => {
-    setLocalPhaseList(() => {
-      const newPhaseList = [...phaseList].sort((a, b) => {
-        return a.phaseOrder - b.phaseOrder;
+    if (isLoading == false && error == undefined) {
+      setLocalPhaseList(() => {
+        const newPhaseList = [...data].sort((a, b) => {
+          return a.phaseOrder - b.phaseOrder;
+        });
+
+        dispatch(fetchPhaseList([...newPhaseList]));
+
+        return [...newPhaseList];
       });
+    }
 
-      return [...newPhaseList];
-    });
-  }, [projectId,phaseList]);
-
-  // const localPhaseListResetter = (phaseList: any) => {
-  //   const sortedPhaseList = [...phaseList].sort((a, b) => {
-  //     return a.phaseOrder - b.phaseOrder;
-  //   });
-
-  //   setLocalPhaseList((): any => {
-  //     return [...sortedPhaseList];
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   localPhaseListResetter(phaseList);
-  // }, [projectId, phaseList]);
-
-  // useEffect(() => {
-  //   localPhaseListResetter(phaseList);
-  // }, [mouseDownState]);
+    return () => {
+      setLocalPhaseList([]);
+    };
+  }, [projectId, data]);
 
   return (
     <div className="phase-management-container">

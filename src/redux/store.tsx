@@ -5,9 +5,11 @@ import phaseListReducer from "./phaseListState";
 
 import activeProjectReducer from "./activeProjectState";
 import activePhaseReducer from "./activePhaseState";
-import taskListReducer from "./taskListState";
-
-
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import { projectApiSlice } from "./rtkQuery/projectApiSlice";
+import { phaseApiSlice } from "./rtkQuery/phaseApiSlice";
+import { taskApiSlice } from "./rtkQuery/taskApiSlice";
+import { aggregationApiSlice } from "./rtkQuery/aggregationApiSlice";
 
 export default configureStore({
   reducer: {
@@ -15,10 +17,17 @@ export default configureStore({
 
     projectList: projectListReducer,
     phaseList: phaseListReducer,
-    taskList: taskListReducer,
-
 
     activeProject: activeProjectReducer,
     activePhase: activePhaseReducer,
+
+    [projectApiSlice.reducerPath]: projectApiSlice.reducer,
+    [phaseApiSlice.reducerPath]: phaseApiSlice.reducer,
+    [taskApiSlice.reducerPath]: taskApiSlice.reducer,
+    [aggregationApiSlice.reducerPath]: aggregationApiSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(projectApiSlice.middleware),
 });
+
+// setupListeners(configureStore.dispatch)

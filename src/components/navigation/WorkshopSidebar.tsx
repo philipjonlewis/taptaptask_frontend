@@ -3,19 +3,19 @@ import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveProject } from "../../redux/activeProjectState";
 import { addProject, fetchProjectList } from "../../redux/projectListState";
-import { fetchPhaseList } from "../../redux/phaseListState";
+import { useGetProjectQuery } from "../../redux/rtkQuery/projectApiSlice";
 import axios from "axios";
-import { fetchTaskList } from "../../redux/taskListState";
+
 import { setActivePhase } from "../../redux/activePhaseState";
 import { postRequest } from "../../helpers/postRequest";
 import { v4 as uuidv4 } from "uuid";
 import format from "date-fns/format";
 
-const WorkshopProjectSidebar = () => {
-  const { auth, projectList } = useSelector((state) => state);
-  const dispatch = useDispatch();
+import { useGetPhasesByProjectQuery } from "../../redux/rtkQuery/phaseApiSlice";
 
-  let projectId = uuidv4();
+const WorkshopProjectSidebar = () => {
+  const { auth, projectList } = useSelector((state: any) => state);
+  const dispatch = useDispatch();
 
   const [sidebarVisibility, setSidebarVisibility] = useState(
     JSON.parse(localStorage.getItem("workshopMenuSidebar")) || false
@@ -69,29 +69,7 @@ const WorkshopProjectSidebar = () => {
     setAddProjectModal(false);
   };
 
-  useEffect(() => {
-
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_PORT}/project/read/`, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-      .then((dat: any) => {
-        console.log(dat);
-        dispatch(fetchProjectList(dat.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-
-    return () => {
-      // removes the active project right after unmounting
-    };
-  }, [triggerFetch]);
+  const { data, error, isLoading } = useGetProjectQuery(false);
 
   const sidebarHandler = (e) => {
     e.stopPropagation();
@@ -362,32 +340,34 @@ const WorkshopProjectSidebar = () => {
           </div>
           {/* <p>Project List</p> */}
           <div className="list-of-projects">
-            {projectList.map((project) => {
-              return (
-                <NavLink
-                  key={project.projectId}
-                  className="project-link"
-                  to={`projects/${project.projectName.split(" ").join("_")}`}
-                  onClick={() => linkHandler(project)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
+            {isLoading == false &&
+              // data.length >= 1 &&
+              data.map((project) => {
+                return (
+                  <NavLink
+                    key={project.projectId}
+                    className="project-link"
+                    to={`projects/${project.projectName.split(" ").join("_")}`}
+                    onClick={() => linkHandler(project)}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                    />
-                  </svg>
-                  <p className="">{project.projectName}</p>
-                </NavLink>
-              );
-            })}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13 5l7 7-7 7M5 5l7 7-7 7"
+                      />
+                    </svg>
+                    <p className="">{project.projectName}</p>
+                  </NavLink>
+                );
+              })}
           </div>
           {/* <p>Scroll Down for more</p> */}
         </div>

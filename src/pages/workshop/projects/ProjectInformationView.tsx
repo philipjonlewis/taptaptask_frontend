@@ -17,11 +17,13 @@ import { addPhase } from "../../../redux/phaseListState";
 import { fetchPhaseList } from "../../../redux/phaseListState";
 import axios from "axios";
 
+import { useGetPhasesByProjectQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
+
 const ProjectInformation = () => {
   const {
     auth: { _id },
     activeProject,
-  } = useSelector((state) => state);
+  } = useSelector((state: any) => state);
 
   const {
     projectId,
@@ -33,7 +35,7 @@ const ProjectInformation = () => {
 
   const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isDateLoading, setIsDateLoading] = useState(false);
 
   const [projectDates, setProjectDates] = useState({
     creation: {
@@ -74,29 +76,8 @@ const ProjectInformation = () => {
       };
     });
 
-    setIsLoading(true);
+    setIsDateLoading(true);
   }, []);
-
-  useEffect(() => {
-    axios
-      .get(
-        `${import.meta.env.VITE_BACKEND_PORT}/aggregate/phase/${projectId}`,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      )
-      .then((dat: any) => {
-        console.log(dat.data);
-        dispatch(fetchPhaseList(dat.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [projectId]);
 
   return (
     <div className="project-information-view-container">
@@ -149,11 +130,11 @@ const ProjectInformation = () => {
                 <div className="label">
                   Created{" "}
                   <p className="sublabel">
-                    {isLoading && projectDates.creation.daysSince}
+                    {isDateLoading && projectDates.creation.daysSince}
                   </p>
                 </div>
                 <p className="title">
-                  {isLoading && projectDates.creation.date}
+                  {isDateLoading && projectDates.creation.date}
                 </p>
               </div>
 
@@ -161,10 +142,10 @@ const ProjectInformation = () => {
                 <div className="label">
                   Deadline{" "}
                   <p className="sublabel">
-                    {isLoading && projectDates.deadline.daysTill}
+                    {isDateLoading && projectDates.deadline.daysTill}
                   </p>
                 </div>
-                {isLoading && projectDates.deadline.date}
+                {isDateLoading && projectDates.deadline.date}
               </div>
             </div>
 

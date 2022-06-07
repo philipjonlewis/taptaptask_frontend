@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { mockPhaseList } from "./mockdata/phases";
-import { current } from "@reduxjs/toolkit";
+
 
 import { patchRequest } from "../helpers/patchRequest";
 import { deleteRequest } from "../helpers/deleteRequest";
@@ -92,7 +91,7 @@ export const phaseListSlice = createSlice({
       // return [...state];
     },
     fetchPhaseList: (state, actions): any => {
-      console.log(actions.payload);
+      // console.log(actions.payload);
 
       // state = actions.payload;
       return [...actions.payload];
