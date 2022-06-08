@@ -44,7 +44,7 @@ export const phaseApiSlice = createApi({
           }),
         providesTags: ["Phase"],
       }),
-      addPhase: builder.mutation({
+      addPhaseFetch: builder.mutation({
         query: (phase) => ({
           url: "/phase/create",
           method: "POST",
@@ -55,6 +55,14 @@ export const phaseApiSlice = createApi({
       updatePhase: builder.mutation({
         query: (phase) => ({
           url: "/phase/update",
+          method: "PATCH",
+          body: phase,
+        }),
+        invalidatesTags: ["Phase"],
+      }),
+      phaseChangeOrder: builder.mutation({
+        query: (phase) => ({
+          url: "/phase/changeorder",
           method: "PATCH",
           body: phase,
         }),
@@ -75,7 +83,8 @@ export const phaseApiSlice = createApi({
 export const {
   useGetPhaseQuery,
   useGetPhaseByProjectQuery,
-  useAddPhaseMutation,
+  useAddPhaseFetchMutation,
   useUpdatePhaseMutation,
+  usePhaseChangeOrderMutation,
   useDeletePhaseMutation,
 } = phaseApiSlice;

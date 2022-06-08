@@ -11,22 +11,27 @@ import { patchRequest } from "../../helpers/patchRequest";
 import { v4 as uuidv4 } from "uuid";
 import { postRequest } from "../../helpers/postRequest";
 import { fetchPhaseList } from "../../redux/phaseListState";
-
+import { usePhaseChangeOrderMutation } from "../../redux/rtkQuery/phaseApiSlice";
+import { useAddPhaseFetchMutation } from "../../redux/rtkQuery/phaseApiSlice";
 import { useGetPhasesByProjectQuery } from "../../redux/rtkQuery/aggregationApiSlice";
+
 const PhaseManagerForm = () => {
   const {
-    auth: { _id },
+    auth,
     phaseList,
     activeProject: { projectId },
   } = useSelector((state: any) => state);
 
   const dispatch = useDispatch();
 
+  const [phaseChangeOrder] = usePhaseChangeOrderMutation();
+  const [addPhaseFetch, { isSuccess }] = useAddPhaseFetchMutation() as any;
+
   const [localPhaseList, setLocalPhaseList] = useState([]) as any;
   const [mouseDownState, setMouseDownState] = useState(false);
 
   const [form, setForm] = useState({
-    user: _id,
+    user: auth._id,
     phaseId: uuidv4(),
     projectReferenceId: projectId,
     phaseName: "",
@@ -51,6 +56,37 @@ const PhaseManagerForm = () => {
       setLocalPhaseList([]);
     };
   }, [projectId, data]);
+
+  const mouseUpHandler = () => {
+    const newPhaseList = [...localPhaseList].map((phaseObject) => {
+      return {
+        ...phaseObject,
+        phaseOrder: localPhaseList.indexOf(phaseObject) + 1,
+      };
+    });
+
+    phaseChangeOrder([...newPhaseList]);
+
+    //patch request here
+
+    dispatch(editPhaseListOrder(newPhaseList));
+  };
+
+  const addPhaseHandler = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const newPhaseFromForm = { ...form, phaseId: uuidv4() };
+    addPhaseFetch([newPhaseFromForm]).then((res: any) => {
+      dispatch(addPhase(res.data[0]));
+
+      setLocalPhaseList((state: any) => {
+        return [...state, res.data[0]];
+      });
+
+      setForm((state) => {
+        return { ...state, phaseName: "" };
+      });
+    });
+  };
 
   return (
     <div className="phase-management-container">
@@ -78,24 +114,7 @@ const PhaseManagerForm = () => {
               });
             }}
           />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch(
-                addPhase({ newPhase: form, projectReferenceId: projectId })
-              );
-
-              setLocalPhaseList((state) => {
-                return [...state, form];
-              });
-
-              setForm((state) => {
-                return { ...state, phaseId: uuidv4(), phaseName: "" };
-              });
-            }}
-          >
-            Add Phase
-          </button>
+          <button onClick={addPhaseHandler}>Add Phase</button>
         </div>
       </form>
       <Reorder.Group
@@ -103,9 +122,7 @@ const PhaseManagerForm = () => {
         values={localPhaseList}
         onReorder={setLocalPhaseList}
         className="interactive-phase-container"
-        onMouseUp={() => {
-          dispatch(editPhaseListOrder({ projectId, localPhaseList }));
-        }}
+        onMouseUp={mouseUpHandler}
       >
         {localPhaseList.map((phase: any) => {
           return (

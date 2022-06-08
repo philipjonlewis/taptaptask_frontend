@@ -1,7 +1,7 @@
 import React from "react";
 import {
   useGetProjectQuery,
-  useAddProjectMutation,
+  useAddProjectDataMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
 } from "../redux/rtkQuery/projectApiSlice";
@@ -15,7 +15,7 @@ const Home = () => {
   //   error: any,
   // } = useGetProjectsQuery("");
 
-  const [addProject] = useAddProjectMutation();
+  const [addProjectData] = useAddProjectDataMutation();
   // const [updateProject] = useUpdateProjectMutation();
   // const [deleteProject] = useDeleteProjectMutation();
 

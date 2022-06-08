@@ -3,17 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProject } from "../../redux/projectListState";
 import format from "date-fns/format";
 import { v4 as uuidv4 } from "uuid";
+import { useAddProjectDataMutation } from "../../redux/rtkQuery/projectApiSlice";
 
 const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
   const dispatch = useDispatch();
 
+  const [addProjectData, { isError, isLoading, isSuccess, isUninitialized }] =
+    useAddProjectDataMutation();
+
   const { auth, projectList } = useSelector((state: any) => state);
+
   const [triggerFetch, setTriggerFetch] = useState(false);
-  const [localProjectList, setLocalProjectList] = useState([]);
+
   const [form, setForm] = useState({
     user: auth._id,
-    projectName: "",
-    projectDescription: "",
+    projectName: "Architectural Project",
+    projectDescription: "2 Storey House",
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
   });
 
@@ -33,13 +38,12 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const projectId = uuidv4();
-    postRequest(
-      { ...form, projectId },
-      `${import.meta.env.VITE_BACKEND_PORT}/project`
-    ).then(() => {
-      dispatch(addProject({ ...form, projectId }));
-      setTriggerFetch(!triggerFetch);
-    });
+
+    addProjectData([{ ...form, projectId }]);
+
+    dispatch(addProject({ ...form, projectId }));
+
+    setTriggerFetch(!triggerFetch);
 
     setForm((state) => {
       return {

@@ -10,7 +10,7 @@ export const postRequest = async (formContent: Object[], url: string) => {
       },
     })
     .then(function (response: any) {
-      console.log(response);
+      // console.log(response);
     })
     .catch(function (error) {
       console.log(error.response);

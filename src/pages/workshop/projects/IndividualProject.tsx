@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, Outlet, useOutletContext } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  ProjectNavbar,
-  HotLink,
-  AddDataForm,
-  AddDataContainerForm,
-} from "../../../components";
+import { ProjectNavbar } from "../../../components";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { fetchPhaseList } from "../../../redux/phaseListState";
@@ -26,7 +21,7 @@ const IndividualProject = () => {
     <div className="individual-project-container">
       {/* <HotLink />
       <AddDataForm /> */}
-      {/* <AddDataContainerForm /> */}
+
       <ProjectNavbar />
 
       <Outlet />

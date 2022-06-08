@@ -2,41 +2,48 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setActivePhase } from "../../redux/activePhaseState";
-import { useGetPhasesByProjectQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 
-import { useGetTasksByDateQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 const ProjectNavbar = () => {
-  const {
-    activeProject: { projectId },
-    phaseList,
-    activePhase,
-  } = useSelector((state) => state);
+  const { activeProjectId, activePhaseName } = useSelector((state: any) => {
+    return {
+      activeProjectId: state.activeProject.projectId,
+      activePhaseName: state.activePhase.phaseName,
+    };
+  });
+
+  const phaseList = useSelector((state: any) => state.phaseList);
+
   const dispatch = useDispatch();
 
   const [localPhaseList, setLocalPhaseList] = useState([]) as any;
-  const [phaseListEditingState, setPhaseListEditingState] = useState(false);
 
   useEffect(() => {
-    setLocalPhaseList(phaseList);
-  }, [phaseList, projectId]);
+    setLocalPhaseList([...phaseList]);
+  }, [phaseList, activeProjectId]);
+
+  const cleanActivePhaseHandler = () => {
+    dispatch(
+      setActivePhase({
+        phaseId: "",
+        phaseName: "",
+      })
+    );
+  };
+
+  const activePhaseHandler = (phase) => {
+    dispatch(setActivePhase(phase));
+  };
 
   return (
     <div className="project-navbar-container">
       <Link
         to={`information`}
         className={
-          activePhase.phaseName == ""
+          activePhaseName == ""
             ? "project-information-link active-information"
             : "project-information-link"
         }
-        onClick={() => {
-          dispatch(
-            setActivePhase({
-              phaseId: "",
-              phaseName: "",
-            })
-          );
-        }}
+        onClick={cleanActivePhaseHandler}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -60,15 +67,13 @@ const ProjectNavbar = () => {
             return (
               <Link
                 className={
-                  activePhase.phaseName == phase.phaseName
+                  activePhaseName == phase.phaseName
                     ? "phase-link active-phase-tab"
                     : "phase-link"
                 }
                 key={phase.phaseId}
                 to={"phase"}
-                onClick={() => {
-                  dispatch(setActivePhase(phase));
-                }}
+                onClick={() => activePhaseHandler(phase)}
                 // onMouseEnter={() => {
                 //   console.log("entering");
                 //   dispatch(setActivePhase(phase));

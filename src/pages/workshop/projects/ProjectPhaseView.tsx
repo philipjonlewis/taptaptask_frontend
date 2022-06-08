@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { format, formatDistanceToNow } from "date-fns";
 import {
   TaskCard,
   AddTaskCardForm,
@@ -12,42 +11,38 @@ import {
 } from "../../../components";
 import axios from "axios";
 import { useGetTasksByDateQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
+import { skipToken } from "@reduxjs/toolkit/query/react";
 
 const ProjectPhaseView = () => {
-  const dispatch = useDispatch();
-  const {
-    activePhase: { phaseId, phaseName },
-    activeProject: { projectId },
-  } = useSelector((state) => state);
+  const { activePhaseId, activeProjectId } = useSelector((state: any) => {
+    return {
+      activePhaseId: state.activePhase.phaseId,
+      activeProjectId: state.activeProject.projectId,
+    };
+  });
 
   const [fetchedTaskList, setFetchedTaskList] = useState([]) as any;
-  const [isFinishedFetching, setIsFinishedFetching] = useState(false) as any;
   const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("") as any;
-  const [skip, setSkip] = useState(false);
 
   const { data, isLoading, isSuccess, isError, error, refetch } =
     useGetTasksByDateQuery(
-      {
-        projectReferenceId: projectId,
-        phaseReferenceId: phaseId,
-      },
-      { skip }
-    );
+      activePhaseId
+        ? {
+            phaseReferenceId: activePhaseId,
+            projectReferenceId: activeProjectId,
+          }
+        : skipToken
+    ) as any;
 
   useEffect(() => {
-    setSkip(false);
-
     if (isLoading == false && data !== undefined) {
-      setFetchedTaskList(() => {
-        return data;
-      });
+      setFetchedTaskList(data);
     }
 
     return () => {
-      setSkip(true);
       setFetchedTaskList([]);
     };
-  }, [phaseId, projectId, isLoading]);
+  }, [activePhaseId, activeProjectId, isLoading, data]);
 
   let taskDataContent;
 
@@ -74,14 +69,12 @@ const ProjectPhaseView = () => {
 
   return (
     <div className="project-phase-container">
-      {isFinishedFetching && (
-        <PhaseMenuSidebar
-          setFetchedTaskList={setFetchedTaskList}
-          fetchedTaskList={fetchedTaskList}
-          setActivePhaseSidebarTab={setActivePhaseSidebarTab}
-          activePhaseSidebarTab={activePhaseSidebarTab}
-        />
-      )}
+      <PhaseMenuSidebar
+        setFetchedTaskList={setFetchedTaskList}
+        fetchedTaskList={fetchedTaskList}
+        setActivePhaseSidebarTab={setActivePhaseSidebarTab}
+        activePhaseSidebarTab={activePhaseSidebarTab}
+      />
 
       {activePhaseSidebarTab == "phase-data" && <PhaseDataTab />}
 

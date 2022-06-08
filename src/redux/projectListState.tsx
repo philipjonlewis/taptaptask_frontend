@@ -1,11 +1,10 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
-
 export const projectListSlice = createSlice({
   name: "projectList",
   initialState: [],
   reducers: {
-    addProject: (state, actions) => {
+    addProject: (state: any, actions: any) => {
       return [...state, actions.payload];
     },
     editProject: (state) => {

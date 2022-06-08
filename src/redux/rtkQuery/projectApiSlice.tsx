@@ -16,6 +16,9 @@ export const projectApiSlice = createApi({
     },
   }),
   tagTypes: ["Project"],
+  refetchOnMountOrArgChange: 1,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: function (
     builder: EndpointBuilder<BaseQuery, TagTypes, ReducerPath>
   ): Definitions {
@@ -31,7 +34,7 @@ export const projectApiSlice = createApi({
         // transformResponse : res => res.sort((a,b) => b.phaseOrder - a.phaseOrder),
         providesTags: ["Project"],
       }),
-      addProject: builder.mutation({
+      addProjectData: builder.mutation({
         query: (project) => ({
           url: "/project/create",
           method: "POST",
@@ -61,7 +64,7 @@ export const projectApiSlice = createApi({
 
 export const {
   useGetProjectQuery,
-  useAddProjectMutation,
+  useAddProjectDataMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
 } = projectApiSlice;

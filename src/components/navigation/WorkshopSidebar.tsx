@@ -1,53 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setActiveProject } from "../../redux/activeProjectState";
-import { addProject, fetchProjectList } from "../../redux/projectListState";
-import { useGetProjectQuery } from "../../redux/rtkQuery/projectApiSlice";
-import axios from "axios";
-
-import { setActivePhase } from "../../redux/activePhaseState";
-import { postRequest } from "../../helpers/postRequest";
-import { v4 as uuidv4 } from "uuid";
-import format from "date-fns/format";
 
 import AddProjectModal from "../forms/AddProjectModal";
-// const {
-//   auth,
-//   // activePhase: { phaseId, phaseName },
-//   // activeProject: { projectId },
-// } = useSelector((state) => state);
+import ProjectList from "../cards/ProjectList";
 
 const WorkshopProjectSidebar = () => {
-  const dispatch = useDispatch();
+  // let dispatch: any;
 
   const [sidebarVisibility, setSidebarVisibility] = useState(
-    JSON.parse(localStorage.getItem("workshopMenuSidebar")) || false
+    JSON.parse(localStorage.getItem("workshopMenuSidebar")!) || false
   );
 
   const [addProjectModalVisibility, setAddProjectModal] = useState(false);
-  const [localProjectList, setLocalProjectList] = useState([]) as any;
-
-  const { data, isLoading, isSuccess, isError, error, refetch } =
-    useGetProjectQuery(false);
-
-  useEffect(() => {
-    if (isLoading == false && error == undefined) {
-      setLocalProjectList(data);
-    }
-
-    return () => {
-      setLocalProjectList([]);
-    };
-  }, []);
-
-  if (isLoading) {
-    refetch();
-  } else if (isSuccess) {
-    // console.log("success");
-  } else if (isError) {
-    console.log("error");
-  }
 
   useEffect(() => {
     localStorage.setItem(
@@ -55,16 +19,6 @@ const WorkshopProjectSidebar = () => {
       JSON.stringify(sidebarVisibility)
     );
   }, [sidebarVisibility]);
-
-  const linkHandler = (project) => {
-    dispatch(
-      setActivePhase({
-        phaseId: "",
-        phaseName: "",
-      })
-    );
-    dispatch(setActiveProject(project));
-  };
 
   const sidebarHandler = (e) => {
     e.stopPropagation();
@@ -239,36 +193,9 @@ const WorkshopProjectSidebar = () => {
             <p>Project List</p>
           </div>
           {/* <p>Project List</p> */}
-          <div className="list-of-projects">
-            {isLoading == false &&
-              localProjectList.length >= 1 &&
-              localProjectList.map((project) => {
-                return (
-                  <NavLink
-                    key={project.projectId}
-                    className="project-link"
-                    to={`projects/${project.projectName.split(" ").join("_")}`}
-                    onClick={() => linkHandler(project)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                      />
-                    </svg>
-                    <p className="">{project.projectName}</p>
-                  </NavLink>
-                );
-              })}
-          </div>
+
+          <ProjectList />
+
           {/* <p>Scroll Down for more</p> */}
         </div>
         <NavLink to={"settings"} className="bottom-link-container">

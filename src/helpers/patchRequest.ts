@@ -10,7 +10,7 @@ export const patchRequest = async (url: string, formContent: any) => {
       },
     })
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
     })
     .catch(function (error) {
       console.log(error.response.data);
