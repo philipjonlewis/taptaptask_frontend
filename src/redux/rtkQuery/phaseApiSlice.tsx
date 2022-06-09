@@ -16,6 +16,9 @@ export const phaseApiSlice = createApi({
     },
   }),
   tagTypes: ["Phase"],
+  refetchOnMountOrArgChange: 1,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: function (
     builder: EndpointBuilder<BaseQuery, TagTypes, ReducerPath>
   ): Definitions {
@@ -52,7 +55,7 @@ export const phaseApiSlice = createApi({
         }),
         invalidatesTags: ["Phase"],
       }),
-      updatePhase: builder.mutation({
+      updatePhaseData: builder.mutation({
         query: (phase) => ({
           url: "/phase/update",
           method: "PATCH",
@@ -68,7 +71,7 @@ export const phaseApiSlice = createApi({
         }),
         invalidatesTags: ["Phase"],
       }),
-      deletePhase: builder.mutation({
+      deletePhaseData: builder.mutation({
         query: (phase) => ({
           url: "/phase/delete",
           method: "DELETE",
@@ -84,7 +87,7 @@ export const {
   useGetPhaseQuery,
   useGetPhaseByProjectQuery,
   useAddPhaseFetchMutation,
-  useUpdatePhaseMutation,
+  useUpdatePhaseDataMutation,
   usePhaseChangeOrderMutation,
-  useDeletePhaseMutation,
+  useDeletePhaseDataMutation,
 } = phaseApiSlice;

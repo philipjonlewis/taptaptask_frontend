@@ -86,6 +86,7 @@ const ProjectInformation = () => {
           setExpandedInformationModal={setExpandedInformationModal}
           activeProject={activeProject}
           projectDates={projectDates}
+          setProjectDates={setProjectDates}
         />
       )}
       <div className="left-container">

@@ -11,13 +11,15 @@
   backdrop-filter: saturate(100%) blur(1px);
 
   .information-container {
-    width: 800px;
+    width: 500px;
     height: 600px;
     background-color: $neutral-900;
     border-radius: $standard-radius;
     position: relative;
     padding: 4rem 0.5rem 0.5rem 0.5rem;
     // background-color: red;
+
+    margin-bottom: 6em;
     .close-modal-button {
       @include small-icon-container;
       position: absolute;
@@ -65,9 +67,6 @@
       background-color: $neutral-800;
       border-radius: $standard-radius;
 
-      &:hover {
-        background-color: $accent-01;
-      }
       .edit-deadline-button-container {
         @include small-icon-container;
         margin: 0.5rem;
@@ -80,6 +79,52 @@
       p {
         // border-right: 1px solid $neutral-500;
         margin-right: 0.5rem;
+      }
+
+      .project-dateOfDeadline {
+        background-color: $neutral-700;
+        height: 2.4rem;
+        // height: 3rem;
+        width: 50%;
+        padding: 0.5rem 1rem;
+
+        font-size: 0.9rem;
+
+        color: white;
+        border-radius: $standard-radius;
+
+        &:focus {
+          @include border(bottom, $accent-01);
+        }
+      }
+
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+      }
+
+      .submit-edit-deadline-button {
+        // margin-top: 2rem;
+        margin-left: auto;
+        margin-right: 0.5rem;
+        width: 22%;
+        font-weight: 300;
+        height: 2.4rem;
+        border-radius: $standard-radius;
+        border: 1px solid lighten($accent-01, 10);
+        background-color: $accent-01;
+
+        &:hover:not(:disabled) {
+          // opacity: 100%;
+          // background-color: $accent-04;
+          border: 1px solid lighten($accent-02, 10);
+          background-color: $accent-02;
+        }
+
+        &:disabled {
+          opacity: 30%;
+          border: none;
+          background-color: gray;
+        }
       }
     }
 

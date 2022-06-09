@@ -1,14 +1,23 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
-import { patchRequest } from "../../helpers/patchRequest";
-import { deleteRequest } from "../../helpers/deleteRequest";
+import { useSelector } from "react-redux";
+import { useDeleteTaskDataMutation } from "../../redux/rtkQuery/taskApiSlice";
+import { useUpdateTaskDataMutation } from "../../redux/rtkQuery/taskApiSlice";
 
 const Taskette = ({ taskObject, setLocalTaskList }) => {
+  const { activeProject, activePhase } = useSelector((state) => state);
+
   const { taskId, taskContent, isCompleted } = taskObject;
   const [isLocalCompleted, setIsLocalCompleted] = useState(isCompleted);
   const [tasketteMenu, setTasketteMenu] = useState(false);
   const [isTaskBeingEdited, setIsTaskBeingEdited] = useState(false);
 
-  const [localTaskContent, setLocalTaskContent] = useState(taskContent);
+  const [localTaskContent, setLocalTaskContent] = useState("");
+  const [deleteTaskData] = useDeleteTaskDataMutation();
+  const [updateTaskData] = useUpdateTaskDataMutation();
+
+  useEffect(() => {
+    setLocalTaskContent(taskContent);
+  }, []);
 
   const editTaskHandler = (e) => {
     setTasketteMenu(false);
@@ -16,34 +25,73 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
   };
 
   const submitEditTaskHandler = () => {
-    setLocalTaskList((state) => {
-      const newState = state.map((task) => {
+    setLocalTaskList((state: any) => {
+      const newState = [...state].map((task) => {
         if (task.taskId == taskId) {
           return { ...task, taskContent: localTaskContent };
         }
-        return task;
+        return { ...task };
       });
 
       return [...newState];
     });
-    patchRequest(`${import.meta.env.VITE_BACKEND_PORT}/tasks/edit`, {
-      taskId,
-      taskContent: localTaskContent,
-    });
+
+    updateTaskData([
+      {
+        taskId,
+        phaseReferenceId: activePhase.phaseId,
+        projectReferenceId: activeProject.projectId,
+      },
+      {
+        taskContent: localTaskContent,
+      },
+    ]);
+
     setIsTaskBeingEdited(false);
   };
 
   const deleteTaskhandler = () => {
     setLocalTaskList((state) => {
-      deleteRequest(
+      deleteTaskData({
         taskId,
-        `${import.meta.env.VITE_BACKEND_PORT}/tasks/delete`
-      );
+        phaseReferenceId: activePhase.phaseId,
+        projectReferenceId: activeProject.projectId,
+      });
       const newState = state.filter((task) => task.taskId !== taskId);
       return [...newState];
     });
     setTasketteMenu(false);
     setIsTaskBeingEdited(false);
+  };
+
+  const isCompletedTaskHandler = () => {
+    if (taskId !== undefined) {
+      setLocalTaskList((state) => {
+        const newState = state.map((task) => {
+          if (task.taskId == taskId) {
+            return { ...task, isCompleted: !isLocalCompleted };
+          }
+          return task;
+        });
+
+        return [...newState];
+      });
+
+      updateTaskData([
+        {
+          taskId,
+          phaseReferenceId: activePhase.phaseId,
+          projectReferenceId: activeProject.projectId,
+        },
+        {
+          isCompleted: !isLocalCompleted,
+        },
+      ]);
+
+      setIsLocalCompleted(() => {
+        return !isLocalCompleted;
+      });
+    }
   };
 
   return (
@@ -68,27 +116,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
               ? "checkbox-container completed-checkbox"
               : "checkbox-container"
           }
-          onClick={() => {
-            if (taskId !== undefined) {
-              setLocalTaskList((state) => {
-                const newState = state.map((task) => {
-                  if (task.taskId == taskId) {
-                    return { ...task, isCompleted: !isLocalCompleted };
-                  }
-                  return task;
-                });
-
-                return [...newState];
-              });
-              patchRequest(`${import.meta.env.VITE_BACKEND_PORT}/tasks/edit`, {
-                taskId: taskId,
-                isCompleted: !isLocalCompleted,
-              });
-              setIsLocalCompleted(() => {
-                return !isLocalCompleted;
-              });
-            }
-          }}
+          onClick={isCompletedTaskHandler}
         >
           {isLocalCompleted ? (
             <svg

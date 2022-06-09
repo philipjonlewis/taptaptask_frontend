@@ -1,6 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
-
 export const activeProjectSlice = createSlice({
   name: "activeProject",
   initialState: {
@@ -18,11 +17,14 @@ export const activeProjectSlice = createSlice({
       // console.log("hello", actions.payload);
       return actions.payload;
     },
+    editProjectDate: (state, actions) => {
+      return { ...state, dateOfDeadline: actions.payload };
+    },
   },
 });
 
 const { actions, reducer } = activeProjectSlice;
 
-export const { setActiveProject } = actions;
+export const { setActiveProject, editProjectDate } = actions;
 
 export default reducer;

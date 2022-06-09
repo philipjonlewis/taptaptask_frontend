@@ -10,35 +10,23 @@ export const phaseListSlice = createSlice({
     addPhase: (state, actions) => {
       return [...state, actions.payload];
     },
-    editPhase: (state) => {
-      console.log(state);
-    },
-    deletePhase: (state, actions) => {
-      const { phaseId, projectReferenceId } = actions.payload;
+    editPhase: (state, actions) => {
+      const { phaseId, phaseName } = actions.payload;
 
-      deleteRequest(
-        phaseId,
-        `${import.meta.env.VITE_BACKEND_PORT}/phases/delete`
-      );
-
-      state = [...state].map((phases) => {
-        if (phases._id == projectReferenceId) {
-          // console.log(phases._id, projectReferenceId);
-
-          const currentPhaseList = [...phases.phaseList];
-
-          const newPhaseList = [...currentPhaseList].filter((phase) => {
-            if (phase.phaseId !== phaseId) {
-              return phase;
-            }
-          });
-
-          return { _id: phases._id, phaseList: [...newPhaseList] };
+      const newState = [...state].map((phase) => {
+        if (phase.phaseId == phaseId) {
+          return { ...phase, phaseName: phaseName };
         }
-        return phases;
+        return {...phase};
       });
 
-      return [...state];
+      return [...newState];
+    },
+    deletePhase: (state, actions) => {
+      const { phaseId } = actions.payload;
+
+      const newState = state.filter((phases) => phases.phaseId !== phaseId);
+      return [...newState];
     },
     editPhaseListOrder: (state: any, actions: any): any => {
       return [...actions.payload];

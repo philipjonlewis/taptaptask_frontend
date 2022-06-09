@@ -15,11 +15,10 @@ export const aggregationApiSlice = createApi({
       Accept: "application/json",
     },
   }),
-  tagTypes: ["Aggregate"],
-  refetchOnMountOrArgChange: 1,
+  tagTypes: ["Aggregate", "Task"],
+  refetchOnMountOrArgChange: true,
   refetchOnFocus: true,
   refetchOnReconnect: true,
-
   endpoints: function (
     builder: EndpointBuilder<BaseQuery, TagTypes, ReducerPath>
   ): Definitions {
@@ -33,7 +32,7 @@ export const aggregationApiSlice = createApi({
           phaseReferenceId: string;
         }) =>
           `/aggregate/tasks/date?projectReferenceId=${projectReferenceId}&phaseReferenceId=${phaseReferenceId}`,
-        providesTags: ["Aggregate"],
+        providesTags: ["Aggregate", "Task"],
       }),
       getPhasesByProject: builder.query({
         query: ({
@@ -48,7 +47,7 @@ export const aggregationApiSlice = createApi({
             return a.phaseOrder - b.phaseOrder;
           }),
 
-        providesTags: ["Aggregate"],
+        invalidatesTags: ["Task", "Aggregate"],
       }),
     };
   },

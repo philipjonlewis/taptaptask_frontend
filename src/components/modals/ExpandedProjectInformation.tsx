@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useDeleteProjectMutation } from "../../redux/rtkQuery/projectApiSlice";
+import { useNavigate } from "react-router-dom";
+import { useUpdateProjectMutation } from "../../redux/rtkQuery/projectApiSlice";
+import { useDispatch } from "react-redux";
+import { editProjectDate } from "../../redux/activeProjectState";
+import { format } from "date-fns";
 
 const ExpandedProjectInformation = ({
   setExpandedInformationModal,
   activeProject,
   projectDates,
+  setProjectDates,
 }) => {
   const {
     projectId,
@@ -12,12 +19,26 @@ const ExpandedProjectInformation = ({
     dateOfDeadline,
     createdAt,
   } = activeProject;
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [projectNameForDeletion, setProjectNameForDeletion] = useState({
     deleteProject: "",
   });
 
+  const [isDateEditingConfirmed, setIsDateEditingConfirmed] = useState(true);
+
+  const [deleteProject] = useDeleteProjectMutation();
+  const [updateProject] = useUpdateProjectMutation();
+
   const [isDeleteButtonDisabled, setisDeleteButtonDisabled] = useState(true);
+
+  const [editDateOfDeadline, setEditDateOfDeadline] = useState(
+    new Date(dateOfDeadline).toISOString().substring(0, 10)
+  );
+
+  const [displayedDateOfDeadline, setDisplayedDateOfDeadline] = useState(
+    projectDates.deadline.date
+  );
 
   useEffect(() => {
     if (projectNameForDeletion.deleteProject === projectName) {
@@ -26,6 +47,40 @@ const ExpandedProjectInformation = ({
       setisDeleteButtonDisabled(true);
     }
   }, [projectNameForDeletion]);
+
+  const deleteProjectHandler = () => {
+    deleteProject({ projectId });
+    setExpandedInformationModal(false);
+    navigate("/workshop/projects", { replace: true });
+  };
+
+  const editProjectDeadlineHandler = () => {
+    setIsDateEditingConfirmed(!isDateEditingConfirmed);
+  };
+
+  const submitEditProjectDateHandler = (e) => {
+    e.preventDefault();
+    updateProject([
+      {
+        projectId,
+      },
+      {
+        dateOfDeadline: editDateOfDeadline,
+      },
+    ]).then((res) => {
+      console.log(res);
+    });
+
+    const deadlineDate = format(new Date(editDateOfDeadline), "LLL dd y") || "";
+    setDisplayedDateOfDeadline(deadlineDate);
+
+    setProjectDates((state) => {
+      return { ...state, deadline: { ...state.deadline, date: deadlineDate } };
+    });
+
+    dispatch(editProjectDate(editDateOfDeadline));
+    setIsDateEditingConfirmed(!isDateEditingConfirmed);
+  };
 
   return (
     <div
@@ -68,7 +123,10 @@ const ExpandedProjectInformation = ({
           <p>{projectDates.creation.date}</p>
         </div>
         <div className="deadline-date-container">
-          <div className="edit-deadline-button-container">
+          <div
+            className="edit-deadline-button-container"
+            onClick={editProjectDeadlineHandler}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -85,7 +143,27 @@ const ExpandedProjectInformation = ({
             </svg>
           </div>
           <p>Deadline :</p>
-          <p>{projectDates.deadline.date}</p>
+
+          {isDateEditingConfirmed ? (
+            <p>{displayedDateOfDeadline}</p>
+          ) : (
+            <input
+              type="date"
+              disabled={isDateEditingConfirmed}
+              className="project-dateOfDeadline"
+              defaultValue={editDateOfDeadline}
+              onChange={(e) => setEditDateOfDeadline(e.target.value)}
+            />
+          )}
+
+          {!isDateEditingConfirmed && (
+            <button
+              className="submit-edit-deadline-button"
+              onClick={submitEditProjectDateHandler}
+            >
+              Edit Deadline
+            </button>
+          )}
         </div>
 
         <div className="delete-project-container">
@@ -130,11 +208,7 @@ const ExpandedProjectInformation = ({
             />
             <button
               disabled={isDeleteButtonDisabled}
-              onClick={(e) => {
-                e.preventDefault();
-                console.log(projectNameForDeletion);
-                console.log(isDeleteButtonDisabled);
-              }}
+              onClick={deleteProjectHandler}
             >
               Delete Project
             </button>

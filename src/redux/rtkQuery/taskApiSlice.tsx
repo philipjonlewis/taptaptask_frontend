@@ -15,12 +15,15 @@ export const taskApiSlice = createApi({
       Accept: "application/json",
     },
   }),
-  tagTypes: ["Task"],
+  tagTypes: ["Task","Aggregate"],
+  refetchOnMountOrArgChange: true,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: function (
     builder: EndpointBuilder<BaseQuery, TagTypes, ReducerPath>
   ): Definitions {
     return {
-      getTask: builder.query({
+      getTaskData: builder.query({
         query: (taskId: boolean | string) => {
           if (taskId) {
             return `/task/read?taskId=${taskId}`;
@@ -29,39 +32,39 @@ export const taskApiSlice = createApi({
           }
         },
         // transformResponse : res => res.sort((a,b) => b.phaseOrder - a.phaseOrder),
-        providesTags: ["Task"],
+        providesTags: ["Task", "Aggregate"],
       }),
-      addTask: builder.mutation({
+      addTaskData: builder.mutation({
         query: (task) => ({
           url: "/task/create",
           method: "POST",
           body: task,
         }),
-        invalidatesTags: ["Task"],
+        invalidatesTags: ["Task", "Aggregate"],
       }),
-      updateTask: builder.mutation({
+      updateTaskData: builder.mutation({
         query: (task) => ({
           url: "/task/update",
           method: "PATCH",
           body: task,
         }),
-        invalidatesTags: ["Task"],
+        invalidatesTags: ["Task", "Aggregate"],
       }),
-      deleteTask: builder.mutation({
+      deleteTaskData: builder.mutation({
         query: (task) => ({
           url: "/task/delete",
           method: "DELETE",
           body: task,
         }),
-        invalidatesTags: ["Task"],
+        invalidatesTags: ["Task", "Aggregate"],
       }),
     };
   },
 });
 
 export const {
-  useGetTaskQuery,
-  useAddTaskMutation,
-  useUpdateTaskMutation,
-  useDeleteTaskMutation,
+  useGetTaskDataQuery,
+  useAddTaskDataMutation,
+  useUpdateTaskDataMutation,
+  useDeleteTaskDataMutation,
 } = taskApiSlice;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Reorder,
   useMotionValue,
@@ -9,60 +9,109 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deletePhase } from "../../redux/phaseListState";
 import axios from "axios";
+import { useDeletePhaseDataMutation } from "../../redux/rtkQuery/phaseApiSlice";
+import { useUpdatePhaseDataMutation } from "../../redux/rtkQuery/phaseApiSlice";
+import { editPhase } from "../../redux/phaseListState";
+const PhaseReorderCard = ({
+  phaseName,
+  phaseOrder,
+  phaseId,
+  localPhaseList,
+  setLocalPhaseList,
+}) => {
+  const activeProject = useSelector((state: any) => state.activeProject);
 
-const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
-  const {
-    auth,
-    activeProject: { projectId, projectName, projectDescription },
-    phaseList,
-    activePhase,
-  } = useSelector((state) => state);
+  const [localPhaseName, setLocalPhaseName] = useState("");
+  const [isPhaseNameBeingEdited, setIsPhaseNameBeingEdited] = useState(false);
+
+  const [deletePhaseData] = useDeletePhaseDataMutation();
+  const [updatePhaseData] = useUpdatePhaseDataMutation();
 
   const dispatch = useDispatch();
 
   const y = useMotionValue(0);
   const dragControls = useDragControls();
 
-  const deletePhaseHandler = ({ phaseId, projectReferenceId }) => {
+  useEffect(() => {
+    setLocalPhaseName(phaseName);
+  }, []);
+
+  const deletePhaseHandler = () => {
     if (localPhaseList.length <= 1) {
       alert("cant have no phases");
     } else {
+      confirm("Are you sure you want to delete this phase?");
       setLocalPhaseList((state) => {
-        const newState = state.filter((phases) => phases.phaseId !== phaseId);
+        const newState = state.filter(
+          (phases) => phases.phaseId !== item.phaseId
+        );
         return [...newState];
       });
-      dispatch(deletePhase({ phaseId, projectReferenceId }));
+      dispatch(deletePhase({ phaseId: item.phaseId }));
+      deletePhaseData({
+        phaseId: item.phaseId,
+        projectReferenceId: activeProject.projectId,
+      }).then((res) => {
+        console.log(res);
+      });
     }
   };
 
+  const editPhaseHandler = () => {
+    setIsPhaseNameBeingEdited(!isPhaseNameBeingEdited);
+  };
+
+  const submitEditPhaseNameHandler = () => {
+    updatePhaseData([
+      {
+        phaseId: phaseId,
+        projectReferenceId: activeProject.projectId,
+      },
+      {
+        phaseName: localPhaseName,
+      },
+    ]).then((res) => {
+      setLocalPhaseList((state) => {
+        const newState = [...state].map((phase) => {
+          if (phase.phaseId == phaseId) {
+            return { ...phase, phaseName: localPhaseName };
+          }
+          return { ...phase };
+        });
+
+        return [...newState];
+      });
+
+      dispatch(editPhase({ phaseId: phaseId, phaseName: localPhaseName }));
+
+      setIsPhaseNameBeingEdited(false);
+
+      console.log(res);
+    });
+  };
+
+  useEffect(() => {
+    setLocalPhaseList((state) => {
+      const newState = state.map((phase) => {
+        if (phase.phaseId == phaseId) {
+          return { ...phase, phaseName: localPhaseName };
+        }
+        return phase;
+      });
+
+      return [...newState];
+    });
+  }, [localPhaseName]);
+
   return (
     <Reorder.Item
-      value={item}
-      id={item.phaseOrder}
+      value={phaseId}
+      id={phaseOrder}
       style={{ y }}
       dragListener={false}
       dragControls={dragControls}
     >
-      <div
-        className="edit-phase-container"
-        onClick={() => {
-          axios
-            .delete(
-              `${import.meta.env.VITE_BACKEND_PORT}/phases/trial/delete`,
-              {
-                // headers: {
-                //   Authorization: authorizationToken
-                // },
-                data: {
-                  phaseId: item.phaseId,
-                },
-              }
-            )
-            .then((res) => {
-              console.log(res);
-            });
-        }}
-      >
+      <div className="edit-phase-container" onClick={editPhaseHandler}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -78,15 +127,7 @@ const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
           />
         </svg>
       </div>
-      <div
-        className="delete-phase-container"
-        onClick={() => {
-          deletePhaseHandler({
-            phaseId: item.phaseId,
-            projectReferenceId: projectId,
-          });
-        }}
-      >
+      <div className="delete-phase-container" onClick={deletePhaseHandler}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -102,7 +143,28 @@ const PhaseReorderCard = ({ item, localPhaseList, setLocalPhaseList }) => {
           />
         </svg>
       </div>
-      <p className="noselect phase-name"> {item.phaseName}</p>
+      <div className="phase-content-container">
+        {isPhaseNameBeingEdited ? (
+          <input
+            className="phase-name-edit-input"
+            type="text"
+            value={phaseName}
+            placeholder={`Edit Phase Name`}
+            onChange={(e) => setLocalPhaseName(e.target.value)}
+          />
+        ) : (
+          <p className="noselect phase-name"> {phaseName}</p>
+        )}
+
+        {isPhaseNameBeingEdited && (
+          <button
+            className="submit-edit-phase-name-button"
+            onClick={submitEditPhaseNameHandler}
+          >
+            Edit Phase Name
+          </button>
+        )}
+      </div>
       <div className="reorder-container">
         <ReorderIcon dragControls={dragControls} />
       </div>

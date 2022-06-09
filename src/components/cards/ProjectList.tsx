@@ -20,6 +20,7 @@ const ProjectList = () => {
     dispatch(setActiveProject(project));
   };
 
+
   return (
     <div className="list-of-projects">
       {isLoading == false &&

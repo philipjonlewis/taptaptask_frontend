@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { useGetProjectQuery } from "../../redux/rtkQuery/projectApiSlice";
 
 import AddProjectModal from "../forms/AddProjectModal";
 import ProjectList from "../cards/ProjectList";
@@ -12,6 +13,9 @@ const WorkshopProjectSidebar = () => {
   );
 
   const [addProjectModalVisibility, setAddProjectModal] = useState(false);
+
+  const { data, isLoading, isSuccess, isError, error, refetch } =
+    useGetProjectQuery(false) as any;
 
   useEffect(() => {
     localStorage.setItem(
@@ -194,7 +198,7 @@ const WorkshopProjectSidebar = () => {
           </div>
           {/* <p>Project List</p> */}
 
-          <ProjectList />
+          {isSuccess && <ProjectList />}
 
           {/* <p>Scroll Down for more</p> */}
         </div>

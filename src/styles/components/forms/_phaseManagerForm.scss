@@ -90,7 +90,7 @@
 
       background-color: lighten($neutral-800, 2);
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       padding: 0.5rem;
       font-size: 0.8rem;
@@ -119,9 +119,55 @@
         }
       }
 
-      .phase-name {
-        margin-right: auto;
+      .phase-content-container {
+        width: 100%;
+        .phase-name-edit-input {
+          background-color: $neutral-700;
+          height: 2.4rem;
+          // height: 3rem;
+          width: 18.1rem;
+          padding: 0.5rem 1rem;
+
+          font-size: 0.8rem;
+
+          color: white;
+          border-radius: $standard-radius;
+
+          &:focus {
+            @include border(bottom, $accent-01);
+          }
+        }
+
+        .phase-name {
+          margin-right: auto;
+        }
+
+        .submit-edit-phase-name-button {
+          // margin-top: 2rem;
+          margin-left: 0.5rem;
+          // margin-right: 0.5rem;
+          width: 10rem;
+          font-weight: 300;
+          height: 2.4rem;
+          border-radius: $standard-radius;
+          border: 1px solid lighten($neutral-600, 10);
+          background-color: $neutral-600;
+
+          &:hover:not(:disabled) {
+            // opacity: 100%;
+            // background-color: $accent-04;
+            border: 1px solid lighten($accent-02, 10);
+            background-color: $accent-02;
+          }
+
+          &:disabled {
+            opacity: 30%;
+            border: none;
+            background-color: gray;
+          }
+        }
       }
+
       .reorder-container {
         position: absolute;
         right: 0;

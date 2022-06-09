@@ -17,8 +17,8 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
 
   const [form, setForm] = useState({
     user: auth._id,
-    projectName: "Architectural Project",
-    projectDescription: "2 Storey House",
+    projectName: "",
+    projectDescription: "",
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
   });
 

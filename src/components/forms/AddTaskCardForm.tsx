@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { isEqual, format } from "date-fns";
+import { isEqual, format, parse, isValid } from "date-fns";
+import { enGB } from "date-fns/locale";
 
 import { postRequest } from "../../helpers/postRequest";
+import { useAddTaskDataMutation } from "../../redux/rtkQuery/taskApiSlice";
 
 const AddTaskCardForm = ({
   fetchedTaskList,
@@ -13,6 +15,8 @@ const AddTaskCardForm = ({
   const { auth, activePhase, activeProject, taskList } = useSelector(
     (state) => state
   );
+
+  const [addTaskData] = useAddTaskDataMutation();
 
   const [taskFormContent, setTaskFormContent] = useState({
     user: auth._id,
@@ -31,13 +35,20 @@ const AddTaskCardForm = ({
   };
 
   const dateOfDeadlineFormHandler = (e) => {
-    setTaskFormContent((state) => {
-      const formattedDate = format(new Date(e.target.value), "yyyy-MM-dd");
-      return {
-        ...state,
-        dateOfDeadline: formattedDate,
-      };
-    });
+    console.log(e.target.value);
+
+    if (isValid(new Date(e.target.value))) {
+      setTaskFormContent((state) => {
+        console.log(e.target.value);
+        const formattedDate = format(new Date(e.target.value), "yyyy-MM-dd");
+        return {
+          ...state,
+          dateOfDeadline: formattedDate,
+        };
+      });
+    } else {
+      console.log("wrong");
+    }
   };
 
   const submitTaskFormHandler = (e) => {
@@ -47,10 +58,7 @@ const AddTaskCardForm = ({
       return;
     }
 
-    postRequest(
-      [{ ...taskFormContent, taskId: uuidv4() }],
-      `${import.meta.env.VITE_BACKEND_PORT}/task/create`
-    );
+    addTaskData([{ ...taskFormContent, taskId: uuidv4() }]);
 
     setFetchedTaskList((state) => {
       // this is what happens if theres already an existing date
@@ -130,6 +138,7 @@ const AddTaskCardForm = ({
         <input
           required
           type="date"
+          min={taskFormContent.dateOfDeadline}
           value={taskFormContent.dateOfDeadline}
           onChange={dateOfDeadlineFormHandler}
         />

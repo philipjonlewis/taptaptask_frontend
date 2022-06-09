@@ -10,10 +10,13 @@ import {
   PhaseDataTab,
 } from "../../../components";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import { useGetTasksByDateQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
 import { skipToken } from "@reduxjs/toolkit/query/react";
+import { fetchTaskList, getTaskList } from "../../../redux/taskListState";
 
 const ProjectPhaseView = () => {
+  const dispatch = useDispatch();
   const { activePhaseId, activeProjectId } = useSelector((state: any) => {
     return {
       activePhaseId: state.activePhase.phaseId,
@@ -26,17 +29,27 @@ const ProjectPhaseView = () => {
 
   const { data, isLoading, isSuccess, isError, error, refetch } =
     useGetTasksByDateQuery(
-      activePhaseId
-        ? {
-            phaseReferenceId: activePhaseId,
-            projectReferenceId: activeProjectId,
-          }
-        : skipToken
+      {
+        phaseReferenceId: activePhaseId,
+        projectReferenceId: activeProjectId,
+      },
+      {
+        pollingInterval: 1000,
+        refetchOnMountOrArgChange: true,
+        skip: false,
+      }
+      // activePhaseId
+      //   ? {
+      //       phaseReferenceId: activePhaseId,
+      //       projectReferenceId: activeProjectId,
+      //     }
+      //   : skipToken
     ) as any;
 
   useEffect(() => {
     if (isLoading == false && data !== undefined) {
       setFetchedTaskList(data);
+      dispatch(fetchTaskList(data));
     }
 
     return () => {
@@ -52,8 +65,8 @@ const ProjectPhaseView = () => {
   } else if (isSuccess) {
     taskDataContent = (
       <div className="task-card-container ">
-        {fetchedTaskList.length >= 1 &&
-          fetchedTaskList.map((taskObject) => {
+        {data.length >= 1 &&
+          data.map((taskObject) => {
             return (
               <React.Fragment key={taskObject._id}>
                 <TaskCard taskObject={taskObject} key={taskObject._id} />

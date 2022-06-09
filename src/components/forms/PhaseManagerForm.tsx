@@ -45,6 +45,7 @@ const PhaseManagerForm = () => {
   ) as any;
 
   useEffect(() => {
+    refetch();
     if (isLoading == false && error == undefined && projectId) {
       dispatch(fetchPhaseList([...data]));
       setLocalPhaseList(() => {
@@ -67,25 +68,27 @@ const PhaseManagerForm = () => {
 
     phaseChangeOrder([...newPhaseList]);
 
-    //patch request here
-
     dispatch(editPhaseListOrder(newPhaseList));
   };
 
   const addPhaseHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const newPhaseFromForm = { ...form, phaseId: uuidv4() };
-    addPhaseFetch([newPhaseFromForm]).then((res: any) => {
-      dispatch(addPhase(res.data[0]));
+    if (form.phaseName.length >= 1) {
+      const newPhaseFromForm = { ...form, phaseId: uuidv4() };
+      addPhaseFetch([newPhaseFromForm]).then((res: any) => {
+        dispatch(addPhase(res.data[0]));
 
-      setLocalPhaseList((state: any) => {
-        return [...state, res.data[0]];
-      });
+        setLocalPhaseList((state: any) => {
+          return [...state, res.data[0]];
+        });
 
-      setForm((state) => {
-        return { ...state, phaseName: "" };
+        setForm((state) => {
+          return { ...state, phaseName: "" };
+        });
       });
-    });
+    } else {
+      console.log("walang lamn");
+    }
   };
 
   return (
@@ -128,7 +131,9 @@ const PhaseManagerForm = () => {
           return (
             <PhaseReorderCard
               key={phase.phaseId}
-              item={phase}
+              phaseName={phase.phaseName}
+              phaseId={phase.phaseId}
+              phaseOrder={phase.phaseOrder}
               localPhaseList={localPhaseList}
               setLocalPhaseList={setLocalPhaseList}
             />
