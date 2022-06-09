@@ -12,13 +12,9 @@ import axios from "axios";
 import { useDeletePhaseDataMutation } from "../../redux/rtkQuery/phaseApiSlice";
 import { useUpdatePhaseDataMutation } from "../../redux/rtkQuery/phaseApiSlice";
 import { editPhase } from "../../redux/phaseListState";
-const PhaseReorderCard = ({
-  phaseName,
-  phaseOrder,
-  phaseId,
-  localPhaseList,
-  setLocalPhaseList,
-}) => {
+import { v4 as uuidv4 } from "uuid";
+const PhaseReorderCard = ({ phase, localPhaseList, setLocalPhaseList }) => {
+  const { phaseName, phaseOrder, phaseId } = phase;
   const activeProject = useSelector((state: any) => state.activeProject);
 
   const [localPhaseName, setLocalPhaseName] = useState("");
@@ -90,22 +86,23 @@ const PhaseReorderCard = ({
     });
   };
 
-  useEffect(() => {
-    setLocalPhaseList((state) => {
-      const newState = state.map((phase) => {
-        if (phase.phaseId == phaseId) {
-          return { ...phase, phaseName: localPhaseName };
-        }
-        return phase;
-      });
+  // useEffect(() => {
+  //   setLocalPhaseList((state) => {
+  //     const newState = state.map((phase) => {
+  //       if (phase.phaseId == phaseId) {
+  //         return { ...phase, phaseName: localPhaseName };
+  //       }
+  //       return phase;
+  //     });
 
-      return [...newState];
-    });
-  }, [localPhaseName]);
+  //     return [...newState];
+  //   });
+  // }, [localPhaseName]);
 
   return (
     <Reorder.Item
-      value={phaseId}
+      key={phase.phaseId}
+      value={phase}
       id={phaseOrder}
       style={{ y }}
       dragListener={false}

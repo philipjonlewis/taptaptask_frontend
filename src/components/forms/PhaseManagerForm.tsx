@@ -40,8 +40,12 @@ const PhaseManagerForm = () => {
   const { data, error, isLoading, refetch } = useGetPhasesByProjectQuery(
     {
       projectReferenceId: projectId,
-    },
-    { refetchOnMountOrArgChange: true }
+    }
+    // {
+    //   pollingInterval: 1000,
+    //   refetchOnMountOrArgChange: false,
+    //   skip: false,
+    // }
   ) as any;
 
   useEffect(() => {
@@ -66,9 +70,9 @@ const PhaseManagerForm = () => {
       };
     });
 
-    phaseChangeOrder([...newPhaseList]);
-
     dispatch(editPhaseListOrder(newPhaseList));
+
+    phaseChangeOrder([...newPhaseList]);
   };
 
   const addPhaseHandler = (e: { preventDefault: () => void }) => {
@@ -131,9 +135,7 @@ const PhaseManagerForm = () => {
           return (
             <PhaseReorderCard
               key={phase.phaseId}
-              phaseName={phase.phaseName}
-              phaseId={phase.phaseId}
-              phaseOrder={phase.phaseOrder}
+              phase={phase}
               localPhaseList={localPhaseList}
               setLocalPhaseList={setLocalPhaseList}
             />

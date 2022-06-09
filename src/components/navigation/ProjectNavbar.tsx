@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import { setActivePhase } from "../../redux/activePhaseState";
 
 const ProjectNavbar = () => {
-  const { activeProjectId, activePhaseName } = useSelector((state: any) => {
-    return {
-      activeProjectId: state.activeProject.projectId,
-      activePhaseName: state.activePhase.phaseName,
-    };
-  });
-
-  const phaseList = useSelector((state: any) => state.phaseList);
+  const { activeProjectId, activePhaseName, phaseList } = useSelector(
+    (state: any) => {
+      return {
+        activeProjectId: state.activeProject.projectId,
+        activePhaseName: state.activePhase.phaseName,
+        phaseList: state.phaseList,
+      };
+    }
+  );
 
   const dispatch = useDispatch();
 
