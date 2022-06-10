@@ -4,9 +4,10 @@ import { useGetProjectQuery } from "../../redux/rtkQuery/projectApiSlice";
 import { useDispatch } from "react-redux";
 import { setActiveProject } from "../../redux/activeProjectState";
 import { setActivePhase } from "../../redux/activePhaseState";
-const ProjectList = () => {
-  const dispatch = useDispatch();
 
+const dispatch = useDispatch();
+
+const ProjectList = () => {
   const { data, isLoading, isSuccess, isError, error, refetch } =
     useGetProjectQuery(false) as any;
 
@@ -19,7 +20,6 @@ const ProjectList = () => {
     );
     dispatch(setActiveProject(project));
   };
-
 
   return (
     <div className="list-of-projects">

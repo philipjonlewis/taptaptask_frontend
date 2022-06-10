@@ -4,7 +4,7 @@ import { useDeleteTaskDataMutation } from "../../redux/rtkQuery/taskApiSlice";
 import { useUpdateTaskDataMutation } from "../../redux/rtkQuery/taskApiSlice";
 
 const Taskette = ({ taskObject, setLocalTaskList }) => {
-  const { activeProject, activePhase } = useSelector((state) => state);
+  const { activeProject, activePhase } = useSelector((state: any) => state);
 
   const { taskId, taskContent, isCompleted } = taskObject;
   const [isLocalCompleted, setIsLocalCompleted] = useState(isCompleted);

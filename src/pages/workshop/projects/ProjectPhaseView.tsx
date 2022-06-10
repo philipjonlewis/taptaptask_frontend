@@ -9,14 +9,14 @@ import {
   FilterTasksTab,
   PhaseDataTab,
 } from "../../../components";
-import axios from "axios";
-import { useDispatch } from "react-redux";
+
 import { useGetTasksByDateQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
-import { skipToken } from "@reduxjs/toolkit/query/react";
-import { fetchTaskList, getTaskList } from "../../../redux/taskListState";
+
+import { useDeleteTasksByDateMutation } from "../../../redux/rtkQuery/aggregationApiSlice";
+
+import { createSelector } from "reselect";
 
 const ProjectPhaseView = () => {
-  const dispatch = useDispatch();
   const { activePhaseId, activeProjectId } = useSelector((state: any) => {
     return {
       activePhaseId: state.activePhase.phaseId,
@@ -24,6 +24,7 @@ const ProjectPhaseView = () => {
     };
   });
 
+  const [deleteTasksByDate] = useDeleteTasksByDateMutation();
   const [fetchedTaskList, setFetchedTaskList] = useState([]) as any;
   const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("") as any;
 
@@ -49,13 +50,27 @@ const ProjectPhaseView = () => {
   useEffect(() => {
     if (isLoading == false && data !== undefined) {
       setFetchedTaskList(data);
-      dispatch(fetchTaskList(data));
     }
 
     return () => {
       setFetchedTaskList([]);
     };
   }, [activePhaseId, activeProjectId, isLoading, data]);
+
+  const deleteTaskCardHandler = (taskObjectId) => {
+    confirm("are you sure you want to delete this card?");
+    setFetchedTaskList((state) => {
+      const newState = [...state].filter((taskObj) => {
+        if (taskObj._id != taskObjectId) {
+          return taskObj;
+        }
+      });
+
+      return [...newState];
+    });
+
+    deleteTasksByDate({ dateOfDeadline: taskObjectId });
+  };
 
   let taskDataContent;
 
@@ -65,11 +80,15 @@ const ProjectPhaseView = () => {
   } else if (isSuccess) {
     taskDataContent = (
       <div className="task-card-container ">
-        {data.length >= 1 &&
-          data.map((taskObject) => {
+        {fetchedTaskList.length >= 1 &&
+          fetchedTaskList.map((taskObject) => {
             return (
               <React.Fragment key={taskObject._id}>
-                <TaskCard taskObject={taskObject} key={taskObject._id} />
+                <TaskCard
+                  deleteTaskCardHandler={deleteTaskCardHandler}
+                  taskObject={taskObject}
+                  key={taskObject._id}
+                />
               </React.Fragment>
             );
           })}

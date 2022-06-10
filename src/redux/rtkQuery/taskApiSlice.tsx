@@ -15,7 +15,7 @@ export const taskApiSlice = createApi({
       Accept: "application/json",
     },
   }),
-  tagTypes: ["Task","Aggregate"],
+  tagTypes: ["Task", "Aggregate"],
   refetchOnMountOrArgChange: true,
   refetchOnFocus: true,
   refetchOnReconnect: true,
@@ -32,7 +32,7 @@ export const taskApiSlice = createApi({
           }
         },
         // transformResponse : res => res.sort((a,b) => b.phaseOrder - a.phaseOrder),
-        providesTags: ["Task", "Aggregate"],
+        providesTags: ["Task"],
       }),
       addTaskData: builder.mutation({
         query: (task) => ({
@@ -40,7 +40,7 @@ export const taskApiSlice = createApi({
           method: "POST",
           body: task,
         }),
-        invalidatesTags: ["Task", "Aggregate"],
+        invalidatesTags: ["Task"],
       }),
       updateTaskData: builder.mutation({
         query: (task) => ({
@@ -48,7 +48,7 @@ export const taskApiSlice = createApi({
           method: "PATCH",
           body: task,
         }),
-        invalidatesTags: ["Task", "Aggregate"],
+        invalidatesTags: ["Task"],
       }),
       deleteTaskData: builder.mutation({
         query: (task) => ({
@@ -56,7 +56,7 @@ export const taskApiSlice = createApi({
           method: "DELETE",
           body: task,
         }),
-        invalidatesTags: ["Task", "Aggregate"],
+        invalidatesTags: ["Task"],
       }),
     };
   },

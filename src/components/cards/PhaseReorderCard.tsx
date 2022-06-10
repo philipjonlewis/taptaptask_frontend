@@ -33,24 +33,22 @@ const PhaseReorderCard = ({ phase, localPhaseList, setLocalPhaseList }) => {
   }, []);
 
   const deletePhaseHandler = () => {
-    if (localPhaseList.length <= 1) {
-      alert("cant have no phases");
-    } else {
+    // if (localPhaseList.length <= 1) {
+    //   alert("cant have no phases");
+    // } else {
       confirm("Are you sure you want to delete this phase?");
       setLocalPhaseList((state) => {
-        const newState = state.filter(
-          (phases) => phases.phaseId !== item.phaseId
-        );
+        const newState = state.filter((phases) => phases.phaseId !== phaseId);
         return [...newState];
       });
-      dispatch(deletePhase({ phaseId: item.phaseId }));
+      dispatch(deletePhase({ phaseId: phaseId }));
       deletePhaseData({
-        phaseId: item.phaseId,
+        phaseId: phaseId,
         projectReferenceId: activeProject.projectId,
       }).then((res) => {
         console.log(res);
       });
-    }
+    // }
   };
 
   const editPhaseHandler = () => {
@@ -145,7 +143,7 @@ const PhaseReorderCard = ({ phase, localPhaseList, setLocalPhaseList }) => {
           <input
             className="phase-name-edit-input"
             type="text"
-            value={phaseName}
+            value={localPhaseName}
             placeholder={`Edit Phase Name`}
             onChange={(e) => setLocalPhaseName(e.target.value)}
           />

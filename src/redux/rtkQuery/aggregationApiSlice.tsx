@@ -15,7 +15,8 @@ export const aggregationApiSlice = createApi({
       Accept: "application/json",
     },
   }),
-  tagTypes: ["Aggregate", "Task"],
+  tagTypes: ["Aggregate"],
+
   refetchOnMountOrArgChange: true,
   refetchOnFocus: true,
   refetchOnReconnect: true,
@@ -32,26 +33,32 @@ export const aggregationApiSlice = createApi({
           phaseReferenceId: string;
         }) =>
           `/aggregate/tasks/date?projectReferenceId=${projectReferenceId}&phaseReferenceId=${phaseReferenceId}`,
-        providesTags: ["Aggregate", "Task"],
+        providesTags: ["Aggregate"],
       }),
       getPhasesByProject: builder.query({
-        query: ({
-          projectReferenceId,
-        }: {
-          projectReferenceId: string;
-          phaseReferenceId: string;
-        }) =>
+        query: ({ projectReferenceId }) =>
           `/aggregate/phases/project?projectReferenceId=${projectReferenceId}`,
         transformResponse: (res) =>
           res.sort((a: any, b: any) => {
             return a.phaseOrder - b.phaseOrder;
           }),
 
-        invalidatesTags: ["Task", "Aggregate"],
+        providesTags: ["Task", "Aggregate"],
+      }),
+      deleteTasksByDate: builder.mutation({
+        query: ({ dateOfDeadline }) => ({
+          url: "/aggregate/tasks/deletebydate",
+          method: "DELETE",
+          body: { dateOfDeadline },
+        }),
+        invalidatesTags: ["Aggregate"],
       }),
     };
   },
 });
 
-export const { useGetTasksByDateQuery, useGetPhasesByProjectQuery } =
-  aggregationApiSlice;
+export const {
+  useGetTasksByDateQuery,
+  useGetPhasesByProjectQuery,
+  useDeleteTasksByDateMutation,
+} = aggregationApiSlice;

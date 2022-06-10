@@ -23,12 +23,12 @@ import { LandingNavBar } from "./components";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 const App = () => {
-  const [isInWorkshop, setIsInWorkshop]: any = useState(false);
+  const [isInWorkshop, setIsInWorkshop] = useState(false);
 
   const location = useLocation();
 
   return (
-    <>
+    <React.Fragment>
       {/* instead of using auth as the basis for this LandingNavBar, use a isInsideWorkshop state */}
       {!isInWorkshop && <LandingNavBar />}
 
@@ -77,7 +77,7 @@ const App = () => {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AnimatePresence>
-    </>
+    </React.Fragment>
   );
 };
 

@@ -35,11 +35,11 @@ const AddTaskCardForm = ({
   };
 
   const dateOfDeadlineFormHandler = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     if (isValid(new Date(e.target.value))) {
       setTaskFormContent((state) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         const formattedDate = format(new Date(e.target.value), "yyyy-MM-dd");
         return {
           ...state,

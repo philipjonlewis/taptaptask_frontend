@@ -125,6 +125,7 @@
   }
 
   .taskette-menu-container {
+    
     @include d-flex(column, flex-start, flex-end);
     position: absolute;
     top: 0.5rem;
