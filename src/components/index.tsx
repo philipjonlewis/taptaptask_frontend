@@ -15,6 +15,7 @@ import PhaseDataTab from "./tabs/PhaseDataTab";
 import PhaseManagerForm from "./forms/PhaseManagerForm";
 import PhaseReorderCard from "./cards/PhaseReorderCard";
 import ProjectList from "./cards/ProjectList";
+import LapsedTaskCard from "./cards/LapsedTaskCard";
 
 import ExpandedProjectInformation from "./modals/ExpandedProjectInformation";
 export {
@@ -35,4 +36,5 @@ export {
   PhaseReorderCard,
   ExpandedProjectInformation,
   ProjectList,
+  LapsedTaskCard,
 };

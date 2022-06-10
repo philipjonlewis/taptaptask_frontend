@@ -21,16 +21,35 @@ const ExpandedProjectInformation = ({
   } = activeProject;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [projectCredentials, setProjectCredentials] = useState({
+    projectName: "",
+    projectDescription: "",
+  });
+
+  useEffect(() => {
+    setProjectCredentials((state) => {
+      return {
+        projectName,
+        projectDescription,
+      };
+    });
+  }, []);
+
   const [projectNameForDeletion, setProjectNameForDeletion] = useState({
     deleteProject: "",
   });
-
   const [isDateEditingConfirmed, setIsDateEditingConfirmed] = useState(true);
+  const [isDeleteButtonDisabled, setisDeleteButtonDisabled] = useState(true);
+
+  const [isProjectNameBeingEdited, setIsProjectNameBeingEdited] =
+    useState(false);
+
+  const [isProjectDescriptionBeingEdited, setIsProjectDescriptionBeingEdited] =
+    useState(false);
 
   const [deleteProject] = useDeleteProjectMutation();
   const [updateProject] = useUpdateProjectMutation();
-
-  const [isDeleteButtonDisabled, setisDeleteButtonDisabled] = useState(true);
 
   const [editDateOfDeadline, setEditDateOfDeadline] = useState(
     new Date(dateOfDeadline).toISOString().substring(0, 10)
@@ -82,6 +101,12 @@ const ExpandedProjectInformation = ({
     setIsDateEditingConfirmed(!isDateEditingConfirmed);
   };
 
+  const projectCredentialsChangeHandler = (e) => {
+    setProjectCredentials((state) => {
+      return { ...state, [e.target.name]: e.target.value };
+    });
+  };
+
   return (
     <div
       className="expanded-project-information-container"
@@ -92,7 +117,13 @@ const ExpandedProjectInformation = ({
         }
       }}
     >
-      <div className="information-container">
+      <div
+        className="information-container"
+        // onMouseLeave={() => {
+        //   setIsProjectNameBeingEdited(false);
+        //   setIsProjectDescriptionBeingEdited(false);
+        // }}
+      >
         <div
           className="close-modal-button"
           onClick={() => setExpandedInformationModal(false)}
@@ -112,12 +143,125 @@ const ExpandedProjectInformation = ({
             />
           </svg>
         </div>
-        <div className="project-title">
-          <p>{projectName}</p>
+
+        {/* <div className="project-credential-input-container">
+          <label htmlFor="sampleLabel">Sample Label</label>
+          <div className="input-button-container">
+            <div className="edit-button-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </div>
+
+            
+            <input type="text" />
+            <button>Submit</button>
+
+            <p>Sample Text</p>
+
+            
+          </div>
+        </div> */}
+
+        <div className="project-credential-input-container">
+          <label htmlFor="projectName">Project Name</label>
+          <div className="input-button-container">
+            <div
+              className="edit-button-container"
+              onClick={() => {
+                setIsProjectNameBeingEdited(!isProjectNameBeingEdited);
+                setIsProjectDescriptionBeingEdited(false);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </div>
+            {isProjectNameBeingEdited ? (
+              <>
+                <input
+                  type="text"
+                  value={projectCredentials.projectName}
+                  name="projectName"
+                  className="project-name-input"
+                  onChange={projectCredentialsChangeHandler}
+                />
+
+                <button>Edit Name</button>
+              </>
+            ) : (
+              <p>{projectCredentials.projectName}</p>
+            )}
+          </div>
         </div>
-        <div className="project-description">
-          <p>{projectDescription}</p>
+
+        <div className="project-credential-input-container">
+          <label htmlFor="projectDescription">Project Description</label>
+          <div className="input-button-container">
+            <div
+              className="edit-button-container"
+              onClick={() => {
+                setIsProjectDescriptionBeingEdited(
+                  !isProjectDescriptionBeingEdited
+                );
+                setIsProjectNameBeingEdited(false);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </div>
+            {isProjectDescriptionBeingEdited ? (
+              <>
+                <input
+                  type="text"
+                  value={projectCredentials.projectDescription}
+                  name="projectDescription"
+                  className="project-description-input"
+                  onChange={projectCredentialsChangeHandler}
+                />
+
+                <button>Edit Description</button>
+              </>
+            ) : (
+              <p>{projectCredentials.projectDescription}</p>
+            )}
+          </div>
         </div>
+
         <div className="creation-date-container">
           <p>Created :</p>
           <p>{projectDates.creation.date}</p>

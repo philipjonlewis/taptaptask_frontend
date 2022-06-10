@@ -5,9 +5,8 @@ import { useDispatch } from "react-redux";
 import { setActiveProject } from "../../redux/activeProjectState";
 import { setActivePhase } from "../../redux/activePhaseState";
 
-const dispatch = useDispatch();
-
 const ProjectList = () => {
+  const dispatch = useDispatch();
   const { data, isLoading, isSuccess, isError, error, refetch } =
     useGetProjectQuery(false) as any;
 

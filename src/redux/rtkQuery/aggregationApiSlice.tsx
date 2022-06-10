@@ -53,6 +53,10 @@ export const aggregationApiSlice = createApi({
         }),
         invalidatesTags: ["Aggregate"],
       }),
+      getLapsedTasks: builder.query({
+        query: ({ phaseId }) => `/aggregate/tasks/lapsed?phaseId=${phaseId}`,
+        providesTags: ["Aggregate"],
+      }),
     };
   },
 });
@@ -61,4 +65,5 @@ export const {
   useGetTasksByDateQuery,
   useGetPhasesByProjectQuery,
   useDeleteTasksByDateMutation,
+  useGetLapsedTasksQuery,
 } = aggregationApiSlice;

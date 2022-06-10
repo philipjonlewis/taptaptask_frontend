@@ -12,6 +12,7 @@ import {
   IndividualProject,
   ProjectInformation,
   ProjectPhaseView,
+  NotesDashboard,
 } from "./pages/workshop";
 
 import { LogIn, SignUp } from "./pages/authentication";
@@ -53,6 +54,7 @@ const App = () => {
           >
             <Route index element={<DashboardPanel />} />
             <Route path="dashboard" element={<DashboardPanel />} />
+            <Route path="notes" element={<NotesDashboard />} />
 
             <Route path="projects" element={<ProjectsPanel />}>
               <Route

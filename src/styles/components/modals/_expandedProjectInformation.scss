@@ -1,6 +1,78 @@
 @use "../../abstracts/" as *;
 @use "../../base/" as *;
 
+@mixin project-credential-input-container {
+  @include d-flex(column, flex-end, flex-start);
+  height: 5rem;
+
+  label {
+    font-size: 0.7rem;
+    color: $neutral-400;
+  }
+
+  .input-button-container {
+    @include d-flex(row, space-between, center);
+    width: 100%;
+
+    .edit-button-container {
+      @include small-icon-container;
+      margin: 0.5rem;
+      opacity: 30%;
+
+      &:hover {
+        opacity: 100%;
+      }
+    }
+
+    p {
+      margin-right: auto;
+      font-size: 0.8rem;
+    }
+
+    input {
+      width: 18rem;
+      height: 2.4rem;
+      outline: none;
+      background-color: $neutral-700;
+      height: 2.4rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      color: white;
+      border-radius: $standard-radius;
+
+      &:focus {
+        @include border(bottom, $accent-01);
+      }
+    }
+
+    button {
+      height: 2.4rem;
+      margin: 0 0.5rem;
+      width: 8rem;
+      font-weight: 300;
+      height: 2.4rem;
+      border-radius: $standard-radius;
+      border: 1px solid lighten($accent-01, 10);
+      background-color: $accent-01;
+      font-size: 0.8rem;
+      &:hover:not(:disabled) {
+        border: 1px solid lighten($accent-02, 10);
+        background-color: $accent-02;
+      }
+
+      &:disabled {
+        opacity: 30%;
+        border: none;
+        background-color: gray;
+      }
+    }
+  }
+}
+
+.project-credential-input-container {
+  @include project-credential-input-container;
+}
+
 .expanded-project-information-container {
   @include d-flex(column, center, center);
   @include dims(100%, 100%);
@@ -27,23 +99,12 @@
       left: 0.5rem;
     }
 
-    .project-title {
-      font-size: 1.2rem;
-    }
-
-    .project-description {
-      font-size: 0.8rem;
-      color: $neutral-300;
-      padding-bottom: 0.5rem;
-
-      border-bottom: 1px solid $neutral-500;
-    }
-
     .creation-date-container {
       margin: 0.5rem 0;
       display: flex;
       align-items: center;
-      // background-color: red;
+      border-top: 1px solid $neutral-500;
+      padding-top: 1rem;
       font-size: 0.8rem;
       color: $neutral-400;
       p:nth-of-type(1) {
@@ -68,6 +129,7 @@
       border-radius: $standard-radius;
 
       .edit-deadline-button-container {
+        opacity: 40%;
         @include small-icon-container;
         margin: 0.5rem;
       }

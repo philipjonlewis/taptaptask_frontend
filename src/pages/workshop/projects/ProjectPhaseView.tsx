@@ -119,7 +119,10 @@ const ProjectPhaseView = () => {
       )}
 
       {activePhaseSidebarTab == "task-history" && (
-        <TaskHistoryTab setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
+        <TaskHistoryTab
+          setActivePhaseSidebarTab={setActivePhaseSidebarTab}
+          activePhaseId={activePhaseId}
+        />
       )}
 
       {activePhaseSidebarTab == "filter-tasks" && (

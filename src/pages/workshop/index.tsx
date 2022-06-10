@@ -6,6 +6,7 @@ import IndividualProject from "./projects/IndividualProject";
 import ProjectInformation from "./projects/ProjectInformationView";
 import ProjectPhaseView from "./projects/ProjectPhaseView";
 import ProjectsDashboard from "./dashboard/ProjectsDashboard";
+import NotesDashboard from "./notes/NotesDashboard";
 
 export {
   Workshop,
@@ -15,4 +16,5 @@ export {
   ProjectInformation,
   ProjectPhaseView,
   ProjectsDashboard,
+  NotesDashboard,
 };
