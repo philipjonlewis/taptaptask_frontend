@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { LapsedTaskCard } from "../index";
-import { useGetLapsedTasksQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 import { format, formatDistanceToNow } from "date-fns";
 
-const TaskHistoryTab = ({ activePhaseId }) => {
-  const { data, isLoading, isSuccess, isError, error, refetch } =
-    useGetLapsedTasksQuery({ phaseId: activePhaseId });
-
+const TaskHistoryTab = ({
+  activePhaseId,
+  lapsedTaskData,
+  lapsedTaskLoading,
+  lapsedTaskIsSuccess,
+  lapsedTaskIsError,
+  lapsedTasksRefresh,
+}) => {
   const [localLapsedTasks, setLocalLapsedTasks] = useState([]) as any;
+  const [openLapsedTaskCard, setOpenLapsedTaskCard] = useState("");
 
   useEffect(() => {
-    if (isLoading == false && data !== undefined) {
-      setLocalLapsedTasks(data);
-      console.log(data);
+    if (lapsedTaskLoading == false && lapsedTaskData !== undefined) {
+      setLocalLapsedTasks(lapsedTaskData);
     }
 
     return () => {};
@@ -20,38 +23,38 @@ const TaskHistoryTab = ({ activePhaseId }) => {
 
   let content;
 
-  if (isLoading) {
-    refetch();
+  if (lapsedTaskLoading) {
+    lapsedTasksRefresh();
     content = <p>Loading</p>;
-  } else if (isSuccess) {
+  } else if (lapsedTaskIsSuccess) {
     content = (
       <div>
         {localLapsedTasks.length >= 1 &&
           localLapsedTasks.map((taskObject) => {
             return (
-              <div>
-                <hr />
-                <div className="date-container">
-                  {format(new Date(taskObject._id), "LLL dd ")}
-                </div>
-                {taskObject.taskContent.map((task) => {
-                  return <LapsedTaskCard taskContent={task.taskContent} />;
-                  // return <div>{task.taskContent}</div>;
-                })}
-              </div>
+              <LapsedTaskCard
+                taskObject={taskObject}
+                openLapsedTaskCard={openLapsedTaskCard}
+                setOpenLapsedTaskCard={setOpenLapsedTaskCard}
+              />
             );
           })}
       </div>
     );
-  } else if (isError) {
-    refetch();
+  } else if (lapsedTaskIsError) {
+    lapsedTasksRefresh();
     content = <div style={{ backgroundColor: "$neutral-500" }}></div>;
   }
 
   return (
-    <div className="task-history-tab-container">
-      <div> Task History </div>
-      <div>{content}</div>
+    <div
+      className="task-history-tab-container"
+      // onMouseLeave={() => setOpenLapsedTaskCard("")}
+    >
+      <div className="task-history-title">
+        <p> Task History </p>
+      </div>
+      <div className="lapsed-task-list-container">{content}</div>
     </div>
   );
 };

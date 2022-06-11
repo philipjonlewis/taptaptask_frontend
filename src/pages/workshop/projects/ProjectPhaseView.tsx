@@ -14,6 +14,8 @@ import { useGetTasksByDateQuery } from "../../../redux/rtkQuery/aggregationApiSl
 
 import { useDeleteTasksByDateMutation } from "../../../redux/rtkQuery/aggregationApiSlice";
 
+import { useGetLapsedTasksQuery } from "../../../redux/rtkQuery/aggregationApiSlice";
+
 import { createSelector } from "reselect";
 
 const ProjectPhaseView = () => {
@@ -46,6 +48,15 @@ const ProjectPhaseView = () => {
       //     }
       //   : skipToken
     ) as any;
+
+  const {
+    data: lapsedTaskData,
+    isLoading: lapsedTaskLoading,
+    isSuccess: lapsedTaskIsSuccess,
+    isError: lapsedTaskIsError,
+    // error,
+    refetch: lapsedTasksRefresh,
+  } = useGetLapsedTasksQuery({ phaseId: activePhaseId });
 
   useEffect(() => {
     if (isLoading == false && data !== undefined) {
@@ -122,6 +133,11 @@ const ProjectPhaseView = () => {
         <TaskHistoryTab
           setActivePhaseSidebarTab={setActivePhaseSidebarTab}
           activePhaseId={activePhaseId}
+          lapsedTaskData={lapsedTaskData}
+          lapsedTaskLoading={lapsedTaskLoading}
+          lapsedTaskIsSuccess={lapsedTaskIsSuccess}
+          lapsedTaskIsError={lapsedTaskIsError}
+          lapsedTasksRefresh={lapsedTasksRefresh}
         />
       )}
 
