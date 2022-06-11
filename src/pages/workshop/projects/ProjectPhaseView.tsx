@@ -131,7 +131,6 @@ const ProjectPhaseView = () => {
 
       {activePhaseSidebarTab == "task-history" && (
         <TaskHistoryTab
-          setActivePhaseSidebarTab={setActivePhaseSidebarTab}
           activePhaseId={activePhaseId}
           lapsedTaskData={lapsedTaskData}
           lapsedTaskLoading={lapsedTaskLoading}
@@ -140,10 +139,11 @@ const ProjectPhaseView = () => {
           lapsedTasksRefresh={lapsedTasksRefresh}
         />
       )}
-
+      
+      {/* 
       {activePhaseSidebarTab == "filter-tasks" && (
         <FilterTasksTab setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
-      )}
+      )} */}
 
       {taskDataContent}
     </div>

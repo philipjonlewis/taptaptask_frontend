@@ -2,8 +2,8 @@
 @use "../../base/" as *;
 
 .phase-data-tabs-container {
-  border: 1px dashed $neutral-500;
-  background-color: $neutral-800;
+  background-color: darken($color: $neutral-700, $amount: 8);
+  border: 1px solid $neutral-600;
   margin-right: 0.5rem;
   padding: 0.5rem;
   border-radius: $standard-radius;
@@ -18,4 +18,16 @@
   min-width: 20rem;
   max-width: 20rem;
   height: calc(100% - 0.5rem);
+
+  .phase-data-title {
+    width: 100%;
+    padding: 1rem 0;
+    margin-bottom: 0.7rem;
+    font-size: 1.2rem;
+
+    p {
+      // margin-right: auto;
+      font-size: 1.2rem;
+    }
+  }
 }

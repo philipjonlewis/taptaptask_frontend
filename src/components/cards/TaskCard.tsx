@@ -14,8 +14,6 @@ const TaskCard = ({ taskObject, deleteTaskCardHandler }) => {
     };
   });
 
-
-
   const [addTaskData] = useAddTaskDataMutation();
   const [localTaskList, setLocalTaskList] = useState([]) as any;
 

@@ -9,21 +9,21 @@
   border: 1px solid $neutral-600;
   transition: all 0.5s ease-out;
   min-width: 20rem;
+  max-width: 20rem;
   height: calc(100% - 0.5rem);
 
   // background-color: blue;
   position: relative;
 
   .task-history-title {
-    @include d-flex(column, flex-end, flex-start);
     width: 100%;
-    height: 4.5rem;
-    // background-color: red;
-    border-bottom: 1px solid $neutral-500;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: 1rem 0;
+    margin-bottom: 0.7rem;
+    font-size: 1.2rem;
+
     p {
       // margin-right: auto;
+      font-size: 1.2rem;
     }
   }
 
@@ -72,6 +72,7 @@
         .drop-down-icon-container {
           @include small-icon-container;
         }
+
         .drop-down-active {
           background-color: $accent-01;
         }
