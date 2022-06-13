@@ -20,11 +20,22 @@ export const activeProjectSlice = createSlice({
     editProjectDate: (state, actions) => {
       return { ...state, dateOfDeadline: actions.payload };
     },
+    editProjectName: (state, actions) => {
+      return { ...state, projectName: actions.payload };
+    },
+    editProjectDescription: (state, actions) => {
+      return { ...state, projectDescription: actions.payload };
+    },
   },
 });
 
 const { actions, reducer } = activeProjectSlice;
 
-export const { setActiveProject, editProjectDate } = actions;
+export const {
+  setActiveProject,
+  editProjectDate,
+  editProjectName,
+  editProjectDescription,
+} = actions;
 
 export default reducer;

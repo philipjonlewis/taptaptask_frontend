@@ -16,7 +16,6 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
   const [triggerFetch, setTriggerFetch] = useState(false);
 
   const [form, setForm] = useState({
-    user: auth._id,
     projectName: "",
     projectDescription: "",
     dateOfDeadline: format(new Date(), "yyyy-MM-dd"),

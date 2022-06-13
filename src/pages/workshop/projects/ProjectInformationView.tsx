@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, current } from "react-redux";
+
+import { ExpandButtonSvg } from "../../../components/svgs";
 import PhaseTaskSummaryVisualization from "../../../components/visualization/PhaseTaskSummaryVisualization";
 // ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,21 +24,16 @@ import { useGetPhasesByProjectQuery } from "../../../redux/rtkQuery/aggregationA
 const ProjectInformation = () => {
   const {
     auth: { _id },
-    activeProject,
+    activeProject: {
+      projectId,
+      projectName,
+      projectDescription,
+      dateOfDeadline,
+      createdAt,
+    },
   } = useSelector((state: any) => state);
 
-  const {
-    projectId,
-    projectName,
-    projectDescription,
-    dateOfDeadline,
-    createdAt,
-  } = activeProject;
-
-  const dispatch = useDispatch();
-
   const [isDateLoading, setIsDateLoading] = useState(false);
-
   const [projectDates, setProjectDates] = useState({
     creation: {
       date: new Date(),
@@ -46,10 +43,31 @@ const ProjectInformation = () => {
       date: new Date(),
       daysTill: new Date(),
     },
-  });
+  }) as any;
 
   const [expandedInformationModal, setExpandedInformationModal] =
     useState(false);
+
+  const [localProjectCredentials, setLocalProjectCredentials] = useState({
+    projectName,
+    projectDescription,
+    dateOfDeadline,
+  });
+
+  const projectCredentialsChangeHandler = (e) => {
+    setLocalProjectCredentials((state) => {
+      return { ...state, [e.target.name]: e.target.value };
+    });
+  };
+
+  useEffect(() => {
+    setLocalProjectCredentials((state) => {
+      return {
+        projectName: projectName,
+        projectDescription: projectDescription,
+      };
+    });
+  }, []);
 
   useEffect(() => {
     const creationDate = format(new Date(createdAt), "LLL dd y") || "";
@@ -58,6 +76,7 @@ const ProjectInformation = () => {
         addSuffix: true,
       }) || "";
     const deadlineDate = format(new Date(dateOfDeadline), "LLL dd y") || "";
+    
     const daysTillDeadline =
       formatDistanceToNow(new Date(dateOfDeadline), {
         addSuffix: true,
@@ -84,8 +103,11 @@ const ProjectInformation = () => {
       {expandedInformationModal && (
         <ExpandedProjectInformation
           setExpandedInformationModal={setExpandedInformationModal}
-          activeProject={activeProject}
+          localProjectCredentials={localProjectCredentials}
+          setLocalProjectCredentials={setLocalProjectCredentials}
+          projectCredentialsChangeHandler={projectCredentialsChangeHandler}
           projectDates={projectDates}
+          projectId={projectId}
           setProjectDates={setProjectDates}
         />
       )}
@@ -95,11 +117,13 @@ const ProjectInformation = () => {
             <div className="project-details">
               <div className="label-title-container">
                 <p className="label">Project Name</p>
-                <p className="title">{projectName}</p>
+                <p className="title">{localProjectCredentials.projectName}</p>
               </div>
               <div className="label-title-container">
                 <p className="label">Project Description</p>
-                <p className="title">{projectDescription}</p>
+                <p className="title">
+                  {localProjectCredentials.projectDescription}
+                </p>
               </div>
             </div>
             <div
@@ -108,20 +132,7 @@ const ProjectInformation = () => {
                 setExpandedInformationModal(true);
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                />
-              </svg>
+              <ExpandButtonSvg />
             </div>
           </div>
 

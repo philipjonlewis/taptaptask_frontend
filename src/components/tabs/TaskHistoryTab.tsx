@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { LapsedTaskCard } from "../index";
 import { format, formatDistanceToNow } from "date-fns";
+import { useGetLapsedTasksQuery } from "../../redux/rtkQuery/aggregationApiSlice";
+import { useSelector } from "react-redux";
 
-const TaskHistoryTab = ({
-  activePhaseId,
-  lapsedTaskData,
-  lapsedTaskLoading,
-  lapsedTaskIsSuccess,
-  lapsedTaskIsError,
-  lapsedTasksRefresh,
-}) => {
+const TaskHistoryTab = () => {
+  const { activePhaseId } = useSelector((state) => state) as any;
+
   const [localLapsedTasks, setLocalLapsedTasks] = useState([]) as any;
   const [openLapsedTaskCard, setOpenLapsedTaskCard] = useState("");
+
+  const {
+    data: lapsedTaskData,
+    isLoading: lapsedTaskLoading,
+    isSuccess: lapsedTaskIsSuccess,
+    isError: lapsedTaskIsError,
+    refetch: lapsedTasksRefresh,
+  } = useGetLapsedTasksQuery({ phaseId: activePhaseId });
 
   useEffect(() => {
     if (lapsedTaskLoading == false && lapsedTaskData !== undefined) {

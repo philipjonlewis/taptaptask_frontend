@@ -49,15 +49,6 @@ const ProjectPhaseView = () => {
       //   : skipToken
     ) as any;
 
-  const {
-    data: lapsedTaskData,
-    isLoading: lapsedTaskLoading,
-    isSuccess: lapsedTaskIsSuccess,
-    isError: lapsedTaskIsError,
-    // error,
-    refetch: lapsedTasksRefresh,
-  } = useGetLapsedTasksQuery({ phaseId: activePhaseId });
-
   useEffect(() => {
     if (isLoading == false && data !== undefined) {
       setFetchedTaskList(data);
@@ -92,7 +83,7 @@ const ProjectPhaseView = () => {
     taskDataContent = (
       <div className="task-card-container ">
         {fetchedTaskList.length >= 1 &&
-          fetchedTaskList.map((taskObject) => {
+          fetchedTaskList.map((taskObject: any) => {
             return (
               <React.Fragment key={taskObject._id}>
                 <TaskCard
@@ -129,17 +120,8 @@ const ProjectPhaseView = () => {
         />
       )}
 
-      {activePhaseSidebarTab == "task-history" && (
-        <TaskHistoryTab
-          activePhaseId={activePhaseId}
-          lapsedTaskData={lapsedTaskData}
-          lapsedTaskLoading={lapsedTaskLoading}
-          lapsedTaskIsSuccess={lapsedTaskIsSuccess}
-          lapsedTaskIsError={lapsedTaskIsError}
-          lapsedTasksRefresh={lapsedTasksRefresh}
-        />
-      )}
-      
+      {activePhaseSidebarTab == "task-history" && <TaskHistoryTab />}
+
       {/* 
       {activePhaseSidebarTab == "filter-tasks" && (
         <FilterTasksTab setActivePhaseSidebarTab={setActivePhaseSidebarTab} />
