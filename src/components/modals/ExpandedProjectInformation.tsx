@@ -112,6 +112,7 @@ const ExpandedProjectInformation = ({
 
   const submitEditDeadlineHandler = (e) => {
     e.preventDefault();
+
     dispatch(editProjectDate(modalProjectCredentials.dateOfDeadline));
 
     const deadlineDate = format(
@@ -148,6 +149,7 @@ const ExpandedProjectInformation = ({
 
   const submitDeleteProjectHandler = (e) => {
     e.preventDefault();
+    confirm("Are you sure you want to delete this project?");
     deleteProject({ projectId });
     setExpandedInformationModal(false);
     navigate("/workshop/projects", { replace: true });

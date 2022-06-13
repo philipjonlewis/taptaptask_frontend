@@ -137,3 +137,5 @@ const PhaseReorderCard = ({ phase, localPhaseList, setLocalPhaseList }) => {
     </Reorder.Item>
   );
 };
+
+export default PhaseReorderCard;

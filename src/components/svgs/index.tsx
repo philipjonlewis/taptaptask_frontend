@@ -4,6 +4,9 @@ import CloseButtonSvg from "./CloseButtonSvg";
 import ExpandButtonSvg from "./ExpandButtonSvg";
 import DeleteButtonSvg from "./DeleteButtonSvg";
 import ReorderIconSvg from "./ReorderIconSvg";
+import UpArrowIcon from "./UpArrowIcon";
+import DownArrowIcon from "./DownArrowIcon";
+import ThreeDotsSvg from "./ThreeDotsSvg";
 
 export {
   EditButtonSvg,
@@ -12,4 +15,7 @@ export {
   ExpandButtonSvg,
   DeleteButtonSvg,
   ReorderIconSvg,
+  UpArrowIcon,
+  DownArrowIcon,
+  ThreeDotsSvg,
 };

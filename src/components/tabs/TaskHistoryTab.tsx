@@ -4,10 +4,7 @@ import { format, formatDistanceToNow } from "date-fns";
 import { useGetLapsedTasksQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 import { useSelector } from "react-redux";
 
-const TaskHistoryTab = () => {
-  const { activePhaseId } = useSelector((state) => state) as any;
-
-  const [localLapsedTasks, setLocalLapsedTasks] = useState([]) as any;
+const TaskHistoryTab = ({ activePhaseId }) => {
   const [openLapsedTaskCard, setOpenLapsedTaskCard] = useState("");
 
   const {
@@ -16,15 +13,7 @@ const TaskHistoryTab = () => {
     isSuccess: lapsedTaskIsSuccess,
     isError: lapsedTaskIsError,
     refetch: lapsedTasksRefresh,
-  } = useGetLapsedTasksQuery({ phaseId: activePhaseId });
-
-  useEffect(() => {
-    if (lapsedTaskLoading == false && lapsedTaskData !== undefined) {
-      setLocalLapsedTasks(lapsedTaskData);
-    }
-
-    return () => {};
-  }, [activePhaseId]);
+  } = useGetLapsedTasksQuery({ phaseId: activePhaseId }) as any;
 
   let content;
 
@@ -34,10 +23,11 @@ const TaskHistoryTab = () => {
   } else if (lapsedTaskIsSuccess) {
     content = (
       <div>
-        {localLapsedTasks.length >= 1 &&
-          localLapsedTasks.map((taskObject) => {
+        {lapsedTaskData.length >= 1 &&
+          lapsedTaskData.map((taskObject) => {
             return (
               <LapsedTaskCard
+                key={taskObject._id}
                 taskObject={taskObject}
                 openLapsedTaskCard={openLapsedTaskCard}
                 setOpenLapsedTaskCard={setOpenLapsedTaskCard}
