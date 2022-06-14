@@ -19,23 +19,45 @@ const LandingNavBar = () => {
 
   return (
     <nav className="landing-navbar">
-      <div className="logo-container">
-        <img src="/datetask_logo.png" alt="" />
-        <p>datetask.</p>
-      </div>
       <div className="links-container">
-        <NavLink to={"/"}>Home</NavLink>
-        <NavLink to={"/about"}>About</NavLink>
-        <NavLink to={"/contact"}>Contact</NavLink>
-        <NavLink to={"/pricing"}>Pricing</NavLink>
+        <div className="navlinks-left">
+          <div className="logo-container">
+            <p>
+              taptaptask
+              <span>.com</span>
+            </p>
+          </div>
+          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to={"/about"}>About</NavLink>
+          <NavLink to={"/contact"}>Contact</NavLink>
+          <NavLink to={"/pricing"}>Pricing</NavLink>
+        </div>
 
-        {isAuthenticated && <NavLink to={"/workshop"}>Workshop</NavLink>}
+        <div className="navlinks-right">
+          {isAuthenticated && (
+            <NavLink className="right-link workshop-link" to={"/workshop"}>
+              Workshop
+            </NavLink>
+          )}
 
-        {!isAuthenticated && <NavLink to={"/signup"}>Sign Up</NavLink>}
+          {!isAuthenticated && (
+            <NavLink className="right-link signup-link" to={"/signup"}>
+              Sign Up
+            </NavLink>
+          )}
 
-        {!isAuthenticated && <NavLink to={"/login"}>Log In</NavLink>}
+          {!isAuthenticated && (
+            <NavLink className="right-link login-link" to={"/login"}>
+              Log In
+            </NavLink>
+          )}
 
-        {isAuthenticated && <button onClick={handleLogout}>Log Out</button>}
+          {isAuthenticated && (
+            <button className="right-link logout-link" onClick={handleLogout}>
+              Log Out
+            </button>
+          )}
+        </div>
       </div>
     </nav>
   );

@@ -34,32 +34,21 @@ const Home = () => {
   // }
 
   return (
-    <div>
-      {/* <div>{content}</div> */}
-      <p>This is the Home page</p>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-
-          // addProject([
-          //   {
-          //     projectId: "a1a16c10-cc11-422b-acfe-51edd180bda7",
-          //     projectName: "<a href=`http://www.google.com`>IU Imnida<a/>",
-          //     projectDescription: "Hello, this is IU",
-          //     dateOfDeadline: "2023-09-14",
-          //   },
-          //   {
-          //     projectId: "06f69f49-3734-4cb1-aa48-bf272746aa0b",
-          //     projectName: "<p>Seventeen Right Here</p>",
-          //     projectDescription: "Kimbap Kidding jasmine",
-          //     dateOfDeadline: "2022-01-10",
-          //   },
-          // ]);
-          console.log(e);
-        }}
-      >
-        Try Add
-      </button>
+    <div className="home-body">
+      <div className="left-container">
+        <div className="hero-text-container">
+          <p>
+            <span>tatatask</span> is <br /> most possibly the <span>best</span>
+            <br /> task <span>management</span> tool <br /> better than the
+            <span>calendar</span>
+          </p>
+        </div>
+      </div>
+      <div className="right-container">
+        <div className="image-container">
+          <img src="/workshop.png" alt="" />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,134 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.active {
+  // color: red;
+
+  // background-color: red;
+}
+
+.landing-navbar {
+  width: 100vw;
+  height: 6rem;
+  // border-bottom: 1px solid $neutral-700;
+  // padding: 0 2rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  background-color: $neutral-900;
+  // background-color: $neutral-700;
+  color: white;
+  // background-color: blue;
+
+  .links-container {
+    @include d-flex(row, space-between, flex-start);
+    margin: auto;
+    width: 90%;
+    height: 100%;
+
+    // background-color: orange;
+
+    .navlinks-left {
+      @include d-flex(row, center, center);
+      // background-color: black;
+      height: 100%;
+
+      .logo-container {
+        margin-right: 2rem;
+        // background-color: white;
+        // padding: 0.5rem 1rem;
+        // border-radius: $standard-radius;
+        border-right: 1px solid $neutral-500;
+        padding-right: 1rem;
+        p {
+          font-size: 1.4rem;
+          font-family: Rubik;
+          font-weight: 500;
+
+          color: rgb(255, 255, 255);
+
+          span {
+            font-size: 0.9rem;
+            // color: $accent-03;
+          }
+
+          // background: #ffb76b;
+          // background: linear-gradient(
+          //   to right,
+          //   #ffb76b 0%,
+          //   #ffa73d 30%,
+          //   #ff7c00 60%,
+          //   #ff7f04 100%
+          // );
+          // -webkit-background-clip: text;
+          // -webkit-text-fill-color: transparent;
+        }
+      }
+
+      a {
+        font-weight: 400;
+        margin-right: 2rem;
+        // padding-bottom: 0.5rem;
+      }
+
+      a.active {
+        font-weight: 600;
+
+        border-bottom: 1px solid $accent-01;
+      }
+    }
+
+    .navlinks-right {
+      @include d-flex(row, center, center);
+      // background-color: black;
+      height: 100%;
+
+      .right-link {
+        @include d-flex(column, center, center);
+        width: 8rem;
+        height: 2.6rem;
+        border-radius: $standard-radius;
+        transition: all ease-out 0.5s;
+      }
+
+      .signup-link {
+        margin-right: 1rem;
+        border: 0.5px solid $neutral-500;
+
+        &:hover {
+          background-color: $accent-02;
+          border-color: transparent;
+        }
+      }
+
+      .login-link {
+        background-color: darken($accent-01, 10);
+
+        &:hover {
+          background-color: $accent-01;
+        }
+      }
+
+      .workshop-link {
+        margin-right: 1rem;
+        background-color: darken($accent-03, 10);
+
+        &:hover {
+          background-color: $accent-03;
+        }
+      }
+
+      .logout-link {
+        border: 0.5px solid $neutral-500;
+
+        &:hover {
+          background-color: $accent-02;
+          border-color: transparent;
+        }
+      }
+    }
+  }
+}
