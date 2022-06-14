@@ -45,6 +45,7 @@
 
       overflow: hidden;
       height: 3rem;
+
       // transition: all 2s ease-out;
       // &:hover {
       //   height: fit-content;
@@ -87,6 +88,7 @@
           // border-right: 1px solid gray;
         }
       }
+
       .lapsed-list-container {
         font-size: 0.8rem;
 
@@ -99,6 +101,8 @@
           height: 3rem;
           padding: 0.5rem;
           border: 1px solid transparent;
+          transition: all 0.5s ease-out;
+
           &:hover {
             border-color: $neutral-500;
           }
