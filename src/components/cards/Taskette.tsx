@@ -212,6 +212,7 @@ const Taskette = ({ taskObject, setLocalTaskList }) => {
       </div>
 
       {tasketteMenu && (
+        
         <div
           className="taskette-menu-container"
           onMouseLeave={() => setTasketteMenu(!tasketteMenu)}

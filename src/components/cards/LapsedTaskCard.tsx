@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import format from "date-fns/format";
-import { DownArrowIcon, UpArrowIcon, ThreeDotsSvg } from "../svgs";
+import {
+  DownArrowIcon,
+  UpArrowIcon,
+  ThreeDotsSvg,
+  DeleteButtonSvg,
+} from "../svgs";
+import { useDeleteTaskDataMutation } from "../../redux/rtkQuery/taskApiSlice";
+
 const LapsedTaskCard = ({
   taskObject,
   openLapsedTaskCard,
   setOpenLapsedTaskCard,
+  activePhaseId,
+  activeProjectId,
 }) => {
+  const [localTaskObject, setLocalTaskObject] = useState({}) as any;
+  const [deleteTaskData] = useDeleteTaskDataMutation();
+
+  useEffect(() => {
+    setLocalTaskObject(taskObject);
+  }, []);
+
   return (
     <div
       className={
@@ -22,8 +38,11 @@ const LapsedTaskCard = ({
         </p>
 
         <p>
-          {taskObject.taskContent.filter((t) => t.isCompleted === true).length}{" "}
-          / {taskObject.taskContent.length}
+          {
+            localTaskObject?.taskContent?.filter((t) => t.isCompleted === true)
+              .length
+          }{" "}
+          / {localTaskObject?.taskContent?.length}
         </p>
 
         <div
@@ -51,24 +70,46 @@ const LapsedTaskCard = ({
       </div>
 
       <div className="lapsed-list-container">
-        {taskObject.taskContent.map((taskObj) => {
-          return (
-            <div
-              key={taskObj.taskId}
-              className={
-                taskObj.isCompleted
-                  ? "lapsed-task-content-container completed-lapsed-task"
-                  : "lapsed-task-content-container"
-              }
-            >
-              <p>{taskObj.taskContent}</p>
+        {localTaskObject?.taskContent?.length >= 1 &&
+          localTaskObject.taskContent.map((taskObj) => {
+            return (
+              <div
+                key={taskObj.taskId}
+                className={
+                  taskObj.isCompleted
+                    ? "lapsed-task-content-container completed-lapsed-task"
+                    : "lapsed-task-content-container"
+                }
+              >
+                <div className="task-text-container">
+                  <p>{taskObj.taskContent}</p>
+                </div>
 
-              <div className="edit-lapsed-task-icon-container">
-                <ThreeDotsSvg />
+                <div
+                  className="edit-lapsed-task-icon-container"
+                  onClick={() => {
+                    deleteTaskData({
+                      taskId: taskObj.taskId,
+                      phaseReferenceId: activePhaseId,
+                      projectReferenceId: activeProjectId,
+                    }).then((res) => {
+                      setLocalTaskObject((state) => {
+                        const newState = state.taskContent.filter(
+                          (task) => task.taskId !== taskObj.taskId
+                        );
+                        console.log(state);
+                        console.log(taskObj.taskId);
+
+                        return { ...state, taskContent: [...newState] };
+                      });
+                    });
+                  }}
+                >
+                  <DeleteButtonSvg />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );

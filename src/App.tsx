@@ -30,7 +30,6 @@ const App = () => {
 
   return (
     <React.Fragment>
-      {/* instead of using auth as the basis for this LandingNavBar, use a isInsideWorkshop state */}
       {!isInWorkshop && <LandingNavBar />}
 
       <AnimatePresence exitBeforeEnter>

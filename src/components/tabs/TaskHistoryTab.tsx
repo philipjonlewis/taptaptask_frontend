@@ -4,7 +4,7 @@ import { format, formatDistanceToNow } from "date-fns";
 import { useGetLapsedTasksQuery } from "../../redux/rtkQuery/aggregationApiSlice";
 import { useSelector } from "react-redux";
 
-const TaskHistoryTab = ({ activePhaseId }) => {
+const TaskHistoryTab = ({ activePhaseId, activeProjectId }) => {
   const [openLapsedTaskCard, setOpenLapsedTaskCard] = useState("");
 
   const {
@@ -13,7 +13,14 @@ const TaskHistoryTab = ({ activePhaseId }) => {
     isSuccess: lapsedTaskIsSuccess,
     isError: lapsedTaskIsError,
     refetch: lapsedTasksRefresh,
-  } = useGetLapsedTasksQuery({ phaseId: activePhaseId }) as any;
+  } = useGetLapsedTasksQuery(
+    { phaseId: activePhaseId },
+    {
+      pollingInterval: 1000,
+      refetchOnMountOrArgChange: true,
+      skip: false,
+    }
+  ) as any;
 
   let content;
 
@@ -31,6 +38,8 @@ const TaskHistoryTab = ({ activePhaseId }) => {
                 taskObject={taskObject}
                 openLapsedTaskCard={openLapsedTaskCard}
                 setOpenLapsedTaskCard={setOpenLapsedTaskCard}
+                activePhaseId={activePhaseId}
+                activeProjectId={activeProjectId}
               />
             );
           })}

@@ -34,20 +34,27 @@ const Home = () => {
   // }
 
   return (
-    <div className="home-body">
-      <div className="left-container">
-        <div className="hero-text-container">
-          <p>
-            <span>tatatask</span> is <br /> most possibly the <span>best</span>
-            <br /> task <span>management</span> tool <br /> better than the
-            <span>calendar</span>
-          </p>
+    <div className="main-container">
+      <div className="home-body">
+        <div className="left-container">
+          <div className="hero-text-container">
+            <p>
+              <span>taptaptask</span> is <br /> most possibly the{" "}
+              <span>best</span>
+              <br /> task <span>management</span> tool <br /> better than the{" "}
+              <span>calendar</span>
+            </p>
+          </div>
+        </div>
+        <div className="right-container">
+          <div className="image-container">
+            <img src="/workshop.png" alt="" />
+          </div>
         </div>
       </div>
-      <div className="right-container">
-        <div className="image-container">
-          <img src="/workshop.png" alt="" />
-        </div>
+
+      <div className="secondary-container">
+        <p>Hello</p>
       </div>
     </div>
   );
