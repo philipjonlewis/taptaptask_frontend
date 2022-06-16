@@ -11,7 +11,6 @@
   backdrop-filter: saturate(100%) blur(1px);
 
   .modal-form-container {
-    
     @include d-flex(row, flex-start, flex-start);
     @include dims(1200px, 600px);
     // padding: 0.5rem;
@@ -142,13 +141,17 @@
       @include d-flex(row, flex-start, center);
       height: 2rem;
 
-      .icon-container {
-        img {
-          height: $svg-icon;
+      p {
+        font-size: 1.4rem;
+        font-family: Rubik;
+        font-weight: 500;
+
+        color: rgb(255, 255, 255);
+
+        span {
+          font-size: 0.9rem;
+          // color: $accent-03;
         }
-      }
-      .title-container {
-        margin-left: 0.5rem;
       }
     }
 

@@ -7,6 +7,7 @@ import ReorderIconSvg from "./ReorderIconSvg";
 import UpArrowIcon from "./UpArrowIcon";
 import DownArrowIcon from "./DownArrowIcon";
 import ThreeDotsSvg from "./ThreeDotsSvg";
+import PlusIconSvg from "./PlusIconSvg";
 
 export {
   EditButtonSvg,
@@ -18,4 +19,5 @@ export {
   UpArrowIcon,
   DownArrowIcon,
   ThreeDotsSvg,
+  PlusIconSvg,
 };

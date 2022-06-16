@@ -54,12 +54,10 @@ const WorkshopProjectSidebar = () => {
 
         <div className="upper-container">
           <NavLink to={"/"} className="logo-container">
-            <div className="icon-container">
-              <img src="/datetask_logo.png" alt="" />
-            </div>
-            <div className="title-container">
-              <p>datetask</p>
-            </div>
+            <p>
+              taptaptask
+              <span>.com</span>
+            </p>
           </NavLink>
 
           <div className="minimize-icon-container" onClick={sidebarHandler}>

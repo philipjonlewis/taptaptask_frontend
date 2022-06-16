@@ -114,7 +114,7 @@ const AddTaskCardForm = ({
       return {
         ...state,
         taskContent: "",
-        dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
+        // dateOfDeadline: format(new Date(), "yyyy-MM-dd"),
         taskId: uuidv4(),
       };
     });

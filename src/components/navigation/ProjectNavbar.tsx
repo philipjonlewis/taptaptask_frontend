@@ -90,4 +90,4 @@ const ProjectNavbar = () => {
   );
 };
 
-export default ProjectNavbar;
+export default React.memo(ProjectNavbar);

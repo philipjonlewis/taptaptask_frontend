@@ -54,4 +54,4 @@ const ProjectList = () => {
   );
 };
 
-export default ProjectList;
+export default React.memo(ProjectList);
