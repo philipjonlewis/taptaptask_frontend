@@ -213,7 +213,9 @@
 
       border-radius: $standard-radius;
       background-color: $icon-bg;
-      p {
+      opacity: 50%;
+
+      p:nth-of-type(1) {
         padding-top: 0.2rem;
         font-size: 0.8rem;
 

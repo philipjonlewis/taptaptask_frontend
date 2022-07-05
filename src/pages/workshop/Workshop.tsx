@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
+
 import { WorkshopNavBar, WorkshopSidebar } from "../../components";
 import { motion, AnimatePresence } from "framer-motion";
 import Dashboard from "./dashboard/DashboardPanel";
@@ -7,9 +8,13 @@ import Projects from "./projects/ProjectsPanel";
 import { useSelector } from "react-redux";
 import { Outlet, Link } from "react-router-dom";
 
-const Workshop = (props: { setIsInWorkshop: any }) => {
+interface FunctionProps {
+  setIsInWorkshop: (arg0: boolean) => boolean;
+}
+
+const Workshop: FC<FunctionProps> = (props: any) => {
   const { isInWorkshop, setIsInWorkshop } = props;
-  const { projects } = useSelector((state) => state);
+  // const { projects } = useSelector((state) => state);
 
   useEffect(() => {
     setIsInWorkshop(true);
@@ -78,3 +83,6 @@ const Workshop = (props: { setIsInWorkshop: any }) => {
 // };
 
 export default Workshop;
+function setIsInWorkshop(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}

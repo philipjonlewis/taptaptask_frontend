@@ -149,6 +149,7 @@ const WorkshopProjectSidebar = () => {
               />
             </svg>
             <p>Manage</p>
+        
           </div>
 
           <div className="hotlink-icon-container">

@@ -5,6 +5,8 @@ import { login, logout } from "../../redux/authState";
 
 import { useDispatch } from "react-redux";
 
+import type { Email } from "../../vite-env";
+
 const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation() as any;
@@ -12,6 +14,8 @@ const LogIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const hello: Email = "why";
 
   const dispatch = useDispatch();
 

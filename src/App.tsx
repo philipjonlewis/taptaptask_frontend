@@ -24,7 +24,7 @@ import { LandingNavBar } from "./components";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 const App = () => {
-  const [isInWorkshop, setIsInWorkshop] = useState(false);
+  const [isInWorkshop, setIsInWorkshop] = useState(false) as any;
 
   const location = useLocation();
 
@@ -44,10 +44,7 @@ const App = () => {
             path="workshop"
             element={
               <RequireAuth>
-                <Workshop
-                  setIsInWorkshop={setIsInWorkshop}
-                  isInWorkshop={isInWorkshop}
-                />
+                <Workshop setIsInWorkshop={setIsInWorkshop} />
               </RequireAuth>
             }
           >

@@ -13,7 +13,7 @@ import { useDeletePhaseDataMutation } from "../../redux/rtkQuery/phaseApiSlice";
 import { useUpdatePhaseDataMutation } from "../../redux/rtkQuery/phaseApiSlice";
 import { editPhase } from "../../redux/phaseListState";
 import { v4 as uuidv4 } from "uuid";
-
+import { useRaisedShadow } from "../../helpers/user-raised-shadow";
 import { EditButtonSvg, DeleteButtonSvg, ReorderIconSvg } from "../svgs";
 
 const PhaseReorderCard = ({ phase, localPhaseList, setLocalPhaseList }) => {
@@ -29,6 +29,8 @@ const PhaseReorderCard = ({ phase, localPhaseList, setLocalPhaseList }) => {
   const dispatch = useDispatch();
 
   const y = useMotionValue(0);
+  const boxShadow = useRaisedShadow(y);
+
   const dragControls = useDragControls();
 
   useEffect(() => {
@@ -99,7 +101,7 @@ const PhaseReorderCard = ({ phase, localPhaseList, setLocalPhaseList }) => {
       key={phase.phaseId}
       value={phase}
       id={phaseOrder}
-      style={{ y }}
+      style={{ boxShadow, y }}
       dragListener={false}
       dragControls={dragControls}
     >
