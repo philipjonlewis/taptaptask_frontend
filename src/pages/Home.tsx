@@ -53,9 +53,9 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="secondary-container">
+      {/* <div className="secondary-container">
         <p>Hello</p>
-      </div>
+      </div> */}
     </div>
   );
 };
