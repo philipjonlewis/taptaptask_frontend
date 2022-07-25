@@ -1,5 +1,8 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
 .project-dashboard-container {
-  background-color: #334155;
+  background-color: $neutral-800;
   height: calc(100vh - 4rem);
   width: 100%;
   color: white;

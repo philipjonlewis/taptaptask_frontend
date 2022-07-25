@@ -3,7 +3,8 @@ import { ProjectsDashboardGanttChart } from "../../../components";
 const ProjectsDashboard = () => {
   return (
     <div className="project-dashboard-container">
-      <ProjectsDashboardGanttChart />
+      {/* <ProjectsDashboardGanttChart /> */}
+      <p>Select a project</p>
     </div>
   );
 };

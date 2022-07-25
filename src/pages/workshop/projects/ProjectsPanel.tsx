@@ -9,7 +9,6 @@ const Projects = () => {
 
   return (
     <div className="projects-page">
- 
       <div className="outlet-container">
         {projectId ? <Outlet /> : <ProjectsDashboard />}
       </div>

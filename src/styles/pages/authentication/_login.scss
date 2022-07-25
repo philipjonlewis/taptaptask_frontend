@@ -30,7 +30,7 @@
     form {
       .label-input-container {
         @include d-flex(column, flex-start, flex-start);
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
 
         label {
           color: $neutral-50;

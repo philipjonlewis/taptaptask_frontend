@@ -30,7 +30,7 @@
     form {
       .label-input-container {
         @include d-flex(column, flex-start, flex-start);
-        margin-bottom: 1rem;
+        margin-bottom: .5rem;
 
         label {
           color: $neutral-50;
@@ -69,7 +69,7 @@
       }
 
       .password-requirements {
-        padding-bottom: 0.5rem;
+        padding-bottom: 1rem;
         p:first-of-type {
           font-size: 1rem;
           padding-bottom: 0.5rem;

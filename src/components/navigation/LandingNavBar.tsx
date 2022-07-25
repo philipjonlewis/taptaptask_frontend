@@ -54,7 +54,7 @@ const LandingNavBar = () => {
 
         <div className="navlinks-right">
           {isAuthenticated && (
-            <NavLink className="right-link workshop-link" to={"/workshop"}>
+            <NavLink className="right-link workshop-link" to={"/workshop/projects"}>
               Workshop
             </NavLink>
           )}

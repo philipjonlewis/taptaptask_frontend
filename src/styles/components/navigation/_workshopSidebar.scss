@@ -133,16 +133,16 @@
   .upper-container {
     @include d-flex(row, flex-start, flex-start);
     // @include border(bottom, lighten($neutral-900, 10));
-    @include dims(100%, 4rem);
+    @include dims(100%, 6rem);
     position: relative;
     padding: 0.5rem;
-
+    // background-color: red;
     .logo-container {
       @include d-flex(row, flex-start, center);
       height: 2rem;
 
       p {
-        font-size: 1.4rem;
+        font-size: 1rem;
         font-family: Rubik;
         font-weight: 500;
 
@@ -256,8 +256,22 @@
 
     .add-project-icon-container {
       @include small-icon-container;
+      position: relative;
       margin-left: auto;
       margin-bottom: 0.5rem;
+
+      p {
+        position: absolute;
+        left: -7rem;
+        font-size: 0.7rem;
+        color: $neutral-500;
+      }
+
+      &:hover {
+        p {
+          color: white;
+        }
+      }
     }
 
     .project-list-title-container {
