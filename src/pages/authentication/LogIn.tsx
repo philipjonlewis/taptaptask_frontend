@@ -10,7 +10,7 @@ import type { Email } from "../../vite-env";
 const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation() as any;
-  const redirectPath = location.state?.path || "/workshop";
+  const redirectPath = location.state?.path || "/workshop/projects";
   const [displayPassword, displayPasswordHandler] = useState(false);
 
   const [email, setEmail] = useState("");
