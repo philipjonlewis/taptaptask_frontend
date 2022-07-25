@@ -16,9 +16,17 @@ export const authSlice = createSlice({
       // console.log(action.payload);
       // validation code should be here
       // Make API calls here
-      const { username, password, _id } = action.payload;
+      const { email, password, _id } = action.payload;
 
-      return { ...state, isAuthenticated: true, username, password, _id };
+      return { ...state, isAuthenticated: true, email, password, _id };
+    },
+    signup: (state, action) => {
+      // console.log(action.payload);
+      // validation code should be here
+      // Make API calls here
+      const { email, password, _id } = action.payload;
+
+      return { ...state, isAuthenticated: true, email, password, _id };
     },
     logout: (state) => {
       state = {
@@ -35,6 +43,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { signup, login, logout } = authSlice.actions;
 
 export default authSlice.reducer;

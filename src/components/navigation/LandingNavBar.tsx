@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -10,11 +11,29 @@ const LandingNavBar = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  let axiosConfig = {
+    withCredentials: true,
+  };
 
   const handleLogout = () => {
-    dispatch(logout());
-    window.location.reload();
-    return navigate("/login");
+    axios
+      .get(
+        `${import.meta.env.VITE_BACKEND_PORT}/auth/logout`,
+
+        axiosConfig
+      )
+      .then(function (response: any) {
+        console.log("logout", response);
+
+        if (response.status == 200) {
+          dispatch(logout());
+          navigate("/login");
+          return window.location.reload();
+        }
+      })
+      .catch(function (error) {
+        console.log(error.response);
+      });
   };
 
   return (

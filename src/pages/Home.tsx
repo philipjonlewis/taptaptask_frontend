@@ -39,16 +39,15 @@ const Home = () => {
         <div className="left-container">
           <div className="hero-text-container">
             <p>
-              <span>taptaptask</span> is <br /> most possibly the{" "}
-              <span>best</span>
-              <br /> task <span>management</span> tool <br /> better than the{" "}
-              <span>calendar</span>
+              <span>taptaptask</span><br /> is a <span>task management tool</span>{" "}
+              <br />
+              for <span>phase-based projects</span>
             </p>
           </div>
         </div>
         <div className="right-container">
           <div className="image-container">
-            <img src="/workshop.png" alt="" />
+            {/* <img src="/workshop.png" alt="" /> */}
           </div>
         </div>
       </div>

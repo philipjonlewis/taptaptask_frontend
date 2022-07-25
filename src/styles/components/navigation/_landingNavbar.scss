@@ -43,7 +43,7 @@
         // border-radius: $standard-radius;
         border-right: 1px solid $neutral-500;
         padding-right: 1rem;
-        
+
         p {
           font-size: 1.4rem;
           font-family: Rubik;
@@ -72,13 +72,20 @@
       a {
         font-weight: 400;
         margin-right: 2rem;
-        // padding-bottom: 0.5rem;
+        padding: 0.5rem 2rem;
       }
 
       a.active {
         font-weight: 600;
 
         border-bottom: 1px solid $accent-01;
+      }
+
+      a {
+        &:hover {
+          border-radius: $standard-radius;
+          background-color: $accent-01;
+        }
       }
     }
 

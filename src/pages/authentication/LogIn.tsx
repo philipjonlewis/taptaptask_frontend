@@ -45,7 +45,7 @@ const LogIn = () => {
         console.log(error.response);
       });
 
-    return navigate(redirectPath, { replace: true });
+    // return navigate(redirectPath, { replace: true });
   };
 
   return (
