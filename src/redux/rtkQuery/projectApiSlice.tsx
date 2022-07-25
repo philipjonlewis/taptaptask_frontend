@@ -19,9 +19,7 @@ export const projectApiSlice = createApi({
   refetchOnMountOrArgChange: 1,
   refetchOnFocus: true,
   refetchOnReconnect: true,
-  endpoints: function (
-    builder: EndpointBuilder<BaseQuery, TagTypes, ReducerPath>
-  ): Definitions {
+  endpoints: function (builder) {
     return {
       getProject: builder.query({
         query: (projectId: boolean | string) => {

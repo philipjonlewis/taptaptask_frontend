@@ -119,6 +119,7 @@ const AddTaskCardForm = ({
       };
     });
   };
+  let today = new Date().toISOString().slice(0, 10)
 
   return (
     <div className="add-task-card-form">
@@ -138,7 +139,8 @@ const AddTaskCardForm = ({
         <input
           required
           type="date"
-          min={taskFormContent.dateOfDeadline}
+          // min={taskFormContent.dateOfDeadline}
+          min={ today }
           value={taskFormContent.dateOfDeadline}
           onChange={dateOfDeadlineFormHandler}
         />
