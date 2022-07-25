@@ -78,7 +78,7 @@ const WorkshopProjectSidebar = () => {
           </div>
         </div>
 
-        <NavLink to={"dashboard"} className="sidebar-link-container">
+        {/* <NavLink to={"dashboard"} className="sidebar-link-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="link-icon"
@@ -94,9 +94,9 @@ const WorkshopProjectSidebar = () => {
             />
           </svg>
           <p>Dashboard</p>
-        </NavLink>
+        </NavLink> */}
 
-        <NavLink to={"notes"} className="sidebar-link-container">
+        {/* <NavLink to={"notes"} className="sidebar-link-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="link-icon"
@@ -112,7 +112,7 @@ const WorkshopProjectSidebar = () => {
             />
           </svg>
           <p>Notes</p>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink to={"projects"} className="sidebar-link-container">
           <svg
@@ -132,8 +132,8 @@ const WorkshopProjectSidebar = () => {
           <p>Projects</p>
         </NavLink>
 
-        <div className="sidebar-hotlinks-container">
-          
+        {/* <div className="sidebar-hotlinks-container">
+
           <div className="hotlink-icon-container">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,6 @@ const WorkshopProjectSidebar = () => {
               />
             </svg>
             <p>Manage</p>
-        
           </div>
 
           <div className="hotlink-icon-container">
@@ -170,7 +169,7 @@ const WorkshopProjectSidebar = () => {
             </svg>
             <p>Templates</p>
           </div>
-        </div>
+        </div> */}
 
         <div className="project-list-container">
           <div

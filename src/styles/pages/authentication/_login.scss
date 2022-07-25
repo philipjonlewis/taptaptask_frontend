@@ -3,6 +3,7 @@
 
 .login-page-container {
   @include d-flex(column, flex-start, center);
+  padding-top: 2rem;
   background-color: $neutral-900;
   height: 100vh;
 

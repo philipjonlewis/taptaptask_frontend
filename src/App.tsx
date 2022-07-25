@@ -48,10 +48,10 @@ const App = () => {
               </RequireAuth>
             }
           >
-            <Route index element={<DashboardPanel />} />
+            {/* <Route index element={<DashboardPanel />} />
             <Route path="dashboard" element={<DashboardPanel />} />
-            <Route path="notes" element={<NotesDashboard />} />
-
+            <Route path="notes" element={<NotesDashboard />} /> */}
+            <Route index element={<ProjectsPanel />} />
             <Route path="projects" element={<ProjectsPanel />}>
               <Route
                 path=":projectId"

@@ -28,7 +28,7 @@ const ProjectPhaseView = () => {
 
   const [deleteTasksByDate] = useDeleteTasksByDateMutation();
   const [fetchedTaskList, setFetchedTaskList] = useState([]) as any;
-  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("") as any;
+  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("add-task") as any;
 
   const { data, isLoading, isSuccess, isError, error, refetch } =
     useGetTasksByDateQuery(

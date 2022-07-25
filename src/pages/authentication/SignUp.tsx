@@ -91,14 +91,12 @@ const SignUp = () => {
           </div>
           <div className="password-requirements">
             <p>Password Requirements</p>
-            <p>Must be at least 6 characters short and 32 characters long.</p>
-            <p>Must have at least one(1) number</p>
-            <p>Must have at least one(1) uppercase letter</p>
-            <p>Must have at least one(1) lowercase letter</p>
-            <p>
-              Must have at least one(1) of the following characters : ! @ # $ %
-              ^ & *
-            </p>
+            <p>Minimum of 6 characters and a maximum of 32 characters.</p>
+            <p>Must have at least one(1) of the ff: </p>
+            <p>- Number</p>
+            <p>- Uppercase Letter</p>
+            <p>- Lowercase Letter</p>
+            <p>- The following characters : ! @ # $ % ^ & *</p>
           </div>
           <button onClick={handleSignUp}>Sign Up</button>
         </form>

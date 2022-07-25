@@ -3,6 +3,7 @@
 
 .signup-page-container {
   @include d-flex(column, flex-start, center);
+  padding-top: 2rem;
   background-color: $neutral-900;
   height: 100vh;
 
@@ -68,6 +69,7 @@
       }
 
       .password-requirements {
+        padding-bottom: 0.5rem;
         p:first-of-type {
           font-size: 1rem;
           padding-bottom: 0.5rem;
@@ -83,7 +85,6 @@
       }
 
       button {
-        margin-top: 1rem;
         background-color: $accent-02;
         color: white;
         width: 100%;
