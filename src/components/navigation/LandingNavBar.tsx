@@ -40,34 +40,51 @@ const LandingNavBar = () => {
     <nav className="landing-navbar">
       <div className="links-container">
         <div className="navlinks-left">
-          <div className="logo-container">
-            <p>
-              taptaptask
-              <span>.com</span>
-            </p>
-          </div>
-          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to={"/"}>
+            <div className="logo-container">
+              <p>
+                taptaptask
+                <span>.com</span>
+              </p>
+            </div>
+          </NavLink>
+          <NavLink to={"/"} className="landing-navbar-link">
+            Home
+          </NavLink>
+          {/* {!isAuthenticated && (
+            <NavLink className="landing-navbar-link" to={"/signup"}>
+              Sign Up
+            </NavLink>
+          )}
+
+          {!isAuthenticated && (
+            <NavLink className="landing-navbar-link" to={"/login"}>
+              Log In
+            </NavLink>
+          )} */}
           {/* <NavLink to={"/about"}>About</NavLink>
           <NavLink to={"/contact"}>Contact</NavLink>
           <NavLink to={"/pricing"}>Pricing</NavLink> */}
         </div>
 
         <div className="navlinks-right">
-          {isAuthenticated && (
-            <NavLink className="right-link workshop-link" to={"/workshop/projects"}>
-              Workshop
-            </NavLink>
-          )}
-
           {!isAuthenticated && (
-            <NavLink className="right-link signup-link" to={"/signup"}>
+            <NavLink className="landing-navbar-link" to={"/signup"}>
               Sign Up
             </NavLink>
           )}
 
           {!isAuthenticated && (
-            <NavLink className="right-link login-link" to={"/login"}>
+            <NavLink className="landing-navbar-link" to={"/login"}>
               Log In
+            </NavLink>
+          )}
+          {isAuthenticated && (
+            <NavLink
+              className="right-link workshop-link"
+              to={"/workshop/projects"}
+            >
+              Workshop
             </NavLink>
           )}
 
