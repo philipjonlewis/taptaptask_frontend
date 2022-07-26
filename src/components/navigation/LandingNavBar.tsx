@@ -26,8 +26,10 @@ const LandingNavBar = () => {
 
         if (response.status == 200 && response.data.message == "Logged Out") {
           dispatch(logout());
-          return navigate("/");
-          // return window.location.reload();
+          navigate("/");
+          setTimeout(() => {
+            return window.location.reload();
+          }, 1000);
         }
       })
       .catch(function (error) {
