@@ -20,6 +20,7 @@ const SignUp = () => {
 
   const [error, setError] = useState({ isError: false, content: "" }) as any;
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+  const [signUpState, setSignUpState] = useState(false);
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -58,10 +59,18 @@ const SignUp = () => {
       .then(function (response: any) {
         console.log("signup", response);
 
-        if (response.status == 200 && response.data.status) {
+        if (
+          response.status == 200 &&
+          response.data.code == 200 &&
+          response.data.status
+        ) {
           dispatch(signup({ email, password, _id: response.data._id }));
 
-          return navigate(redirectPath, { replace: true });
+          setSignUpState(true);
+
+          setTimeout(() => {
+            return navigate(redirectPath, { replace: true });
+          }, 3000);
         } else {
           setError((state: any) => {
             console.log(state);
@@ -84,6 +93,14 @@ const SignUp = () => {
   return (
     <div className="signup-page-container">
       <div className="signup-form-container">
+        {signUpState && (
+          <div className="success-container">
+            <div className="success-message-container">
+              {" "}
+              <img src="/rings.svg" alt="" /> <p>Creating your account</p>
+            </div>
+          </div>
+        )}
         <div
           className={
             error.isError
