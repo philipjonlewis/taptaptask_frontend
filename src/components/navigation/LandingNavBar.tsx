@@ -29,7 +29,7 @@ const LandingNavBar = () => {
           navigate("/");
           setTimeout(() => {
             return window.location.reload();
-          }, 1000);
+          }, 200);
         }
       })
       .catch(function (error) {
