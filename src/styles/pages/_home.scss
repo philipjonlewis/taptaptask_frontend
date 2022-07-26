@@ -15,11 +15,12 @@
     height: 100%;
     // background-color: red;
     color: white;
+    position: relative;
 
     .hero-content {
-      padding-top: 8rem;
-      // background-color: blue;
-
+      z-index: 1000;
+      margin-top: 6rem;
+      position: absolute;
       .title-container {
         padding-bottom: 2rem;
         margin-bottom: 1rem;
@@ -34,8 +35,77 @@
 
       .subtitle-container {
         font-family: Raleway;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 400;
+      }
+
+      .cta-container {
+        padding-top: 6rem;
+
+        .get-started-cta {
+          border-radius: $standard-radius;
+          padding: 1rem 2rem;
+          background-color: $accent-01;
+          transition: all 0.3s ease-in-out;
+          font-size: 0.9rem;
+          &:hover {
+            background-color: darken($color: $accent-01, $amount: 5);
+          }
+        }
+      }
+    }
+
+    .home-bg-container {
+      z-index: 0;
+      position: absolute;
+      right: 300px;
+      top: 50px;
+      background-color: darken($color: $neutral-800, $amount: 4);
+      width: 600px;
+      height: 640px;
+      border-radius: 1rem;
+      overflow: visible;
+
+      img {
+        position: absolute;
+        border-radius: 0.5rem;
+        transition: all 0.5s ease-in;
+        filter: saturate(30%);
+
+        &:hover {
+          filter: saturate(100%);
+          transform: scale(1.05);
+        }
+      }
+
+      img:nth-of-type(1) {
+        height: 300px;
+        top: -40px;
+        right: -100px;
+        transform-origin: bottom left;
+        // transform: translate(100px, -40px);
+      }
+      img:nth-of-type(2) {
+        height: 500px;
+        bottom: -80px;
+        left: -100px;
+        transform-origin: top right;
+        // transform: translate(-100px, 40px);
+      }
+
+      img:nth-of-type(3) {
+        height: 260px;
+        bottom: 100px;
+        right: 0px;
+        transform-origin: top left;
+        // transform: translate(50px, -80px);
+      }
+      img:nth-of-type(4) {
+        height: 160px;
+        top: 40px;
+        left: -10px;
+        transform-origin: bottom right;
+        // transform: translate(-20px, -100px);
       }
     }
   }

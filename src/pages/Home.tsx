@@ -5,6 +5,7 @@ import {
   useUpdateProjectMutation,
   useDeleteProjectMutation,
 } from "../redux/rtkQuery/projectApiSlice";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Home = () => {
   // const {
@@ -44,6 +45,19 @@ const Home = () => {
           <div className="subtitle-container">
             <p>taptaptask is a task management tool for phase-based projects</p>
           </div>
+          <div className="cta-container">
+            <NavLink to={"/signup"} className="get-started-cta">
+              Get Started!
+            </NavLink>
+            {/* <button>Watch Video</button> */}
+          </div>
+        </div>
+
+        <div className="home-bg-container">
+          <img src="../../public/landing-pic.jpg" alt="" />
+          <img src="../../public/landing-pic2.jpg" alt="" />
+          <img src="../../public/landing-pic3.jpg" alt="" />
+          <img src="../../public/landing-pic4.jpg" alt="" />
         </div>
       </div>
     </div>
