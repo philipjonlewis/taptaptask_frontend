@@ -14,9 +14,121 @@
     padding: 1rem;
     border: 1px solid $neutral-700;
     background-color: darken($color: $neutral-800, $amount: 3);
-
+    position: relative;
     &:hover {
-      border-color: $accent-01;
+      // border-color: $accent-01;
+    }
+
+    .success-container {
+      @include d-flex(column, center, center);
+      background-color: rgba(67, 67, 198, 0.1);
+      border-radius: $standard-radius;
+      border: 1px solid $accent-01;
+
+      backdrop-filter: saturate(180%) blur(4px);
+      transition: 0.5s all ease-in;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      .success-message-container {
+        background-color: darken($accent-01, 20);
+        border: 2px solid $accent-01;
+        border-radius: $standard-radius;
+        width: 300px;
+        height: 300px;
+        @include d-flex(column, center, center);
+
+        img {
+          height: 5rem;
+        }
+
+        p {
+          color: white;
+        }
+        // position: absolute;
+        // left: 0;
+        // right: 0;
+        // margin-left: auto;
+        // margin-right: auto;
+      }
+    }
+
+    .error-container {
+      @include d-flex(column, center, center);
+
+      background-color: rgba(218, 110, 110, 0.1);
+      border-radius: $standard-radius;
+      border: 1px solid rgb(212, 76, 76);
+
+      backdrop-filter: saturate(180%) blur(4px);
+      visibility: hidden;
+      transition: 0.5s all ease-in;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      .close-error-container {
+        @include small-icon-container;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: rgb(218, 110, 110);
+        color: white;
+      }
+
+      .error-message-container {
+        background-color: rgb(218, 110, 110);
+        border: 2px solid rgb(212, 76, 76);
+        border-radius: $standard-radius;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+
+        .alert-icon-container {
+          @include d-flex(row, flex-start, center);
+          border-bottom: 1px solid white;
+          width: 100%;
+          padding: 0.5rem;
+          // @include small-icon-container;
+          // position: absolute;
+          // top: 0.5rem;
+          // left: 0.5rem;
+          background-color: rgb(218, 110, 110);
+          color: white;
+          svg {
+            height: 2rem;
+          }
+
+          p {
+            margin-left: 0.5rem;
+            font-size: 1rem;
+            font-weight: 400;
+          }
+        }
+
+        .error-content {
+          padding: 0.5rem;
+        }
+      }
+
+      p {
+        font-size: 0.8rem;
+        color: rgb(255, 255, 255);
+        // font-weight: bold;
+      }
+    }
+
+    .visibility-visible {
+      visibility: visible;
     }
 
     .title-container {
@@ -40,7 +152,7 @@
 
         label {
           color: $neutral-50;
-          font-size: $fs-subtitle;
+          font-size: 1rem;
           padding-bottom: 0.4rem;
         }
 
