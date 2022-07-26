@@ -42,9 +42,10 @@ const LandingNavBar = () => {
         <div className="navlinks-left">
           <NavLink to={"/"}>
             <div className="logo-container">
+              <img src="/taptaptask.svg" alt="" />
               <p>
                 taptaptask
-                <span>.com</span>
+                {/* <span>.com</span> */}
               </p>
             </div>
           </NavLink>
@@ -62,9 +63,16 @@ const LandingNavBar = () => {
               Log In
             </NavLink>
           )} */}
-          {/* <NavLink to={"/about"}>About</NavLink>
-          <NavLink to={"/contact"}>Contact</NavLink>
-          <NavLink to={"/pricing"}>Pricing</NavLink> */}
+          {/* 
+          <NavLink to={"/about"} className="landing-navbar-link">
+            About
+          </NavLink>
+          <NavLink to={"/contact"} className="landing-navbar-link">
+            Contact
+          </NavLink>
+          <NavLink to={"/pricing"} className="landing-navbar-link">
+            Pricing
+          </NavLink> */}
         </div>
 
         <div className="navlinks-right">
