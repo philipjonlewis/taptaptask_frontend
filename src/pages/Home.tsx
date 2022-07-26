@@ -54,10 +54,10 @@ const Home = () => {
         </div>
 
         <div className="home-bg-container">
-          <img src="../../public/landing-pic.jpg" alt="" />
-          <img src="../../public/landing-pic2.jpg" alt="" />
-          <img src="../../public/landing-pic3.jpg" alt="" />
-          <img src="../../public/landing-pic4.jpg" alt="" />
+          <img src="/landing-pic.jpg" alt="" />
+          <img src="/landing-pic2.jpg" alt="" />
+          <img src="/landing-pic3.jpg" alt="" />
+          <img src="/landing-pic4.jpg" alt="" />
         </div>
       </div>
     </div>
