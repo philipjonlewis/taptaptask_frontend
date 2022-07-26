@@ -26,7 +26,7 @@
   .links-container {
     @include d-flex(row, space-between, flex-start);
     margin: auto;
-    width: 90%;
+    width: 80%;
     height: 100%;
 
     // background-color: orange;
@@ -37,12 +37,18 @@
       height: 100%;
 
       .logo-container {
-        margin-right: 2rem;
+        @include d-flex(row, flex-start, center);
+        margin-right: 1rem;
         // background-color: white;
         // padding: 0.5rem 1rem;
         // border-radius: $standard-radius;
         border-right: 1px solid $neutral-500;
         padding-right: 1rem;
+
+        img {
+          height: 3rem;
+          margin-right: 1rem;
+        }
 
         p {
           font-size: 1rem;
@@ -72,21 +78,24 @@
       .landing-navbar-link {
         font-weight: 400;
         margin-right: 1rem;
-        padding: 0.5rem 2rem;
+        padding: 0.5rem 1.5rem;
         border: 1px solid transparent;
         border-radius: $standard-radius;
         font-size: 0.8rem;
+
+        // background-color: $neutral-800;
+
         &:hover {
-          // border-color: $accent-01;
           border: 1px solid $accent-01;
-          background-color: transparent;
+          // background-color: lighten($accent-01, 5);
         }
       }
 
       .landing-navbar-link.active {
         font-weight: 600;
-
-        background-color: $accent-01;
+        border-bottom: 2px solid $accent-01;
+        background-color: transparent;
+        // background-color: $accent-01;
       }
     }
 
@@ -104,7 +113,7 @@
         font-size: 0.8rem;
         &:hover {
           // border-color: $accent-01;
-          border: 1px solid $accent-01;
+          border: 1px solid $accent-03;
           background-color: transparent;
         }
       }
@@ -112,7 +121,7 @@
       .landing-navbar-link.active {
         font-weight: 600;
 
-        background-color: $accent-01;
+        background-color: $accent-03;
       }
 
       .workshop-link {

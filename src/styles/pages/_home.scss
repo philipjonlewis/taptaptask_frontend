@@ -1,70 +1,42 @@
 @use "../abstracts/" as *;
 @use "../base/" as *;
 
-.main-container {
+.home-page {
+  // @include d-flex(column, flex-start, center);
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
   position: relative;
-}
-
-.home-body {
-  @include d-flex(row, space-around, center);
   background-color: $neutral-900;
-  height: 100vh;
-  overflow-y: auto;
-  color: white;
 
-  .left-container {
-    @include d-flex(column, center, flex-end);
+  .main-content-container {
+    margin: auto;
+    width: 80%;
     height: 100%;
-    width: 50%;
     // background-color: red;
-    // background-color: $neutral-800;
-    padding: 1rem;
+    color: white;
 
-    .hero-text-container {
-      margin-bottom: 20rem;
-      border-right: 1px solid $neutral-700;
+    .hero-content {
+      padding-top: 8rem;
+      // background-color: blue;
 
-      padding: 2rem;
-      // background-color: red;
-      p {
-        text-align: right;
-        font-size: 2rem;
-        font-weight: 400;
-
-        span {
-          border-bottom: 2px solid blue;
+      .title-container {
+        padding-bottom: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid $neutral-400;
+        width: fit-content;
+        p {
+          font-family: Montserrat;
+          font-weight: 400;
+          font-size: 2.4rem;
         }
       }
-    }
-  }
 
-  .right-container {
-    @include d-flex(column, center, flex-start);
-    height: 100%;
-    width: 50%;
-    // background-color: blue;
-
-    .image-container {
-      margin-left: 2rem;
-      img {
-        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-          0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-        width: 60%;
-        margin-bottom: 15rem;
-
-        border-radius: 2rem;
+      .subtitle-container {
+        font-family: Raleway;
+        font-size: 1.2rem;
+        font-weight: 400;
       }
     }
   }
-}
-
-.secondary-container {
-  width: 100%;
-  height: 100vh;
-
-  background-color: red;
 }
