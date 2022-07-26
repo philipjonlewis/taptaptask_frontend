@@ -8,7 +8,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation() as any;
-  const redirectPath = location.state?.path || "/workshop";
+  const redirectPath = location.state?.path || "/workshop/projects";
   const [displayPassword, displayPasswordHandler] = useState(false);
 
   const [signUpForm, setSignUpForm] = useState({
@@ -16,6 +16,7 @@ const SignUp = () => {
     password: "",
     passwordConfirmation: "",
   }) as any;
+
   const { email, password, passwordConfirmation } = signUpForm;
 
   const [error, setError] = useState({ isError: false, content: "" }) as any;
@@ -76,10 +77,6 @@ const SignUp = () => {
             console.log(state);
             return { isError: true, content: response.data };
           });
-
-          // setTimeout(() => {
-          //   setError({ isError: false, content: "" });
-          // }, 10000);
         }
       })
       .catch(function (error) {

@@ -20,11 +20,17 @@
     }
 
     .title-container {
-      padding-bottom: 2rem;
+      padding-bottom: 0.5rem;
       margin-bottom: 1rem;
-      font-size: 2rem;
-      color: $neutral-50;
+
       border-bottom: 1px solid $neutral-700;
+
+      .log-in {
+        padding-bottom: 1rem;
+        font-size: 2rem;
+
+        color: $neutral-50;
+      }
     }
 
     form {
@@ -49,9 +55,32 @@
           font-size: 0.9rem;
           color: white;
           border-radius: $standard-radius;
-          &:focus {
-            // @include border(bottom, $accent-01);
+
+          &:not(:placeholder-shown) {
             border: 1px solid $accent-01;
+            &:invalid {
+              border: 1px solid $accent-03;
+              background-color: rgb(162, 103, 103);
+            }
+            &:valid {
+              background-color: rgb(94, 118, 94);
+              border: 1px solid green;
+            }
+          }
+
+          &:valid {
+            border: 1px solid green;
+          }
+
+          &:disabled {
+            background-color: $neutral-400;
+          }
+
+          &:focus {
+            border: 1px solid $accent-01;
+            &:invalid {
+              border: 1px solid $accent-03;
+            }
           }
         }
 

@@ -13,8 +13,11 @@ const LogIn = () => {
   const redirectPath = location.state?.path || "/workshop/projects";
   const [displayPassword, displayPasswordHandler] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [signUpForm, setSignUpForm] = useState({
+    email: "",
+    password: "",
+  }) as any;
+  const { email, password } = signUpForm;
 
   const hello: Email = "why";
 
@@ -52,24 +55,41 @@ const LogIn = () => {
     <div className="login-page-container">
       <div className="login-form-container">
         <div className="title-container">
-          <p>Log In</p>
+          <div className="log-in">
+            <p>Log In</p>
+          </div>
         </div>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="label-input-container">
             <label>Email</label>
             <input
-              type="text"
+              required
+              placeholder="john@email.com"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"
+              type="email"
               name="email"
-              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) =>
+                setSignUpForm((state: any) => {
+                  return { ...state, [e.target.name]: e.target.value };
+                })
+              }
             />
           </div>
           <div className="label-input-container">
             <label>Password</label>
             <input
+              required
+              placeholder=" "
               type={displayPassword ? "text" : "password"}
               pattern="(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,32}$"
               name="password"
-              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={(e) =>
+                setSignUpForm((state: any) => {
+                  return { ...state, [e.target.name]: e.target.value };
+                })
+              }
             />
             <div className="show-password-container">
               <input

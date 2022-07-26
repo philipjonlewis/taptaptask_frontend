@@ -42,7 +42,7 @@ const LandingNavBar = () => {
         <div className="navlinks-left">
           <NavLink to={"/"}>
             <div className="logo-container">
-              <img src="../../../public/taptaptask.svg" alt="" />
+              <img src="/taptaptask.svg" alt="" />
               <p>
                 taptaptask
                 {/* <span>.com</span> */}
