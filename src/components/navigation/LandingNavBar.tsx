@@ -27,8 +27,8 @@ const LandingNavBar = () => {
 
         if (response.status == 200) {
           dispatch(logout());
-          navigate("/");
-          return window.location.reload();
+          return navigate("/");
+          // return window.location.reload();
         }
       })
       .catch(function (error) {
