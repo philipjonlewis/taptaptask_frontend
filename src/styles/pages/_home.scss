@@ -19,7 +19,7 @@
 
     .hero-content {
       z-index: 1000;
-      margin-top: 6rem;
+      margin-top: 12rem;
       position: absolute;
       .title-container {
         padding-bottom: 2rem;
@@ -59,13 +59,14 @@
       z-index: 0;
       position: absolute;
       right: 300px;
-      top: 50px;
-      background-color: darken($color: $neutral-800, $amount: 4);
+      top: 80px;
+      background-color: $neutral-800;
+      // background-color: darken($color: $neutral-500, $amount: 4);
       width: 600px;
       height: 640px;
       border-radius: 1rem;
       overflow: visible;
-
+      transform: scale(.9);
       img {
         position: absolute;
         border-radius: 0.5rem;
@@ -94,9 +95,9 @@
       }
 
       img:nth-of-type(3) {
-        height: 260px;
-        bottom: 100px;
-        right: 0px;
+        height: 300px;
+        bottom: 60px;
+        right: -50px;
         transform-origin: top left;
         // transform: translate(50px, -80px);
       }
