@@ -16,14 +16,14 @@ const Home = () => {
   //   error: any,
   // } = useGetProjectsQuery("");
 
-  const [addProjectData] = useAddProjectDataMutation();
+  // const [addProjectData] = useAddProjectDataMutation();
   // const [updateProject] = useUpdateProjectMutation();
   // const [deleteProject] = useDeleteProjectMutation();
 
-  const { data, error, isLoading } = useGetProjectQuery(false);
-  console.log(error);
-  console.log(isLoading);
-  console.log(data);
+  // const { data, error, isLoading } = useGetProjectQuery(false);
+  // console.log(error);
+  // console.log(isLoading);
+  // console.log(data);
   // let content;
   // if (isLoading) {
   //   content = <p>Loading...</p>;

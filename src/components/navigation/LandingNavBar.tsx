@@ -11,21 +11,20 @@ const LandingNavBar = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let axiosConfig = {
-    withCredentials: true,
-  };
 
   const handleLogout = () => {
     axios
       .get(
         `${import.meta.env.VITE_BACKEND_PORT}/auth/logout`,
 
-        axiosConfig
+        {
+          withCredentials: true,
+        }
       )
       .then(function (response: any) {
         console.log("logout", response);
 
-        if (response.status == 200) {
+        if (response.status == 200 && response.data.message == "Logged Out") {
           dispatch(logout());
           return navigate("/");
           // return window.location.reload();
