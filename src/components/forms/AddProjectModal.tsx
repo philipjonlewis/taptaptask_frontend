@@ -47,25 +47,23 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
 
     setTriggerFetch(!triggerFetch);
 
-    setForm((state) => {
-      return {
-        ...state,
-        projectName: "",
-        projectDescription: "",
-      };
-    });
-    setTriggerFetch(!triggerFetch);
-
     setTimeout(() => {
       setAddProjectNotice(false);
       setAddProjectModal(false);
+      setForm((state) => {
+        return {
+          ...state,
+          projectName: "",
+          projectDescription: "",
+        };
+      });
     }, 1500);
   };
 
   return (
     <div className="add-project-modal" onClick={modalVisibilityHandler}>
       <div className="modal-form-container">
-        {addProjectNotice && isSuccess && (
+        {addProjectNotice && (
           <div className="add-project-notice-container">
             <div className="message-container">
               <img src="/rings.svg" alt="" />
