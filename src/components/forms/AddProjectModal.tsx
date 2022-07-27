@@ -56,11 +56,10 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
     });
     setTriggerFetch(!triggerFetch);
 
-    isSuccess &&
-      setTimeout(() => {
-        setAddProjectNotice(false);
-        setAddProjectModal(false);
-      }, 1500);
+    setTimeout(() => {
+      setAddProjectNotice(false);
+      setAddProjectModal(false);
+    }, 1500);
   };
 
   return (
