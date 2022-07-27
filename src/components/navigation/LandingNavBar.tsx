@@ -40,14 +40,11 @@ const LandingNavBar = () => {
   return (
     <nav className="landing-navbar">
       <div className="links-container">
-        <div className="navlinks-left">
+        <div className="left-navlinks-container">
           <NavLink to={"/"}>
             <div className="logo-container">
               <img src="/taptaptask.svg" alt="" />
-              <p>
-                taptaptask
-                {/* <span>.com</span> */}
-              </p>
+              <p>taptaptask</p>
             </div>
           </NavLink>
           <NavLink to={"/"} className="landing-navbar-link">
@@ -76,7 +73,7 @@ const LandingNavBar = () => {
           </NavLink> */}
         </div>
 
-        <div className="navlinks-right">
+        <div className="right-navlinks-container">
           {!isAuthenticated && (
             <NavLink className="landing-navbar-link" to={"/signup"}>
               Sign Up
@@ -89,21 +86,28 @@ const LandingNavBar = () => {
             </NavLink>
           )}
           {isAuthenticated && (
-            <NavLink
-              className="right-link workshop-link"
-              to={"/workshop/projects"}
-            >
+            <NavLink className="landing-navbar-link" to={"/workshop/projects"}>
               Workshop
             </NavLink>
           )}
 
           {isAuthenticated && (
-            <button className="right-link logout-link" onClick={handleLogout}>
+            <button className="landing-navbar-link" onClick={handleLogout}>
               Log Out
             </button>
           )}
         </div>
       </div>
+      {/* <div className="mobile-links-container">
+        {" "}
+        <NavLink to={"/"}>Home</NavLink>
+        {!isAuthenticated && <NavLink to={"/signup"}>Sign Up</NavLink>}
+        {!isAuthenticated && <NavLink to={"/login"}>Log In</NavLink>}
+        {isAuthenticated && (
+          <NavLink to={"/workshop/projects"}>Workshop</NavLink>
+        )}
+        {isAuthenticated && <button onClick={handleLogout}>Log Out</button>}
+      </div> */}
     </nav>
   );
 };
