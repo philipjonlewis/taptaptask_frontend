@@ -1,0 +1,153 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.add-project-modal {
+  @include d-flex(column, center, center);
+  @include dims(100vw, 100vh);
+
+  position: absolute;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: saturate(100%) blur(1px);
+
+  .modal-form-container {
+    @include d-flex(row, flex-start, flex-start);
+    @include dims(1200px, 600px);
+    // padding: 0.5rem;
+    overflow: hidden;
+    z-index: 200;
+    opacity: 100%;
+    background-color: $neutral-900;
+    position: relative;
+    border-radius: $standard-radius;
+
+    .add-project-notice-container {
+      @include d-flex(column, center, center);
+      position: absolute;
+      background-color: rgba(67, 67, 198, 0.5);
+      border: 2px solid $accent-01;
+      backdrop-filter: blur(1px);
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+
+      .message-container {
+        @include d-flex(column, center, center);
+        padding: 1rem;
+        background-color: red;
+        background-color: $accent-01;
+        border-radius: $standard-radius;
+        border: 2px solid $accent-01;
+        margin: auto;
+        height: 300px;
+        width: 300px;
+
+        img {
+          z-index: 10;
+          height: 5rem;
+        }
+
+        p {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .close-add-form-modal-button {
+      @include small-icon-container;
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+
+    .left-segment,
+    .right-segment {
+      height: 100%;
+    }
+
+    .left-segment {
+      @include d-flex(column, flex-start, flex-start);
+      @include border(right, lighten($neutral-900, 10));
+      padding: 4rem 0.5rem 1rem 0.5rem;
+      width: 30%;
+      .form-title-container {
+        // @include border(bottom, lighten($neutral-900, 10));
+        width: 100%;
+        padding: 1rem 0;
+        margin-bottom: 0.7rem;
+        font-size: 1.2rem;
+      }
+
+      .add-project-form-container {
+        @include d-flex(column, flex-start, flex-start);
+        width: 100%;
+
+        label {
+          font-size: 0.8rem;
+          color: gray;
+          margin-bottom: 0.5rem;
+        }
+
+        input {
+          background-color: $neutral-800;
+          height: 2.4rem;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          margin-bottom: 1.2rem;
+          font-size: 0.9rem;
+          // @include border(bottom, $accent-01);
+          // background-color: rebeccapurple;
+          color: white;
+          border-radius: $standard-radius;
+          &:focus {
+            @include border(bottom, $accent-01);
+          }
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+        }
+
+        button {
+          margin-top: 2rem;
+          width: 100%;
+          font-weight: 300;
+          height: 2.4rem;
+          border-radius: $standard-radius;
+          border: 1px solid $accent-01;
+          background-color: $accent-01;
+          &:hover {
+            background-color: darken($accent-01, 20);
+            // background-color: $neutral-800;
+          }
+        }
+      }
+
+      .clear-form-container {
+        opacity: 30%;
+        position: absolute;
+        bottom: 0.5rem;
+        left: 0.5rem;
+        cursor: pointer;
+        border: 1px solid $accent-02;
+        border-radius: $standard-radius;
+        padding: 0.5rem;
+        p {
+          font-size: 0.8rem;
+          font-weight: 300;
+        }
+
+        &:hover {
+          opacity: 100%;
+          // background-color: $neutral-800;
+          background-color: $accent-02;
+        }
+      }
+    }
+
+    .right-segment {
+      width: 70%;
+      background-color: $neutral-900;
+    }
+  }
+}

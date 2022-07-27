@@ -15,6 +15,8 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
 
   const [triggerFetch, setTriggerFetch] = useState(false);
 
+  const [addProjectNotice, setAddProjectNotice] = useState(false);
+
   const [form, setForm] = useState({
     projectName: "",
     projectDescription: "",
@@ -36,6 +38,7 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setAddProjectNotice(true);
     const projectId = uuidv4();
 
     addProjectData([{ ...form, projectId }]);
@@ -52,12 +55,25 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
       };
     });
     setTriggerFetch(!triggerFetch);
-    setAddProjectModal(false);
+
+    isSuccess &&
+      setTimeout(() => {
+        setAddProjectNotice(false);
+        setAddProjectModal(false);
+      }, 1500);
   };
 
   return (
     <div className="add-project-modal" onClick={modalVisibilityHandler}>
       <div className="modal-form-container">
+        {addProjectNotice && isSuccess && (
+          <div className="add-project-notice-container">
+            <div className="message-container">
+              <img src="/rings.svg" alt="" />
+              <p>Adding your project</p>
+            </div>
+          </div>
+        )}
         <div
           className="close-add-form-modal-button"
           onClick={addProjectModalHandler}

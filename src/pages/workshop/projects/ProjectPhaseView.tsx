@@ -28,9 +28,7 @@ const ProjectPhaseView = () => {
 
   const [deleteTasksByDate] = useDeleteTasksByDateMutation();
   const [fetchedTaskList, setFetchedTaskList] = useState([]) as any;
-  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState(
-    "add-task"
-  ) as any;
+  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("") as any;
 
   let taskDataContent;
 
@@ -85,7 +83,12 @@ const ProjectPhaseView = () => {
 
   if (isLoading) {
     refetch();
-    taskDataContent = <p>Loading</p>;
+    taskDataContent = (
+      <div className="loading-container">
+        <img src="/rings.svg" alt="" />
+        <p>Loading Tasks</p>
+      </div>
+    );
   } else if (isSuccess) {
     taskDataContent = (
       <div className="task-card-container ">
@@ -105,7 +108,12 @@ const ProjectPhaseView = () => {
     );
   } else if (isError) {
     refetch();
-    taskDataContent = <div style={{ backgroundColor: "$neutral-500" }}></div>;
+    taskDataContent = (
+      <div style={{ backgroundColor: "$neutral-500" }}>
+        Hmm, something seems to be wrong. Have your tried turning it on and off
+        again?
+      </div>
+    );
   }
 
   return (
