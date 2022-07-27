@@ -210,7 +210,14 @@ const WorkshopProjectSidebar = () => {
           </div>
           {/* <p>Project List</p> */}
 
-          {isSuccess && <ProjectList />}
+          {isSuccess ? (
+            <ProjectList />
+          ) : (
+            <div className="loading-container">
+              <img src="/rings.svg" alt="" />
+              <p>Loading Project List</p>
+            </div>
+          )}
 
           {/* <p>Scroll Down for more</p> */}
         </div>

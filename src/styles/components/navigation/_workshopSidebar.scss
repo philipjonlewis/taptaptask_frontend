@@ -251,7 +251,7 @@
     // background-color: yellow;
     // @include border(top, lighten($neutral-900, 10));
     // @include border(bottom, lighten($neutral-900, 10));
-
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -288,6 +288,20 @@
       p {
         font-size: 0.8rem;
         font-weight: 400;
+      }
+    }
+
+    .loading-container {
+      @include d-flex(column, flex-start, center);
+      position: absolute;
+      top: 100%;
+      left: 25%;
+      // background-color: red;
+      margin: auto;
+
+      p {
+        font-size: 0.8rem;
+        text-align: center;
       }
     }
 
