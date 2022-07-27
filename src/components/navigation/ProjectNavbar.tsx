@@ -64,26 +64,27 @@ const ProjectNavbar = () => {
 
       <div className="phase-information-container">
         <div className="phase-link-container">
-          {localPhaseList.map((phase: any) => {
-            return (
-              <Link
-                className={
-                  activePhaseName == phase.phaseName
-                    ? "phase-link active-phase-tab"
-                    : "phase-link"
-                }
-                key={phase.phaseId}
-                to={"phase"}
-                onClick={() => activePhaseHandler(phase)}
-                // onMouseEnter={() => {
-                //   console.log("entering");
-                //   dispatch(setActivePhase(phase));
-                // }}
-              >
-                {phase.phaseName}
-              </Link>
-            );
-          })}
+          {localPhaseList.length >= 1 &&
+            localPhaseList.map((phase: any) => {
+              return (
+                <Link
+                  className={
+                    activePhaseName == phase.phaseName
+                      ? "phase-link active-phase-tab"
+                      : "phase-link"
+                  }
+                  key={phase.phaseId}
+                  to={"phase"}
+                  onClick={() => activePhaseHandler(phase)}
+                  // onMouseEnter={() => {
+                  //   console.log("entering");
+                  //   dispatch(setActivePhase(phase));
+                  // }}
+                >
+                  {phase.phaseName}
+                </Link>
+              );
+            })}
         </div>
       </div>
     </div>

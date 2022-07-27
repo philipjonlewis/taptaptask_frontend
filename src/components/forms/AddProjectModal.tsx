@@ -57,7 +57,7 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
           projectDescription: "",
         };
       });
-    }, 1500);
+    }, 3000);
   };
 
   return (
@@ -67,7 +67,7 @@ const AddProjectModal = ({ addProjectModalHandler, setAddProjectModal }) => {
           <div className="add-project-notice-container">
             <div className="message-container">
               <img src="/rings.svg" alt="" />
-              <p>Adding your project</p>
+              <p>Creating your project</p>
             </div>
           </div>
         )}

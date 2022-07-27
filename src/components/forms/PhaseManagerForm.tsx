@@ -124,24 +124,31 @@ const PhaseManagerForm = () => {
           <button onClick={addPhaseHandler}>Add Phase</button>
         </div>
       </form>
-      <Reorder.Group
-        axis="y"
-        values={localPhaseList}
-        onReorder={setLocalPhaseList}
-        className="interactive-phase-container"
-        onMouseUp={mouseUpHandler}
-      >
-        {localPhaseList.map((phase: any) => {
-          return (
-            <PhaseReorderCard
-              key={phase.phaseId}
-              phase={phase}
-              localPhaseList={localPhaseList}
-              setLocalPhaseList={setLocalPhaseList}
-            />
-          );
-        })}
-      </Reorder.Group>
+      {!isLoading ? (
+        <Reorder.Group
+          axis="y"
+          values={localPhaseList}
+          onReorder={setLocalPhaseList}
+          className="interactive-phase-container"
+          onMouseUp={mouseUpHandler}
+        >
+          {localPhaseList.map((phase: any) => {
+            return (
+              <PhaseReorderCard
+                key={phase.phaseId}
+                phase={phase}
+                localPhaseList={localPhaseList}
+                setLocalPhaseList={setLocalPhaseList}
+              />
+            );
+          })}
+        </Reorder.Group>
+      ) : (
+        <div className="loading-container">
+          <img src="/rings.svg" alt="" />
+          <p>Loading Phase List</p>
+        </div>
+      )}
     </div>
   );
 };

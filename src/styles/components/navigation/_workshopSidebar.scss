@@ -1,8 +1,6 @@
 @use "../../abstracts/" as *;
 @use "../../base/" as *;
 
-
-
 .workshop-sidebar {
   @include d-flex(column, flex-start, flex-start);
   @include dims-set(16rem, 100%);
@@ -176,11 +174,14 @@
 
     .loading-container {
       @include d-flex(column, flex-start, center);
-      position: absolute;
-      top: 100%;
-      left: 25%;
+      // position: absolute;
+
       // background-color: red;
       margin: auto;
+
+      img {
+        height: 3rem;
+      }
 
       p {
         font-size: 0.8rem;
