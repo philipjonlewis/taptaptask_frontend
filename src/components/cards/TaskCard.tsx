@@ -20,6 +20,11 @@ const TaskCard = ({ taskObject, deleteTaskCardHandler }) => {
     };
   });
 
+  useEffect(() => {
+    console.log("changes", taskObject._id);
+    console.log(taskObject.taskContent, taskObject.taskContent.length);
+  }, [taskObject.taskContent.length]);
+
   const [addTaskData] = useAddTaskDataMutation();
   const [localTaskList, setLocalTaskList] = useState([]) as any;
 
@@ -41,7 +46,7 @@ const TaskCard = ({ taskObject, deleteTaskCardHandler }) => {
 
     addTaskData([{ ...newTask }]);
 
-    setLocalTaskList((state) => {
+    setLocalTaskList((state: []) => {
       return [{ ...newTask }, ...state];
     });
 
@@ -58,7 +63,8 @@ const TaskCard = ({ taskObject, deleteTaskCardHandler }) => {
     setLocalTaskList(() => {
       return [...taskObject.taskContent].reverse();
     });
-  }, [taskObject._id]);
+    // }, [taskObject._id]);
+  }, [taskObject._id, taskObject.taskContent.length]);
 
   return (
     <div className="task-date-container">

@@ -16,7 +16,7 @@ export const taskApiSlice = createApi({
     },
   }),
   tagTypes: ["Task", "Aggregate"],
-  refetchOnMountOrArgChange: true,
+  refetchOnMountOrArgChange: 1,
   refetchOnFocus: true,
   refetchOnReconnect: true,
   endpoints: function (

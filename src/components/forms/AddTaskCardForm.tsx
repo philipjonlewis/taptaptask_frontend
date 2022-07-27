@@ -7,11 +7,7 @@ import { enGB } from "date-fns/locale";
 import { postRequest } from "../../helpers/postRequest";
 import { useAddTaskDataMutation } from "../../redux/rtkQuery/taskApiSlice";
 
-const AddTaskCardForm = ({
-  fetchedTaskList,
-  setFetchedTaskList,
-  setActivePhaseSidebarTab,
-}) => {
+const AddTaskCardForm = ({ setFetchedTaskList, fetchedTaskList }) => {
   const { auth, activePhase, activeProject, taskList } = useSelector(
     (state) => state
   );
@@ -60,41 +56,35 @@ const AddTaskCardForm = ({
 
     addTaskData([{ ...taskFormContent, taskId: uuidv4() }]);
 
-    setFetchedTaskList((state) => {
-      // this is what happens if theres already an existing date
-      if (
-        state.some((dateObject) => {
-          const matchedDate = isEqual(
+    if (
+      fetchedTaskList.some((dateObject: any) => {
+        const matchedDate = isEqual(
+          new Date(dateObject._id),
+          new Date(taskFormContent.dateOfDeadline)
+        );
+        return matchedDate;
+      })
+    ) {
+      const newState = fetchedTaskList.map((dateObject: any) => {
+        if (
+          isEqual(
             new Date(dateObject._id),
             new Date(taskFormContent.dateOfDeadline)
-          );
+          )
+        ) {
+          const newTaskContent = [...dateObject.taskContent, taskFormContent];
 
-          return matchedDate;
-        })
-      ) {
-        const newState = state.map((dateObject) => {
-          if (
-            isEqual(
-              new Date(dateObject._id),
-              new Date(taskFormContent.dateOfDeadline)
-            )
-          ) {
-            const newTaskContent = [...dateObject.taskContent, taskFormContent];
-            return {
-              ...dateObject,
-              taskContent: [...newTaskContent],
-            };
-          }
-          return dateObject;
-        });
-
-        return [...newState];
-      }
-
-      // this is what'll happen if there is no existing date
-
+          return {
+            ...dateObject,
+            taskContent: [...newTaskContent],
+          };
+        }
+        return dateObject;
+      });
+      setFetchedTaskList([...newState]);
+    } else {
       const newState = [
-        ...state,
+        ...fetchedTaskList,
         {
           _id: new Date(taskFormContent.dateOfDeadline).toISOString(),
           taskContent: [taskFormContent],
@@ -102,13 +92,12 @@ const AddTaskCardForm = ({
       ];
 
       const formattedState = newState.sort(function (a, b) {
-        var dateA = new Date(a._id);
-        var dateB = new Date(b._id);
+        var dateA = new Date(a._id) as any;
+        var dateB = new Date(b._id) as any;
         return dateA - dateB;
       });
-
-      return [...formattedState];
-    });
+      setFetchedTaskList([...formattedState]);
+    }
 
     setTaskFormContent((state) => {
       return {
@@ -119,7 +108,7 @@ const AddTaskCardForm = ({
       };
     });
   };
-  let today = new Date().toISOString().slice(0, 10)
+  let today = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="add-task-card-form">
@@ -140,7 +129,7 @@ const AddTaskCardForm = ({
           required
           type="date"
           // min={taskFormContent.dateOfDeadline}
-          min={ today }
+          min={today}
           value={taskFormContent.dateOfDeadline}
           onChange={dateOfDeadlineFormHandler}
         />

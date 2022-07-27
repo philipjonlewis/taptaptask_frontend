@@ -141,8 +141,13 @@
       @include d-flex(row, flex-start, center);
       height: 2rem;
 
+      img {
+        height: 2rem;
+        margin-right: 1rem;
+      }
+
       p {
-        font-size: 1rem;
+        font-size: 1.2rem;
         font-family: Rubik;
         font-weight: 500;
 
@@ -275,14 +280,14 @@
     }
 
     .project-list-title-container {
-      // @include border(bottom, lighten($neutral-900, 10));
+      @include border(bottom, lighten($neutral-900, 10));
       width: 100%;
       padding-bottom: 0.5rem;
       margin-bottom: 0.5rem;
 
       p {
         font-size: 0.8rem;
-        font-weight: 200;
+        font-weight: 400;
       }
     }
 

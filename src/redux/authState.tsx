@@ -24,9 +24,9 @@ export const authSlice = createSlice({
       // console.log(action.payload);
       // validation code should be here
       // Make API calls here
-      const { email, password, _id } = action.payload;
+      const { _id, email } = action.payload;
 
-      return { ...state, isAuthenticated: true, email, password, _id };
+      return { ...state, isAuthenticated: true, email, _id };
     },
     logout: (state) => {
       state = {
@@ -36,9 +36,6 @@ export const authSlice = createSlice({
         isBlocked: "",
         isAuthenticated: false,
       };
-
-      console.log(state);
-      <Navigate to="/" />;
     },
   },
 });

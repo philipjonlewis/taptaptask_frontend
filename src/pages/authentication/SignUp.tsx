@@ -32,12 +32,10 @@ const SignUp = () => {
       password.length == 0 ||
       passwordConfirmation == 0
     ) {
-      return setError((state: any) => {
-        setIsFormSubmitting(false);
-        return {
-          isError: true,
-          content: { message: "Unable to sign up with incomplete data" },
-        };
+      setIsFormSubmitting(false);
+      return setError({
+        isError: true,
+        content: { message: "Unable to sign up with incomplete data" },
       });
     }
 
@@ -50,6 +48,8 @@ const SignUp = () => {
         };
       });
     }
+
+    setSignUpState(true);
 
     axios
       .post(
@@ -65,26 +65,27 @@ const SignUp = () => {
           response.data.code == 200 &&
           response.data.status
         ) {
-          dispatch(signup({ email, password, _id: response.data._id }));
+          dispatch(
+            signup({
+              _id: response.data.payload._id,
+              email: response.data.payload.email,
+            })
+          );
 
-          setSignUpState(true);
+      
 
           setTimeout(() => {
             return navigate(redirectPath, { replace: true });
-          }, 3000);
+          }, 2000);
         } else {
-          setError((state: any) => {
-            console.log(state);
-            return { isError: true, content: response.data };
-          });
+          setSignUpState(false);
+          setError({ isError: true, content: response.data });
         }
       })
       .catch(function (error) {
-        console.log(error.response);
+        setError({ isError: true, content: error });
       });
     setIsFormSubmitting(false);
-
-    // return navigate(redirectPath, { replace: true });
   };
 
   return (

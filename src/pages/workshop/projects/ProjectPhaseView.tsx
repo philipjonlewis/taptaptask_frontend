@@ -28,7 +28,11 @@ const ProjectPhaseView = () => {
 
   const [deleteTasksByDate] = useDeleteTasksByDateMutation();
   const [fetchedTaskList, setFetchedTaskList] = useState([]) as any;
-  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState("add-task") as any;
+  const [activePhaseSidebarTab, setActivePhaseSidebarTab] = useState(
+    "add-task"
+  ) as any;
+
+  let taskDataContent;
 
   const { data, isLoading, isSuccess, isError, error, refetch } =
     useGetTasksByDateQuery(
@@ -74,7 +78,10 @@ const ProjectPhaseView = () => {
     deleteTasksByDate({ dateOfDeadline: taskObjectId });
   };
 
-  let taskDataContent;
+  useEffect(() => {
+    console.log(isLoading);
+    console.log(fetchedTaskList);
+  }, [fetchedTaskList]);
 
   if (isLoading) {
     refetch();
@@ -116,7 +123,6 @@ const ProjectPhaseView = () => {
         <AddTaskCardForm
           setFetchedTaskList={setFetchedTaskList}
           fetchedTaskList={fetchedTaskList}
-          setActivePhaseSidebarTab={setActivePhaseSidebarTab}
         />
       )}
 

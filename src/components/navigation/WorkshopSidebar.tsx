@@ -54,10 +54,8 @@ const WorkshopProjectSidebar = () => {
 
         <div className="upper-container">
           <NavLink to={"/"} className="logo-container">
-            <p>
-              taptaptask
-              <span>.com</span>
-            </p>
+            <img src="/taptaptask.svg" alt="" />
+            <p>taptaptask</p>
           </NavLink>
 
           <div className="minimize-icon-container" onClick={sidebarHandler}>

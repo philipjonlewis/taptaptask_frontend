@@ -25,19 +25,17 @@ const LogIn = () => {
   const [logInState, setLogInState] = useState(false);
 
   const handleLogin = (e) => {
-
     e.preventDefault();
     setIsFormSubmitting(true);
 
     if (email.length == 0 || password.length == 0) {
-      return setError((state: any) => {
-        setIsFormSubmitting(false);
-        return {
-          isError: true,
-          content: { message: "Unable to sign up with incomplete data" },
-        };
+      setIsFormSubmitting(false);
+      return setError({
+        isError: true,
+        content: { message: "Unable to sign up with incomplete data" },
       });
     }
+    setLogInState(true);
     axios
       .post(
         `${import.meta.env.VITE_BACKEND_PORT}/auth/login`,
@@ -54,25 +52,26 @@ const LogIn = () => {
           response.data.code == 200 &&
           response.data.status
         ) {
-          dispatch(login({ email, password, _id: response.data.payload._id }));
-
-          setLogInState(true);
+          dispatch(
+            login({
+              _id: response.data.payload._id,
+              email: response.data.payload.email,
+            })
+          );
 
           setTimeout(() => {
             return navigate(redirectPath, { replace: true });
           }, 2000);
         } else {
-          setError((state: any) => {
-            console.log(state);
-            return { isError: true, content: response.data };
-          });
+          setLogInState(false);
+          setError({ isError: true, content: response.data });
         }
       })
       .catch(function (error) {
-        console.log(error.response);
+        setError({ isError: true, content: error });
       });
     setIsFormSubmitting(false);
-    // return navigate(redirectPath, { replace: true });
+
   };
 
   return (
